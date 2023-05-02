@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const rutaProducto = require('./routes/productos')
+const rutaUsuario = require('./routes/usuarios')
+const rutaCompras = require('./routes/compras')
 const {database} = require('./db')
 
 const app = express()
@@ -10,8 +12,8 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/productos', rutaProducto)
-
-
+app.use('/usuarios', rutaUsuario)
+app.use('/compras', rutaCompras)
 
 database
 .sync({alter: true})
