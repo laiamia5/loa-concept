@@ -34,7 +34,7 @@ rutaUsuario.post('/', async (req, res) => {
     }
 })
 
-// ========================================BUSCAR USUARIO POR================================
+// ========================================BUSCAR USUARIO POR QUERY================================
 
 //eliminar los que se repitan en el array
 rutaUsuario.get('/buscar', async (req, res) => {
@@ -70,6 +70,16 @@ rutaUsuario.get('/:id', async (req, res) => {
 
 //====================================ACTUALIZAR PERFIL DEL USUARIO===================================
 
+rutaUsuario.put('/actualizar/:id', async (req, res) => {
+    const {id} = req.params
+    const  { nombre, apellido, email, dni, direccion}  = req.body
+    try{
+        const cambiarUsuario = await usuario.update( { nombre, apellido, email, dni, direccion} , { where: { id: id } })
+        res.status(200).json(cambiarUsuario)
+    }catch(err){
+        res.status(400).send(err.message)
+    }
+})
 
 // =======================================ELIMINAR USUARIO===================================
 
