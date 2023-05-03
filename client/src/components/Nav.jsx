@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 export default function Nav () {
 
 let location = useLocation()
-let [clase, setClase ]= useState('dropdown-menu rounded-0 m-0')
+let [clase, setClase ] = useState('dropdown-menu rounded-0 m-0')
+let [menu, setMenu] = useState(false)
 
 const cambiarClase = () => {
     if(clase === 'dropdown-menu rounded-0 m-0'){
@@ -87,13 +88,13 @@ const cambiarClase = () => {
             {/* <!-- Navbar Start --> */}
             <div class="container-fluid mb-5">
                 <div class="row border-top px-xl-5">
-                    <div class="col-lg-3 d-none d-lg-block">
-                        <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style={{height: '55px', marginTop:' -1px', padding: '0 30px'}} > {/* style="height: 65px; margin-top: -1px; padding: 0 30px;" */}
+                    <div class="col-lg-3 d-none d-lg-block" onClick={() => menu === false ? setMenu(true) : setMenu(false) }>
+                        <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" style={{height: '55px', marginTop:' -1px', padding: '0 30px'}} > {/* style="height: 65px; margin-top: -1px; padding: 0 30px;" */}
                             <h6 class="m-0">Categorias</h6>
                             <i class="fa fa-angle-down text-dark"></i>
                         </a>
-                        {location.pathname === "/" && 
-                        <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
+                        {location.pathname === "/" || menu == true ?
+                        (<nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
                             <div class="navbar-nav w-100 overflow-hidden" > {/*style="height: 410px" */}
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link" data-toggle="dropdown">Vestidos<i class="fa fa-angle-down float-right mt-1"></i></a>
@@ -113,7 +114,8 @@ const cambiarClase = () => {
                                 {/* <a href="" class="nav-item nav-link">Jackets</a> */}
                                 {/* <a href="" class="nav-item nav-link">Shoes</a> */}
                             </div>
-                        </nav>
+                        </nav>)
+                        : <div></div>
                         }
                     </div>
                     <div class="col-lg-9">
@@ -126,8 +128,8 @@ const cambiarClase = () => {
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                  <Link to='/' style={{textDecoration: 'none'}}><a href="index.html" class="nav-item nav-link active">Inicio</a></Link>  
-                                    <a href="shop.html" class="nav-item nav-link">Tienda</a>
+                                  <Link to='/' style={{textDecoration: 'none'}}><a class="nav-item nav-link active">Inicio</a></Link>  
+                                  <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Tienda</a></Link> 
                                     <div class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle pages" data-toggle="dropdown" onClick={cambiarClase}>Compras</a>
                                         <div class= {clase}>
