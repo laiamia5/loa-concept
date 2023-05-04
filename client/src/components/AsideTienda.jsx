@@ -2,6 +2,7 @@ import React from "react";
 import '../styles/allStyles.css'
 import '../styles/moreStyles.css'
 import Tienda from './Tienda'
+import {Link} from "react-router-dom"
 
 export default function AsideTienda (){
     return(
@@ -9,11 +10,11 @@ export default function AsideTienda (){
         {/* <!-- Page Header Start --> */}
         <div class="container-fluid bg-secondary mb-5">
             <div class="d-flex flex-column align-items-center justify-content-center" style={{minHeight: "300px"}}> {/* style="min-height: 300px"*/}
-                <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Nuestra tienda</h1>
                 <div class="d-inline-flex">
-                    <p class="m-0"><a href="">Home</a></p>
+                    <Link to='/'><p class="m-0"><a href="">Inicio</a></p></Link>
                     <p class="m-0 px-2">-</p>
-                    <p class="m-0">Shop</p>
+                    <p class="m-0">Tienda</p>
                 </div>
             </div>
         </div>
@@ -27,11 +28,11 @@ export default function AsideTienda (){
                 <div class="col-lg-3 col-md-12">
                     {/* <!-- Price Start --> */}
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Filtrar por precio</h5>
                         <form>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                                 <input type="checkbox" class="custom-control-input" checked id="price-all"/>
-                                <label class="custom-control-label" for="price-all">All Price</label>
+                                <label class="custom-control-label" for="price-all">Todos los precios</label>
                                 <span class="badge border font-weight-normal">1000</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -65,11 +66,11 @@ export default function AsideTienda (){
                     
                     {/* <!-- Color Start --> */}
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by color</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Filtrar por color</h5>
                         <form>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                                 <input type="checkbox" class="custom-control-input" checked id="color-all"/>
-                                <label class="custom-control-label" for="price-all">All Color</label>
+                                <label class="custom-control-label" for="price-all">Todos los colores</label>
                                 <span class="badge border font-weight-normal">1000</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -103,11 +104,11 @@ export default function AsideTienda (){
 
                     {/* <!-- Size Start --> */}
                     <div class="mb-5">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by size</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Filtrar por tamaño</h5>
                         <form>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                                 <input type="checkbox" class="custom-control-input" checked id="size-all"/>
-                                <label class="custom-control-label" for="size-all">All Size</label>
+                                <label class="custom-control-label" for="size-all">Todos los tamaños</label>
                                 <span class="badge border font-weight-normal">1000</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">

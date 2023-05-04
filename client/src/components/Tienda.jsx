@@ -4,6 +4,8 @@ import '../styles/moreStyles.css'
 import foto from '../img/product-3.jpg'
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Tienda (){
@@ -11,40 +13,57 @@ export default function Tienda (){
     const [ productos , setProductos] = useState([])
     const [cantidad , setCantidad] = useState([])
     const [page, setPage] = useState(0)
+    const [input, setInput] = useState('')
 
     useEffect(() => {
         handleProducts(0);
-        handlePaginas();
     }, [])
 
     const handleProducts = (pagina) => {
-        if(pagina !== cantidad.length && Math.sign(pagina) == 1 || pagina == 0 ){ 
 
-            setPage(pagina)
-            axios.get(`http://localhost:3001/productos/paginado?page=${pagina}`)
+        if(cantidad.length === 0){
+            axios.get(`http://localhost:3001/productos/paginado`)
             .then((res) => {
-                setProductos(res.data)
+                setCantidad(res.data)
+                setPage(pagina)
+                setProductos(res.data[pagina])
             })
             .catch((err) => console.log(err))
+        }else{
 
-        }else return alert('no hay mas paginas')
-        
+            if(pagina !== cantidad.length && Math.sign(pagina) == 1 || pagina == 0 ){ 
+                setPage(pagina)
+                setProductos(cantidad[pagina])
+            }else return  showToastMessage('error', 'no hay mas páginas')
+        }  
     }
 
-    const handlePaginas = () => {
-        axios.get(`http://localhost:3001/productos/paginado`)
+    const handleSearch = (value, pag) => {
+        axios.get(`http://localhost:3001/productos/buscar?nombre=${value}`)
         .then((res) => {
-            setCantidad(res.data)
+            if(res.data.length === 0) return showToastMessage('error', 'no se hallaron productos')
+            else{
+                setCantidad(res.data)
+                setProductos(res.data[pag])
+                console.log(res.data)
+            }
         })
         .catch((err) => console.log(err))
     }
 
-    const handleSearch = () => {
-        axios.get()
+    const showToastMessage = (status, mensaje) => {
+        status == 'success'
+        ? toast.success(mensaje, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+        : toast.error(mensaje, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
     }
 
     return(
         <>
+            <ToastContainer />
           {/* <!-- Shop Product Start --> */}
             <div class="col-lg-9 col-md-12">
                 <div class="row pb-3">
@@ -52,8 +71,13 @@ export default function Tienda (){
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <form action="">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="buscar productos"/>
-                                    <div class="input-group-append">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        placeholder="buscar productos" 
+                                        onChange={(e) => setInput(e.target.value)}
+                                    />
+                                    <div class="input-group-append" onClick={() => handleSearch(input, 0)}>
                                         <span class="input-group-text bg-transparent text-primary">
                                             <i class="fa fa-search"></i>
                                         </span>
@@ -63,7 +87,7 @@ export default function Tienda (){
                             <div class="dropdown ml-4">
                                 <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                            Sort by
+                                            Ordenar por
                                         </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item" href="#">Latest</a>
@@ -87,8 +111,8 @@ export default function Tienda (){
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                        <a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a>
+                                        <a class="btn btn-sm text-dark p-0" onClick={() => showToastMessage('success', "producto agregado al carrito")}><i class="fas fa-shopping-cart text-primary mr-1"></i>agregar</a>
                                     </div>
                                 </div>
                             </div>

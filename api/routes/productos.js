@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const {producto} = require('../db')
 const {Op} = require('sequelize');
+const {paginar} =  require('../controller/index')
 
 const rutaProducto = Router()
 
@@ -42,39 +43,10 @@ rutaProducto.get('/', async (req, res) => {
 
 rutaProducto.get('/paginado', async (req, res) => {
     const {page} = req.query
-    // try{
-    //     let productos = await producto.findAll()
-    //     let totalArr = []
-    //     let newArr = []
-    //     let vueltas = 0
-    //     let recorrido = 0
-
-    //     for(const i of productos){
-    //         await newArr.push(i) 
-    //         recorrido++
-    //         if(vueltas === 8 || recorrido == productos.length - 1){
-    //             await totalArr.push(newArr)
-    //             newArr.length === 9 ? newArr = [] : newArr
-    //             vueltas = 0
-    //         }else{
-    //             vueltas++
-    //         }
-    //     }
-    //     res.status(200).json(totalArr)
-    // }catch(err){
-    //     res.status(400).send(err)
-    // }
     
         try{
             let productos = await producto.findAll()
-            let position = 0
-            let result = []
-                for (let i = 0; i < Math.ceil(productos.length / 9); i++) {
-                    if (!i) result.push(productos.slice(0,9))
-                    
-                    else result.push(productos.slice(position, position + 9))
-                    position += 9
-                }
+            let result = await paginar(productos)
             
             if(page){
               return result[page] 
@@ -88,20 +60,34 @@ rutaProducto.get('/paginado', async (req, res) => {
 
 })
 
-// =========================================FILTRAR PRODUCTOS POR =======================================
+// =========================================FILTRAR PRODUCTOS POR... CON PAGINADO=======================================
 
 rutaProducto.get('/buscar', async (req, res) => {
 
     const {categoria} =  req.query
     const {nombre} = req.query
+    const {page} = req.query
 
     try{
         if(categoria){
             let productos_por_categoria = await producto.findAll({where: {categoria: categoria}})
-            return res.status(200).send(productos_por_categoria)
+            let arrayPaginado = await paginar(productos_por_categoria)
+            
+            if(page){
+                return  arrayPaginado[page] 
+                ? res.status(200).json(arrayPaginado[page]) 
+                : res.status(200).send('no existe la pagina que solicita')
+              } else return res.status(200).json(arrayPaginado)
+
         }else if(nombre){
             let productos_por_busqueda_manual = await producto.findAll({where:{ nombre: {[Op.iLike]: `%${nombre}%`} }})
-            return res.status(200).send(productos_por_busqueda_manual)
+            let arrayPaginado = await paginar(productos_por_busqueda_manual)
+            
+            if(page){
+                return  arrayPaginado[page] 
+                ? res.status(200).json(arrayPaginado[page]) 
+                : res.status(200).send('no existe la pagina que solicita')
+              } else return res.status(200).json(arrayPaginado)
         }else{
             return res.send('algunos de los datos no son correctos')
         }

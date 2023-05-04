@@ -38,7 +38,7 @@ const cambiarClase = () => {
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                             <a class="text-dark px-2" href="">
-                                <i class="fab fa-twitter"></i>
+                                <i class="fabstyle fa-twitter"></i>
                             </a>
                             <a class="text-dark px-2" href="">
                                 <i class="fab fa-linkedin-in"></i>
@@ -115,7 +115,7 @@ const cambiarClase = () => {
                                 {/* <a href="" class="nav-item nav-link">Shoes</a> */}
                             </div>
                         </nav>)
-                        : <div></div>
+                        : <div style={{height: '0', width: '0'}}></div>
                         }
                     </div>
                     <div class="col-lg-9">
@@ -128,12 +128,12 @@ const cambiarClase = () => {
                             </button>
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
-                                  <Link to='/' style={{textDecoration: 'none'}}><a class="nav-item nav-link active">Inicio</a></Link>  
-                                  <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Tienda</a></Link> 
+                                  <Link to='/' style={{textDecoration: 'none'}}><a class={ location.pathname === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>Inicio</a></Link>  
+                                  <Link to='/tienda' style={{textDecoration: 'none'}}><a class={ location.pathname === "/tienda" ? "nav-item nav-link active" : "nav-item nav-link"}>Tienda</a></Link> 
                                     <div class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle pages" data-toggle="dropdown" onClick={cambiarClase}>Compras</a>
+                                        <a class="nav-link dropdown-toggle pages" data-toggle="dropdown" onClick={cambiarClase}>Compras</a>
                                         <div class= {clase}>
-                                            <a href="cart.html" class="dropdown-item">Carrito</a>
+                                            <Link to='/carrito'><a class="dropdown-item">Carrito</a></Link>
                                             <a href="checkout.html" class="dropdown-item">Finalizar Compra</a>
                                         </div>
                                     </div>
