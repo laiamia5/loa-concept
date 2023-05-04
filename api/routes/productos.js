@@ -76,7 +76,12 @@ rutaProducto.get('/paginado', async (req, res) => {
                     position += 9
                 }
             
-            page ? res.status(200).json(result[page]) : res.status(200).json(result)
+            if(page){
+              return result[page] 
+              ? res.status(200).json(result[page]) 
+              : res.status(200).send('no existe la pagina que solicita')
+            } else return res.status(200).json(result)
+
         }catch(err){
             res.status(400).send(err.message)
         }
