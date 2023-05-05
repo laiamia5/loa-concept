@@ -1,0 +1,5 @@
+1- hacer un modelo de colores y tamaños vincularlo con productos 
+2- hacer filtro por precio
+3- filtro por colores y tamaños
+4- hacer que el cada vez que vaya a la ruta detalle se vea el producto respectivo
+5- ver como h acer que funcione el coso de reviews

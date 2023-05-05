@@ -14,9 +14,7 @@ export default function Detalle(){
                     </div>
                 </div>
             </div>
-            {/* <!-- Page Header End --> */}
-
-
+            {/* <!-- Page Header End --> */}     
             {/* <!-- Shop Detail Start --> */}
             <div class="container-fluid py-5">
                 <div class="row px-xl-5">

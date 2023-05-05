@@ -133,8 +133,8 @@ const cambiarClase = () => {
                                     <div class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle pages" data-toggle="dropdown" onClick={cambiarClase}>Compras</a>
                                         <div class= {clase}>
-                                            <Link to='/carrito'><a class="dropdown-item">Carrito</a></Link>
-                                            <a href="checkout.html" class="dropdown-item">Finalizar Compra</a>
+                                            <Link to='/carrito' style={{textDecoration: 'none'}}><a class="dropdown-item">Carrito</a></Link>
+                                            <a class="dropdown-item">Finalizar Compra</a>
                                         </div>
                                     </div>
                                     <a href="contact.html" class="nav-item nav-link">Contacto</a>

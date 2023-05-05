@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {Link} from 'react-router-dom'
 
 export default function Tienda (){
 
@@ -111,7 +111,7 @@ export default function Tienda (){
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a>
+                                        <Link to='/detalle' style={{textDecoration: 'none'}}><a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a></Link>
                                         <a class="btn btn-sm text-dark p-0" onClick={() => showToastMessage('success', "producto agregado al carrito")}><i class="fas fa-shopping-cart text-primary mr-1"></i>agregar</a>
                                     </div>
                                 </div>
