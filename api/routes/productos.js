@@ -2,9 +2,11 @@ const {Router} = require('express')
 const {producto} = require('../db')
 const {Op} = require('sequelize');
 const {paginar} =  require('../controller/index')
+const rutaReviews = require('./reviews')
 
 const rutaProducto = Router()
 
+rutaProducto.use('/reviews', rutaReviews)
 // ========================================== CREAR PRODUCTOS =====================================================
 
 rutaProducto.post('/', async (req, res) => {
