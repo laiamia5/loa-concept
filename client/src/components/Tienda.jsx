@@ -7,9 +7,12 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Link} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import { agregarAlCarrito } from "../redux/actions";
 
 export default function Tienda (){
 
+    const dispatch = useDispatch()
     const [ productos , setProductos] = useState([])
     const [cantidad , setCantidad] = useState([])
     const [page, setPage] = useState(0)
@@ -107,12 +110,16 @@ export default function Tienda (){
                                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3">{e.nombre}</h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6>$123.00</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                            <h6>${e.precio}</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
                                         <Link to='/detalle' style={{textDecoration: 'none'}}><a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a></Link>
-                                        <a class="btn btn-sm text-dark p-0" onClick={() => showToastMessage('success', "producto agregado al carrito")}><i class="fas fa-shopping-cart text-primary mr-1"></i>agregar</a>
+                                        <a class="btn btn-sm text-dark p-0" 
+                                            onClick={() => {
+                                            showToastMessage('success', "producto agregado al carrito");
+                                            dispatch(agregarAlCarrito(e))
+                                            }}><i class="fas fa-shopping-cart text-primary mr-1"></i>agregar</a>
                                     </div>
                                 </div>
                             </div>

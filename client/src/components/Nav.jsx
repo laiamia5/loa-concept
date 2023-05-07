@@ -88,7 +88,9 @@ const cambiarClase = () => {
             {/* <!-- Navbar Start --> */}
             <div class="container-fluid mb-5">
                 <div class="row border-top px-xl-5">
-                    <div class="col-lg-3 d-none d-lg-block" onClick={() => menu === false ? setMenu(true) : setMenu(false) }>
+                    <div class="col-lg-3 d-none d-lg-block" 
+                    onClick={() => menu === false ? setMenu(true) : setMenu(false) } 
+                    >
                         <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" style={{height: '55px', marginTop:' -1px', padding: '0 30px'}} > {/* style="height: 65px; margin-top: -1px; padding: 0 30px;" */}
                             <h6 class="m-0">Categorias</h6>
                             <i class="fa fa-angle-down text-dark"></i>
@@ -131,8 +133,8 @@ const cambiarClase = () => {
                                   <Link to='/' style={{textDecoration: 'none'}}><a class={ location.pathname === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>Inicio</a></Link>  
                                   <Link to='/tienda' style={{textDecoration: 'none'}}><a class={ location.pathname === "/tienda" ? "nav-item nav-link active" : "nav-item nav-link"}>Tienda</a></Link> 
                                     <div class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle pages" data-toggle="dropdown" onClick={cambiarClase}>Compras</a>
-                                        <div class= {clase}>
+                                        <a data-toggle="dropdown" onClick={cambiarClase} class={ location.pathname === "/carrito" ? "active nav-link dropdown-toggle pages" : "nav-link dropdown-toggle pages"}>Compras</a>
+                                        <div class= {clase} onClick={cambiarClase}>
                                             <Link to='/carrito' style={{textDecoration: 'none'}}><a class="dropdown-item">Carrito</a></Link>
                                             <a class="dropdown-item">Finalizar Compra</a>
                                         </div>

@@ -102,18 +102,28 @@ rutaProducto.get('/buscar', async (req, res) => {
 
 // =========================================FILTRAR PRODUCTOS POR... COLORES , TAMAÑOS Y PRECIOS=======================================
 
-rutaProducto.get('/filtrar', async (req, res) => {
+// rutaProducto.get('/filtrar', async (req, res) => {
 
-    const {precio} =  req.query
-    const {colores} = req.query
-    const {talles} = req.query
+//     const {precio} =  req.query
+//     const {talles} = req.query
+// // HACERLO DESDE EL FRONTEN
+//     try{
+//         let todos_productos = await producto.findAll()
+//         let productos_de_0_2000 =await todos_productos.filter((e) => e.precio < 2001 )     
+//         let productos_de_2000_2000 =await todos_productos.filter((e) => e.precio < 2000 )     
 
-    try{
+//         res.status(200).json(productos_de_0_2000)   
+//         // if(page){
+//         //     return  arrayPaginado[page] 
+//         //     ? res.status(200).json(arrayPaginado[page]) 
+//         //     : res.status(200).send('no existe la pagina que solicita')
+//         //   } else return res.status(200).json(arrayPaginado)
 
-    }catch(err){
+//         // return res.status(200).json(arrayPaginado)
+//     }catch(err){
 
-    }
-})
+//     }
+// })
 
 // ========================================== OBTENER UN PRODUCTO =====================================================
 
