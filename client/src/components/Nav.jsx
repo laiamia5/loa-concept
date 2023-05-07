@@ -5,9 +5,10 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import '../styles/Nav.css'
 import { Link } from "react-router-dom";
+import {useSelector} from 'react-redux'
 
 export default function Nav () {
-
+let productos_length = useSelector(state => state.carrito.length)
 let location = useLocation()
 let [clase, setClase ] = useState('dropdown-menu rounded-0 m-0')
 let [menu, setMenu] = useState(false)
@@ -71,14 +72,14 @@ const cambiarClase = () => {
                         </form>
                     </div>
                     <div class="col-lg-3 col-6 text-right">
-                        <a href="" class="btn border">
+                        {/* <a href="" class="btn border">
                             <i class="fas fa-heart text-primary"></i>
                             <span class="badge">0</span>
-                        </a>
-                        <a href="" class="btn border">
+                        </a> */}
+                        <Link to='/carrito' style={{textDecoration: 'none'}}><a href="" class="btn border">
                             <i class="fas fa-shopping-cart text-primary"></i>
-                            <span class="badge">0</span>
-                        </a>
+                            <span class="badge">{productos_length}</span>
+                        </a></Link>
                     </div>
                 </div>
             </div>

@@ -116,7 +116,9 @@ export default function Carrito (){
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
-                            <h5 class="font-weight-bold">${carrito.reduce((acc, item) => {
+                            <h5 class="font-weight-bold">${
+                            carrito.length === 0 ? 0 :
+                            carrito.reduce((acc, item) => {
                                 return acc + item.precio * item.cantidad;
                                 }, 0) + precioEnvio}</h5>
                         </div>

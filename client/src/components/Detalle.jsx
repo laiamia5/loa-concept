@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
+import { useParams } from "react-router";
+import {useDispatch} from 'react-redux'
+import { agregarAlCarrito } from '../redux/actions'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Detalle(){
+    const [prod, setProd] = useState({})
+    const {id} = useParams()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/productos/${id}`)
+        .then((res) => {
+            setProd(res.data)
+            console.log(res.data)
+        })
+        .catch((err) => console.log(err) )
+    }, [])
+
+    const showToastMessage = () => {
+         toast.success('el producto ha sido agregado al carrito!', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     return(
         <>
+        <ToastContainer />
          {/* <!-- Page Header Start --> */}
             <div class="container-fluid bg-secondary mb-5">
                 <div class="d-flex flex-column align-items-center justify-content-center" style={{minHeight: "300px"}}>
@@ -21,8 +47,8 @@ export default function Detalle(){
                     <div class="col-lg-5 pb-5">
                         <div id="product-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner border">
-                                <div class="carousel-item active">
-                                    <img class="w-100 h-100" src="img/product-1.jpg" alt="Image"/>
+                                <div class="carousel-item active" style={{maxHeight: '490px', maxWidth: 'auto', overflow: 'hidden'}}>
+                                    <img class="w-100 h-100" src={prod.img} alt="Image" />
                                 </div>
                                 <div class="carousel-item">
                                     <img class="w-100 h-100" src="img/product-2.jpg" alt="Image"/>
@@ -44,7 +70,7 @@ export default function Detalle(){
                     </div>
 
                     <div class="col-lg-7 pb-5">
-                        <h3 class="font-weight-semi-bold">Colorful Stylish Shirt</h3>
+                        <h3 class="font-weight-semi-bold">{prod.nombre}</h3>
                         <div class="d-flex mb-3">
                             <div class="text-primary mr-2">
                                 <small class="fas fa-star"></small>
@@ -55,10 +81,10 @@ export default function Detalle(){
                             </div>
                             <small class="pt-1">(50 Reviews)</small>
                         </div>
-                        <h3 class="font-weight-semi-bold mb-4">$150.00</h3>
+                        <h3 class="font-weight-semi-bold mb-4">${prod.precio}</h3>
                         <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
                         <div class="d-flex mb-3">
-                            <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
+                            <p class="text-dark font-weight-medium mb-0 mr-3">Talles:</p>
                             <form>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" id="size-1" name="size"/>
@@ -83,7 +109,7 @@ export default function Detalle(){
                             </form>
                         </div>
                         <div class="d-flex mb-4">
-                            <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
+                            <p class="text-dark font-weight-medium mb-0 mr-3">Colores:</p>
                             <form>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" id="color-1" name="color"/>
@@ -121,7 +147,14 @@ export default function Detalle(){
                                     </button>
                                 </div>
                             </div>
-                            <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+
+                            <button class="btn btn-primary px-3" onClick={() => {
+                                dispatch(agregarAlCarrito(prod))
+                                showToastMessage();
+                                }}>
+                                <i class="fa fa-shopping-cart mr-1"></i>
+                                Agregar al carrito
+                            </button>
                         </div>
                         <div class="d-flex pt-2">
                             <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>

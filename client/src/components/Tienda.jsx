@@ -114,7 +114,7 @@ export default function Tienda (){
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <Link to='/detalle' style={{textDecoration: 'none'}}><a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a></Link>
+                                        <Link to={`/detalle/${e.id}`} style={{textDecoration: 'none'}}><a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a></Link>
                                         <a class="btn btn-sm text-dark p-0" 
                                             onClick={() => {
                                             showToastMessage('success', "producto agregado al carrito");
