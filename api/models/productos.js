@@ -32,10 +32,16 @@ module.exports = (sequelize) => {
         cantidad: {
             type: DataTypes.INTEGER 
         },
-        display : {
+        display: {
             type: DataTypes.BOOLEAN,
             defaultValue: true
-        }  
+        },
+        colores: {
+            type: DataTypes.TEXT 
+        },
+        talles:{
+            type: DataTypes.TEXT 
+        }
 
     },{timestamps: false})
 }

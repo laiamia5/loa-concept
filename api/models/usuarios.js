@@ -26,8 +26,17 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             // allowNull: false,
         },
-        direccion : {
+        direccion_provincia : {
             type: DataTypes.TEXT
+        },
+        direccion_localidad : {
+            type: DataTypes.TEXT
+        },
+        direccion_calles : {
+            type: DataTypes.TEXT
+        },
+        telefono: {
+            type: DataTypes.INTEGER
         }
     },{timestamps: false})
 }

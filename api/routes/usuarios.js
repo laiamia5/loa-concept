@@ -18,7 +18,7 @@ rutaUsuario.get('/', async (req, res) => {
 // ========================================CREAR USUARIO================================
 
 rutaUsuario.post('/', async (req, res) => {
-    const {nombre, apellido, dni, email, contraseña, direccion} = req.body
+    const {nombre, apellido, dni, email, contraseña, direccion_provincia, direccion_localidad, direccion_calles, telefono} = req.body
     try{
         let crear_usuario = await usuario.create({
             nombre,
@@ -26,7 +26,11 @@ rutaUsuario.post('/', async (req, res) => {
             dni, 
             direccion,
             email,
-            contraseña
+            contraseña,
+            telefono,
+            direccion_calles,
+            direccion_localidad,
+            direccion_provincia
             })
         res.status(200).json(crear_usuario)
     }catch(err){

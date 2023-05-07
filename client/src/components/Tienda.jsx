@@ -101,8 +101,8 @@ export default function Tienda (){
                         return(
                             <div class="col-lg-4 col-md-6 col-sm-12 pb-1" key={index}>
                                 <div class="card product-item border-0 mb-4">
-                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                        <img class="img-fluid w-100" src={foto} alt=""/>
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style={{ maxHeight: '281px !important', overflow: 'hidden !important'}}>
+                                        <img class="img-fluid w-100" src={e.img ? e.img : foto} alt="/" />
                                     </div>
                                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3">{e.nombre}</h6>

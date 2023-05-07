@@ -10,7 +10,7 @@ rutaProducto.use('/reviews', rutaReviews)
 // ========================================== CREAR PRODUCTOS =====================================================
 
 rutaProducto.post('/', async (req, res) => {
-    const {nombre, precio, categoria, descripcion, marca, stock, img, cantidad} = req.body
+    const {nombre, precio, categoria, descripcion, marca, stock, img, cantidad, colores, talles} = req.body
     try{
         let newProducto = await producto.create({
             nombre,
@@ -20,7 +20,9 @@ rutaProducto.post('/', async (req, res) => {
             marca,
             stock,
             img,
-            cantidad
+            cantidad,
+            colores,
+            talles
         })
         res.send(newProducto)
     }catch(err){
@@ -95,6 +97,21 @@ rutaProducto.get('/buscar', async (req, res) => {
         }
     }catch(err){
         res.status(400).send(err)
+    }
+})
+
+// =========================================FILTRAR PRODUCTOS POR... COLORES , TAMAÑOS Y PRECIOS=======================================
+
+rutaProducto.get('/filtrar', async (req, res) => {
+
+    const {precio} =  req.query
+    const {colores} = req.query
+    const {talles} = req.query
+
+    try{
+
+    }catch(err){
+
     }
 })
 
