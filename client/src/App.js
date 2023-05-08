@@ -8,6 +8,7 @@ import './styles/moreStyles.css'
 import Footer from './components/Footer'
 import Carrito from './components/Carrito'
 import Detalle from './components/Detalle'
+import Contacto from './components/Contacto';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/' element={<Inicio></Inicio>}/>
         <Route path='/tienda' element={<AsideTienda/>}/>
         <Route path='/carrito' element={<Carrito/>}/>
+        <Route path='/contacto' element={<Contacto/>}/>
         <Route path='/detalle/:id' element={<Detalle/>}/>
       </Routes>
       <Footer/>

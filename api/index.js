@@ -3,6 +3,7 @@ const cors = require('cors')
 const rutaProducto = require('./routes/productos')
 const rutaUsuario = require('./routes/usuarios')
 const rutaCompras = require('./routes/compras')
+const rutaInfo = require('./routes/info')
 const {database} = require('./db')
 
 const app = express()
@@ -14,6 +15,7 @@ app.use(cors())
 app.use('/productos', rutaProducto)
 app.use('/usuarios', rutaUsuario)
 app.use('/compras', rutaCompras)
+app.use('/info', rutaInfo )
 
 database
 .sync({alter: true})

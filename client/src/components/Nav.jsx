@@ -140,7 +140,7 @@ const cambiarClase = () => {
                                             <a class="dropdown-item">Finalizar Compra</a>
                                         </div>
                                     </div>
-                                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                                    <Link to='/contacto' style={{textDecoration: 'none'}}>  <a class={ location.pathname === "/contacto" ? "nav-item nav-link active" : "nav-item nav-link"}>Contacto</a></Link>
                                 </div>
                                 <div class="navbar-nav ml-auto py-0">
                                     <a href="" class="nav-item nav-link">Iniciar sesión </a>
