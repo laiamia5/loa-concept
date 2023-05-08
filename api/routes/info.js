@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const {info} = require('../db')
+const enviarMail_aLoa = require('../controller/nodemailer')
 
 const rutaInfo = Router()
 
@@ -42,6 +43,17 @@ rutaInfo.put('/', async (req, res) => {
             avisos
         },  { where: { id: 1 } })
         res.status(200).send('actualizado exitosamente')
+    }catch(err){
+        res.status(400).send(err.message)
+    }
+})
+
+
+rutaInfo.post('/contacto', async (req, res) => {
+    const {asunto, mensaje, email} = req.body
+    try{
+        enviarMail_aLoa(asunto, mensaje, email)
+        res.status(200).send('mensaje enviado exitosamente')
     }catch(err){
         res.status(400).send(err.message)
     }

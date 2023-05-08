@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect , useState} from "react";
+import axios from 'axios'
 
 export default function Footer (){
+    const [info, setInfo] = useState({})
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/info')
+        .then((res) => setInfo(res.data))
+        .catch((err) => console.log(err))
+    }, [])
+
     return(
         <>
             {/* <!-- Footer Start --> */}
@@ -11,34 +20,36 @@ export default function Footer (){
                             <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">Loa</span>Concept</h1>
                         </a>
                         <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                        <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                        <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                        <p class="mb-2"><i class="fab fa-instagram text-primary mr-3" style={{transform: 'scale(1.3)'}}></i>{info?.instagram}</p>
+                        <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>{info?.email}</p>
+                        <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>{info?.numero}</p>
                     </div>
                     <div class="col-lg-8 col-md-12">
                         <div class="row">
                             <div class="col-md-4 mb-5">
-                                <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                                <h5 class="font-weight-bold text-dark mb-4">Recomendaciones</h5>
                                 <div class="d-flex flex-column justify-content-start">
-                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-                                    <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Nuestra tienda</a>
-                                    <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                                    <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                                    <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                                    <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                                    <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Tops</a>
+                                    <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Lenceria</a>
+                                    <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Remerones</a>
+                                    <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Buzos</a>
+                                    <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Jeans</a>
+                                    {/* <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a> */}
                                 </div>
                             </div>
                             <div class="col-md-4 mb-5">
-                                <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                                <h5 class="font-weight-bold text-dark mb-4">Links</h5>
                                 <div class="d-flex flex-column justify-content-start">
-                                    <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                                    <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                                    <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                                    <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                                    <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                                    <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Inicio</a>
+                                    <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Nuestra tienda</a>
+                                    {/* <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a> */}
+                                    <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Carrito</a>
+                                    <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contacto</a>
+                                    <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>medios de pago</a>
+
                                 </div>
                             </div>
+                            
                             <div class="col-md-4 mb-5">
                                 <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
                                 <form action="">

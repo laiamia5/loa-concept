@@ -6,11 +6,22 @@ import axios from 'axios'
 export default function Contacto (){
 
     const [info, setInfo] = useState({})
+    const [datos, setDatos] = useState({
+        email: null,
+        asunto: null,
+        mensaje: null
+    })
+
     useEffect(() => {
         axios.get('http://localhost:3001/info')
         .then((res) => setInfo(res.data))
         .catch((err) => console.log(err))
     }, [])
+
+    const handleSubmit = () => {
+        axios.post('http://localhost:3001/info/contacto', datos)
+    }
+
     return(
         <>
         
@@ -37,30 +48,30 @@ export default function Contacto (){
                     <div class="col-lg-7 mb-5">
                         <div class="contact-form">
                             <div id="success"></div>
-                            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                            <form name="sentMessage" id="contactForm" novalidate="novalidate" onSubmit={handleSubmit}>
                                 <div class="control-group">
                                     <input type="text" class="form-control" id="name" placeholder="Tu nombre"
-                                        required="required" data-validation-required-message="Please enter your name" />
+                                        required="required" data-validation-required-message="Please enter your name"/>
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="control-group">
                                     <input type="email" class="form-control" id="email" placeholder="Tu email"
-                                        required="required" data-validation-required-message="Please enter your email" />
+                                        required="required" data-validation-required-message="Please enter your email"  onChange={(e) => setDatos({...datos, email: e.target.value })}/>
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="control-group">
                                     <input type="text" class="form-control" id="subject" placeholder="Asunto"
-                                        required="required" data-validation-required-message="Please enter a subject" />
+                                        required="required" data-validation-required-message="Please enter a subject" onChange={(e) => setDatos({...datos, asunto: e.target.value })}/>
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="control-group">
-                                    <textarea class="form-control" rows="6" id="message" placeholder="Mensaje"
+                                    <textarea class="form-control" rows="6" id="message" placeholder="Mensaje" onChange={(e) => setDatos({...datos, mensaje: e.target.value })}
                                         required="required"
                                         data-validation-required-message="Please enter your message"></textarea>
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar mensaje</button>
+                                    <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton" onClick={handleSubmit}>Enviar mensaje</button>
                                 </div>
                             </form>
                         </div>
