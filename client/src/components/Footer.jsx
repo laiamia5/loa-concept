@@ -51,17 +51,17 @@ export default function Footer (){
                             </div>
                             
                             <div class="col-md-4 mb-5">
-                                <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+                                <h5 class="font-weight-bold text-dark mb-4">Quiero obtener ofertas</h5>
                                 <form action="">
                                     <div class="form-group">
-                                        <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                                        <input type="text" class="form-control border-0 py-4" placeholder="Nombre" required="required" />
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                        <input type="email" class="form-control border-0 py-4" placeholder="Email"
                                             required="required" />
                                     </div>
                                     <div>
-                                        <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                                        <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribirse</button>
                                     </div>
                                 </form>
                             </div>

@@ -30,6 +30,30 @@ rutaProducto.post('/', async (req, res) => {
         res.status(400).send(err)
     }
 })
+// ========================================== ACTUALIZAR PRODUCTOS =====================================================
+
+rutaProducto.put('/actualizar/:id', async (req, res) => {
+    const {id} = req.params
+    const {
+        nombre,
+        precio,
+        categoria, 
+        descripcion,
+        marca,
+        stock,
+        img,
+        cantidad,
+        colores,
+        talles
+        } = req.body
+
+    try{
+        const cambiarUsuario = await producto.update( { nombre, precio, descripcion, categoria, marca, stock, img, cantidad, colores, talles} , { where: { id: id } })
+        res.status(200).json(cambiarUsuario)
+    }catch(err){
+        res.status(400).send(err.message)
+    }
+})
 
 
 // ====================================== OBTENER TODOS LOS PRODUCTOS ============================================= 

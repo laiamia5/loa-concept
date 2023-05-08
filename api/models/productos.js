@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER
         },
         categoria:{
-            type: DataTypes.ENUM('Celulares Nuevos', 'Celulares Reacondicionados', 'Licuadora', 'Horno Electrico', 'Plancha de pelo', 'Plancha', 'Auriculares', 'Lavarropas')
+            type: DataTypes.STRING
         },
         descripcion:{
             type: DataTypes.TEXT //poner cada caracteristica y luego coma

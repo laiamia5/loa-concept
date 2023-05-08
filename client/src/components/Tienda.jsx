@@ -17,6 +17,7 @@ export default function Tienda (){
     const [cantidad , setCantidad] = useState([])
     const [page, setPage] = useState(0)
     const [input, setInput] = useState('')
+    const [nose, setNose] = useState(0)
 
     useEffect(() => {
         handleProducts(0);
@@ -64,6 +65,16 @@ export default function Tienda (){
         });
     }
 
+    const handleProductsForce = () => {
+        axios.get(`http://localhost:3001/productos/paginado`)
+        .then((res) => {
+            setCantidad(res.data)
+            setPage(0)
+            setProductos(res.data[0])
+        })
+        .catch((err) => console.log(err))
+    }
+
     return(
         <>
             <ToastContainer />
@@ -85,13 +96,24 @@ export default function Tienda (){
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
+                                    <button 
+                                        style={{marginLeft: '10px'}}
+                                        class="btn border " 
+                                        type="button" 
+                                        aria-expanded="false"
+                                        onClick={() => {
+                                            handleProductsForce()
+                                        }}
+                                        >
+                                        Traer todos
+                                    </button>
                                 </div>
                             </form>
                             <div class="dropdown ml-4">
                                 <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                             Ordenar por
-                                        </button>
+                                </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                     <a class="dropdown-item" href="#">Latest</a>
                                     <a class="dropdown-item" href="#">Popularity</a>

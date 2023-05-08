@@ -65,7 +65,7 @@ export default function AsideTienda (){
                     {/* <!-- Price End --> */}
                     
                     {/* <!-- Color Start --> */}
-                    <div class="border-bottom mb-4 pb-4">
+                    {/* <div class="border-bottom mb-4 pb-4">
                         <h5 class="font-weight-semi-bold mb-4">Filtrar por color</h5>
                         <form>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -99,7 +99,7 @@ export default function AsideTienda (){
                                 <span class="badge border font-weight-normal">168</span>
                             </div>
                         </form>
-                    </div>
+                    </div> */}
                     {/* <!-- Color End --> */}
 
                     {/* <!-- Size Start --> */}

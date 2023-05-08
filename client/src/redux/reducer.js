@@ -8,7 +8,8 @@ import {
 let storage = localStorage.getItem('carrito')
 
 const initialState = {
-    carrito: [] 
+    carrito: [] ,
+    categoria : null
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,7 +19,7 @@ const reducer = (state = initialState, action) => {
             let encontrarProd = state.carrito.find((e) => e.id === action.payload.id )
             if(!encontrarProd){
                 return{
-                    // ...state,
+                    ...state,
                     carrito:[...state.carrito, action.payload]
                 }
             }else encontrarProd.cantidad ++
@@ -26,19 +27,19 @@ const reducer = (state = initialState, action) => {
             state.carrito.find((e) => e.id == action.payload).cantidad ++
             console.log(state)
             return{
-                // ...state,
+                ...state,
                 carrito: state.carrito
             }
         case DISMINUIR_CANTIDAD:
             let productoCarr = state.carrito.find((e) => e.id == action.payload)
             productoCarr.cantidad !== 0 && productoCarr.cantidad --
             return{
-                // ...state,
+                ...state,
                 carrito: productoCarr.cantidad === 0 ?  state.carrito.filter((e) => e.id !== action.payload) : state.carrito
             }
         case ELIMINAR_DEL_CARRITO:
             return{
-                // ...state,
+                ...state,
                 carrito: state.carrito.filter((e) => e.id !== action.payload) 
             }
         default :

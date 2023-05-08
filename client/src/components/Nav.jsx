@@ -107,10 +107,10 @@ const cambiarClase = () => {
                                         <a href="" class="dropdown-item">Baby's Dresses</a>
                                     </div>
                                 </div>
-                                <a href="" class="nav-item nav-link">Tops</a>
-                                <a href="" class="nav-item nav-link">Lenceria</a>
-                                <a href="" class="nav-item nav-link">Polleras</a>
-                                <a href="" class="nav-item nav-link">Zapatos</a>
+                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Tops</a></Link> 
+                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Lenceria</a></Link>
+                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Polleras</a></Link>
+                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Zapatos</a></Link>
                                 {/* <a href="" class="nav-item nav-link">Sportswear</a> */}
                                 {/* <a href="" class="nav-item nav-link">Jumpsuits</a> */}
                                 {/* <a href="" class="nav-item nav-link">Blazers</a> */}
@@ -137,7 +137,7 @@ const cambiarClase = () => {
                                         <a data-toggle="dropdown" onClick={cambiarClase} class={ location.pathname === "/carrito" ? "active nav-link dropdown-toggle pages" : "nav-link dropdown-toggle pages"}>Compras</a>
                                         <div class= {clase} onClick={cambiarClase}>
                                             <Link to='/carrito' style={{textDecoration: 'none'}}><a class="dropdown-item">Carrito</a></Link>
-                                            <a class="dropdown-item">Finalizar Compra</a>
+                                            <Link to='/finalizar-compra' style={{textDecoration: 'none'}}><a class="dropdown-item">Finalizar Compra</a></Link>
                                         </div>
                                     </div>
                                     <Link to='/contacto' style={{textDecoration: 'none'}}>  <a class={ location.pathname === "/contacto" ? "nav-item nav-link active" : "nav-item nav-link"}>Contacto</a></Link>
