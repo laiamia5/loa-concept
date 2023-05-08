@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "mercadopago": "^1.5.15"
+  }
+}

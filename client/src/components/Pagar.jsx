@@ -1,6 +1,22 @@
 import React from "react";
+import axios from 'axios'
+import { useEffect, useState } from "react";
+import {useSelector} from 'react-redux'
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+initMercadoPago('TEST-035d8db4-f766-4f9c-a923-c8b1d60b7622')
 
 export default function Pagar (){
+
+    const [preferenceId, setPreferenceId] = useState(null)
+    const carritoCompleto = useSelector(state => state.carrito)
+
+    useEffect(() => {
+        if(carritoCompleto.length !== 0){
+            axios.post(`http://localhost:3001/pagar`, carritoCompleto)
+            .then((res) => setPreferenceId(res.data))
+            .catch((err) => alert("Unexpected error"))
+        }
+    }, [])
     return(
         <>
          {/* <!-- Page Header Start --> */}
@@ -196,6 +212,7 @@ export default function Pagar (){
                             <div class="card-footer border-secondary bg-transparent">
                                 <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
                             </div>
+                            {preferenceId !== null && <Wallet initialization={{ preferenceId: preferenceId }} /> }
                         </div>
                     </div>
                 </div>

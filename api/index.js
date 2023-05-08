@@ -4,6 +4,7 @@ const rutaProducto = require('./routes/productos')
 const rutaUsuario = require('./routes/usuarios')
 const rutaCompras = require('./routes/compras')
 const rutaInfo = require('./routes/info')
+const payRouter = require('./controller/mercadopago')
 const {database} = require('./db')
 
 const app = express()
@@ -16,6 +17,7 @@ app.use('/productos', rutaProducto)
 app.use('/usuarios', rutaUsuario)
 app.use('/compras', rutaCompras)
 app.use('/info', rutaInfo )
+app.use('/pagar', payRouter )
 
 database
 .sync({alter: true})
