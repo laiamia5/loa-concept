@@ -1,4 +1,5 @@
 import './App.css';
+import './styles/scroll.css'
 import {Route, Routes} from 'react-router-dom'
 import Nav from './components/Nav'
 import Inicio from './components/Inicio'
@@ -12,6 +13,11 @@ import Contacto from './components/Contacto';
 import Pagar from './components/Pagar'
 
 function App() {
+
+  const scrollear = () => {
+		window.scrollTo(0,0)
+	}
+
   return (
     <div className="App">
       <Nav/>
@@ -24,6 +30,8 @@ function App() {
         <Route path='/detalle/:id' element={<Detalle/>}/>
       </Routes>
       <Footer/>
+      {/* <!-- Back to Top --> */}
+      <button class="boton_scroll boton_scroll_posicion" onClick={scrollear}><i class="fa fa-angle-double-up"></i></button>
     </div>
   );
 }

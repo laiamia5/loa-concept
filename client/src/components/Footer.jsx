@@ -1,5 +1,7 @@
 import React, { useEffect , useState} from "react";
 import axios from 'axios'
+import {Link} from 'react-router-dom'
+import '../styles/scroll.css'
 
 export default function Footer (){
     const [info, setInfo] = useState({})
@@ -10,6 +12,9 @@ export default function Footer (){
         .catch((err) => console.log(err))
     }, [])
 
+    const scrollear = () => {
+		window.scrollTo(0,0)
+	}
     return(
         <>
             {/* <!-- Footer Start --> */}
@@ -29,23 +34,22 @@ export default function Footer (){
                             <div class="col-md-4 mb-5">
                                 <h5 class="font-weight-bold text-dark mb-4">Recomendaciones</h5>
                                 <div class="d-flex flex-column justify-content-start">
-                                    <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Tops</a>
-                                    <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Lenceria</a>
-                                    <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Remerones</a>
-                                    <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Buzos</a>
-                                    <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Jeans</a>
+                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Tops</a>
+                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Lenceria</a>
+                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Remerones</a>
+                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Buzos</a>
+                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Jeans</a>
                                     {/* <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a> */}
                                 </div>
                             </div>
                             <div class="col-md-4 mb-5">
                                 <h5 class="font-weight-bold text-dark mb-4">Links</h5>
                                 <div class="d-flex flex-column justify-content-start">
-                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-                                    <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Nuestra tienda</a>
-                                    {/* <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a> */}
-                                    <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Carrito</a>
-                                    <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contacto</a>
-                                    <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>medios de pago</a>
+                                    <Link to='/' style={{textDecoration: 'none'}} class="text-dark mb-2" onClick={scrollear}><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Inicio</a></Link>
+                                    <Link to='/tienda' style={{textDecoration: 'none'}} class="text-dark mb-2" onClick={scrollear}><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Nuestra tienda</a></Link>
+                                    <Link to='/carrito' style={{textDecoration: 'none'}} class="text-dark mb-2" onClick={scrollear}><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Carrito</a></Link>
+                                    <Link to='/contacto' style={{textDecoration: 'none'}} class="text-dark mb-2" onClick={scrollear}><a class="text-dark" ><i class="fa fa-angle-right mr-2"></i>Contacto</a></Link>
+                                    <Link to='/finalizar-compra' style={{textDecoration: 'none'}} class="text-dark mb-2" onClick={scrollear}><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>medios de pago</a></Link>
 
                                 </div>
                             </div>
@@ -71,7 +75,7 @@ export default function Footer (){
                 <div class="row border-top border-light mx-xl-5 py-4">
                     <div class="col-md-6 px-xl-0">
                         <p class="mb-md-0 text-center text-md-left text-dark">
-                            &copy; Desarrollado por <a class="text-dark font-weight-semi-bold" href="#">Inside Solution</a>
+                            &copy; Desarrollado por <a class="text-dark font-weight-semi-bold" target='_blank' href="https://www.instagram.com/inside.solution/">Inside Solution</a>
                         </p>
                     </div>
                     <div class="col-md-6 px-xl-0 text-center text-md-right">
@@ -80,8 +84,7 @@ export default function Footer (){
                 </div>
             </div>
             {/* <!-- Footer End --> */}
-            {/* <!-- Back to Top --> */}
-            <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+            
         </>
     )
 }
