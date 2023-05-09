@@ -38,10 +38,10 @@ payRouter.post('/', async (req, res) => {
     await req.body.forEach((e) => {
         preference.items.push({
             title: e.nombre,
-            description: e.descripcion ? e.descripcion : "algo hardcodeado",
+            description: e.descripcion ? e.descripcion : "sin descripcion",
             currency_id: "$",
             quantity: e.cantidad,
-            unit_price: 10
+            unit_price: e.precio
         })
     })
 
@@ -50,7 +50,7 @@ payRouter.post('/', async (req, res) => {
     .then((r) =>  {
         console.log(r.body)
         preferenceId = r.body.id
-        res.status(200).send(preferenceId)
+        res.status(200).send(r.body.init_point)
     }) 
     .catch((err) => console.log(err))
 

@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState } from "react";
 import { aumentarCantidad, disminuirCantidad, eliminarDelCarrito } from "../redux/actions";
 import store from '../redux/store'
+// import { Link } from "react-router-dom";
 
 export default function Carrito (){
     let dispatch = useDispatch()
@@ -48,6 +49,7 @@ export default function Carrito (){
                         <div class="align-middle" style={{ display: 'table-row',border: '1px solid #EDF1FF', height: '100px'}}><p style={{position: 'absolute', marginLeft: '35%', marginTop: '4%'}}>agrega productos al carrito</p></div> :
                         <tbody class="align-middle">
                             { carrito.map((e) => {
+                                
                                 return(
                                     <tr>
                                         <td class="align-middle"><img src={e?.img} alt="" style={{width: "50px"}}/>{e?.nombre}</td>
@@ -122,7 +124,7 @@ export default function Carrito (){
                                 return acc + item.precio * item.cantidad;
                                 }, 0) + precioEnvio}</h5>
                         </div>
-                        <button class="btn btn-block btn-primary my-3 py-3">Realizar compra</button>
+                        <Link to='/finalizar-compra' style={{textDecoration: 'none'}}><button class="btn btn-block btn-primary my-3 py-3">Realizar compra</button></Link>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,7 @@
+
+@media (max-width: 480px){
+    #contenedor_search_carrito{
+        display: none;
+    }
+}
+

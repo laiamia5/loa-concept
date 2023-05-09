@@ -24,6 +24,9 @@ module.exports = (sequelize) => {
         },
         avisos:{
             type : DataTypes.TEXT,
+        },
+        descripcion: {
+            type : DataTypes.TEXT,
         }
     },{timestamps: false})
 }

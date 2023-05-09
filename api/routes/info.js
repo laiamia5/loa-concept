@@ -14,7 +14,7 @@ rutaInfo.get('/', async (req, res) => {
 })
 
 rutaInfo.post('/', async (req, res) => {
-    const {numero, direccion, email, facebook, avisos, instagram} = req.body
+    const {numero, direccion, email, facebook, avisos, instagram, descripcion} = req.body
     try{
         let crear = await info.create({
             numero,
@@ -22,7 +22,8 @@ rutaInfo.post('/', async (req, res) => {
             email,
             avisos,
             direccion,
-            instagram
+            instagram,
+            descripcion
         })
         res.status(200).send('creado exitosamente')
     }catch(err){
@@ -32,7 +33,7 @@ rutaInfo.post('/', async (req, res) => {
 
 
 rutaInfo.put('/', async (req, res) => {
-    const {numero, direccion, email, facebook, instagram, avisos} = req.body
+    const {numero, direccion, email, facebook, instagram, avisos, descripcion} = req.body
     try{
         let crear = await info.update({
             numero,
@@ -40,7 +41,8 @@ rutaInfo.put('/', async (req, res) => {
             email,
             direccion,
             instagram,
-            avisos
+            avisos,
+            descripcion
         },  { where: { id: 1 } })
         res.status(200).send('actualizado exitosamente')
     }catch(err){
