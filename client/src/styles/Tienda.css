@@ -1,6 +1,6 @@
 @media (min-width: 992px){
     .contenedor_imagen_tienda{
-            height: 43vh !important;
+            height: 30vh !important;
         }
 
     .imagen_tienda{
@@ -10,7 +10,7 @@
 
 @media (min-width: 768px){
     .contenedor_imagen_tienda{
-            height: 345px !important;
+            height: 325px !important;
         }
 
     /* .imagen_tienda{

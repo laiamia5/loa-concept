@@ -12,6 +12,7 @@ export default function Nav () {
 let productos_length = useSelector(state => state.carrito.length)
 let location = useLocation()
 let [clase, setClase ] = useState('dropdown-menu rounded-0 m-0')
+let [navResp, setNavResp] = useState(false)
 let [menu, setMenu] = useState(false)
 
 const cambiarClase = () => {
@@ -72,7 +73,7 @@ const cambiarClase = () => {
                             <i class="fas fa-heart text-primary"></i>
                             <span class="badge">0</span>
                         </a> */}
-                        <Link to='/carrito' style={{textDecoration: 'none'}}><a href="" class="btn border">
+                        <Link to='/carrito' style={{textDecoration: 'none'}}><a  class="btn border">
                             <i class="fas fa-shopping-cart text-primary"></i>
                             <span class="badge">{productos_length}</span>
                         </a></Link>
@@ -122,10 +123,18 @@ const cambiarClase = () => {
                             <a href="" class="text-decoration-none d-block d-lg-none">
                                 <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">Loa</span>Concept</h1>
                             </a>
-                            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                             {/* -----------responsive--------- */}
+                                <Link to='/carrito' style={{textDecoration: 'none'}} className="disp">
+                                    <a  class="btn border">
+                                        <i class="fas fa-shopping-cart text-primary"></i>
+                                        <span class="badge">{productos_length}</span>
+                                    </a>
+                                </Link>
+                            {/* -------------------------------- */}
+                            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" onClick={() => navResp == true ? setNavResp(false) : setNavResp(true)}>
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div class={navResp == false ? "collapse navbar-collapse justify-content-between" : "collapse navbar-collapse justify-content-between display_block anim" } id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
                                   <Link to='/' style={{textDecoration: 'none'}}><a class={ location.pathname === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>Inicio</a></Link>  
                                   <Link to='/tienda' style={{textDecoration: 'none'}}><a class={ location.pathname === "/tienda" ? "nav-item nav-link active" : "nav-item nav-link"}>Tienda</a></Link> 
