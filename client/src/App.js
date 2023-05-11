@@ -11,12 +11,19 @@ import Carrito from './components/Carrito'
 import Detalle from './components/Detalle'
 import Contacto from './components/Contacto';
 import Pagar from './components/Pagar'
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 function App() {
 
+  let carritoCompleto = useSelector(state => state.carrito)
   const scrollear = () => {
 		window.scrollTo(0,0)
 	}
+
+  useEffect(() => {
+    localStorage.setItem('carrito', JSON.stringify(carritoCompleto))
+  }, [carritoCompleto])
 
   return (
     <div className="App">

@@ -6,9 +6,10 @@ import {
 } from './actions'
 
 let storage = localStorage.getItem('carrito')
+let parseo = JSON.parse(storage) 
 
 const initialState = {
-    carrito: [] ,
+    carrito: parseo ? parseo : [] ,
     categoria : null
 }
 
