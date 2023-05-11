@@ -104,10 +104,10 @@ const cambiarClase = () => {
                                         <a href="" class="dropdown-item">Baby's Dresses</a>
                                     </div>
                                 </div>
-                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Tops</a></Link> 
-                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Lenceria</a></Link>
-                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Polleras</a></Link>
-                               <Link to='/tienda' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Zapatos</a></Link>
+                               <Link to='/tienda?filtrar=top' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Tops</a></Link> 
+                               <Link to='/tienda?filtrar=lenceria' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Lenceria</a></Link>
+                               <Link to='/tienda?filtrar=polleras' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Polleras</a></Link>
+                               <Link to='/tienda?filtrar=zapatos' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Zapatos</a></Link>
                                 {/* <a href="" class="nav-item nav-link">Sportswear</a> */}
                                 {/* <a href="" class="nav-item nav-link">Jumpsuits</a> */}
                                 {/* <a href="" class="nav-item nav-link">Blazers</a> */}

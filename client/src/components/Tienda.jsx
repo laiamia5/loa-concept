@@ -10,19 +10,23 @@ import {Link} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import { agregarAlCarrito } from "../redux/actions";
 import '../styles/Tienda.css'
+import { useLocation } from "react-router-dom";
 
 export default function Tienda (){
 
+    const {search} = useLocation()
     const dispatch = useDispatch()
     const [ productos , setProductos] = useState([])
     const [cantidad , setCantidad] = useState([])
     const [page, setPage] = useState(0)
     const [input, setInput] = useState('')
-    const [nose, setNose] = useState(0)
 
     useEffect(() => {
-        handleProducts(0);
-    }, [])
+        
+        if(search) handleFiltros()
+        else handleProducts(0);
+
+    }, [search])
 
     const handleProducts = (pagina) => {
 
@@ -59,10 +63,10 @@ export default function Tienda (){
     const showToastMessage = (status, mensaje) => {
         status == 'success'
         ? toast.success(mensaje, {
-            position: toast.POSITION.BOTTOM_RIGHT
+            position: toast.POSITION.TOP_RIGHT
         })
         : toast.error(mensaje, {
-            position: toast.POSITION.BOTTOM_RIGHT
+            position: toast.POSITION.TOP_RIGHT
         });
     }
 
@@ -74,6 +78,26 @@ export default function Tienda (){
             setProductos(res.data[0])
         })
         .catch((err) => console.log(err))
+    }
+
+    const handleFiltros = () => {
+        let parametro = search.split('=')
+        if(parametro[0].includes('filtrar')){
+            axios.get(`http://localhost:3001/productos/buscar?categoria=${parametro[1]}`)
+            .then((res) => {
+                setCantidad(res.data)
+                setProductos(res.data[0])
+            })
+            .catch((err) => console.log(err) )
+        }
+        else {
+            axios.get(`http://localhost:3001/productos/buscar?nombre=${parametro[1]}`)
+            .then((res) => {
+                setCantidad(res.data)
+                setProductos(res.data[0])
+            })
+            .catch((err) => console.log(err) )
+        }
     }
 
     return(
@@ -110,20 +134,13 @@ export default function Tienda (){
                                     </button>
                                 </div>
                             </form>
-                            {/* <div class="dropdown ml-4">
-                                <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                            Ordenar por
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                    <a class="dropdown-item" href="#">Latest</a>
-                                    <a class="dropdown-item" href="#">Popularity</a>
-                                    <a class="dropdown-item" href="#">Best Rating</a>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
-                    {productos.map((e, index) => {
+                    { cantidad.length === 0 ? 
+                    <div class="pagination justify-content-center mb-3 col-12 pb-1" style={{height: '200px'}}>
+                        <div class="page-item" style={{marginTop:'10%'}}>no hay stock disponible</div>
+                    </div> :
+                    productos.map((e, index) => {
                         return(
                             <div class="col-lg-4 col-md-6 col-sm-12 pb-1" key={index}>
                                 <div class="card product-item border-0 mb-4">
@@ -178,8 +195,6 @@ export default function Tienda (){
                 </div>
             </div>
             {/* <!-- Shop Product End --> */}
-        {/* </div> */}
-    {/* </div> */}
     {/* <!-- Shop End --> */}
 
     </>
