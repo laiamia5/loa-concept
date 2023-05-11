@@ -55,7 +55,7 @@ export default function Footer (){
                             </div>
                             
                             <div class="col-md-4 mb-5">
-                                <h5 class="font-weight-bold text-dark mb-4">Quiero obtener ofertas</h5>
+                                <h5 class="font-weight-bold text-dark mb-4">Quiero recibir ofertas</h5>
                                 <form action="">
                                     <div class="form-group">
                                         <input type="text" class="form-control border-0 py-4" placeholder="Nombre" required="required" />

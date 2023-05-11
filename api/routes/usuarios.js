@@ -18,19 +18,20 @@ rutaUsuario.get('/', async (req, res) => {
 // ========================================CREAR USUARIO================================
 
 rutaUsuario.post('/', async (req, res) => {
-    const {nombre, apellido, dni, email, contraseña, direccion_provincia, direccion_localidad, direccion_calles, telefono} = req.body
+    const {nombre, apellido, dni, email, contraseña, direccion_provincia, direccion_localidad, direccion_barrio, registrado, direccion_calles, telefono} = req.body
     try{
         let crear_usuario = await usuario.create({
             nombre,
             apellido,
             dni, 
-            direccion,
             email,
             contraseña,
             telefono,
             direccion_calles,
             direccion_localidad,
-            direccion_provincia
+            direccion_provincia,
+            direccion_barrio,
+            registrado
             })
         res.status(200).json(crear_usuario)
     }catch(err){
@@ -76,9 +77,9 @@ rutaUsuario.get('/:id', async (req, res) => {
 
 rutaUsuario.put('/actualizar/:id', async (req, res) => {
     const {id} = req.params
-    const  { nombre, apellido, email, dni, direccion}  = req.body
+    const  { nombre, apellido, email, dni, direccion_provincia, direccion_localidad, telefono, direccion_barrio, direccion_calles, registrado}  = req.body
     try{
-        const cambiarUsuario = await usuario.update( { nombre, apellido, email, dni, direccion} , { where: { id: id } })
+        const cambiarUsuario = await usuario.update( { nombre, apellido, email, dni, direccion_provincia, direccion_localidad, telefono, direccion_barrio, direccion_calles, registrado}  , { where: { id: id } })
         res.status(200).json(cambiarUsuario)
     }catch(err){
         res.status(400).send(err.message)

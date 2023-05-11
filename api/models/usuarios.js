@@ -35,8 +35,15 @@ module.exports = (sequelize) => {
         direccion_calles : {
             type: DataTypes.TEXT
         },
+        direccion_barrio:  {
+            type: DataTypes.TEXT
+        },
         telefono: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
+        },
+        registrado: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     },{timestamps: false})
 }

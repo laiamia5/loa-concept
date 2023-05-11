@@ -12,8 +12,23 @@ export default function Pagar (){
     const [preferenceId, setPreferenceId] = useState(null)
     const [medioDePago, setMedioDePago] = useState(true) //true = efectivo o false = mercadopago
     const carritoCompleto = useSelector(state => state.carrito)
+    const [datos, setDatos] = useState({
+        nombre : '',
+        apellido: '',
+        dni: 0,
+        email: '',
+        contraseña: '',
+        telefono: '',
+        direccion_calles: '',
+        direccion_localidad: '' ,
+        direccion_provincia: 'Buenos Aires',
+        direccion_barrio:'',
+        registrado: false
+    })
+    const [permiso, setPermiso] = useState(false)
 
     useEffect(() => {
+        handleForm()
         if(carritoCompleto.length !== 0){
             axios.post(`http://localhost:3001/pagar`, carritoCompleto)
             .then((res) => setPreferenceId(res.data))
@@ -21,10 +36,6 @@ export default function Pagar (){
         }
         else showToastMessage()
     }, [])
-
-    const handleMoney = () => {
-       medioDePago == true ? alert('efectivo') : alert('mercado')
-    }
 
     let repes = 0
     const showToastMessage = () => {
@@ -34,6 +45,41 @@ export default function Pagar (){
                 position: toast.POSITION.BOTTOM_RIGHT
             });
         }
+    }
+
+  
+    const showToastMess2 = (status, mensaje) => {
+        status == 'success'
+        ? toast.success(mensaje, {
+            position: toast.POSITION.TOP_RIGHT
+        })
+        : toast.error(mensaje, {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    }
+
+    const handleForm = (propi, value) => {
+        let copiaDatos = datos
+        delete copiaDatos.undefined
+        copiaDatos[propi] =  value
+        setDatos(copiaDatos)
+        console.log(copiaDatos)
+    }
+
+    const handleErrorSubmit = () => {
+        let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+        // let numeroRegex = /^\(?\d{2}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/;
+        if(datos.email.length == 0)  showToastMess2('err' , 'El campo "email" es obligatorio')
+        else if(datos.nombre.length == 0)  showToastMess2('err' , 'El campo "nombre" es obligatorio')
+        else if(datos.apellido.length == 0)  showToastMess2('err' , 'El campo "apellido" es obligatorio')
+        else if(datos.dni == 0)  showToastMess2('err' , 'El campo "DNI" es obligatorio')
+        else if(datos.telefono.length == 0)  showToastMess2('err' , 'El campo "teléfono" es obligatorio')
+        else if(datos.direccion_provincia.length == 0)  showToastMess2('err' , 'El campo "Provincia" es obligatorio')
+        else if(datos.direccion_localidad.length == 0)  showToastMess2('err' , 'El campo "localidad" es obligatorio')
+        else if(datos.direccion_calles.length == 0)  showToastMess2('err' , 'El campo "calle y altura" es obligatorio')
+        else if(!emailRegex.test(datos.email) && datos.email.length !== 0)  showToastMess2('err' , 'el formato de email no es válido')
+        else if(datos.dni.length !== 8) showToastMess2('err' , 'el campo dni debe tener 8 caracteres')
+        // else if(!numeroRegex.test(datos.telefono)) showToastMess2('err' , 'el formato teléfono no es válido ')
     }
 
     return(
@@ -61,27 +107,27 @@ export default function Pagar (){
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <label>Nombre</label>
-                                    <input class="form-control" type="text" placeholder="Loa"/>
+                                    <input class="form-control" type="text" placeholder="Loa" name='nombre' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Apellido</label>
-                                    <input class="form-control" type="text" placeholder="Concept"/>
+                                    <input class="form-control" type="text" placeholder="Concept"  name='apellido' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>DNI</label>
-                                    <input class="form-control" type="text" placeholder="44123455"/>
+                                    <input class="form-control" type="number" placeholder="44123455"  name='dni' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Email</label>
-                                    <input class="form-control" type="text" placeholder="example@email.com"/>
+                                    <input class="form-control" type="text" placeholder="example@email.com"  name='email' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Teléfono</label>
-                                    <input class="form-control" type="text" placeholder="+54 9 11 2121 4545"/>
+                                    <input class="form-control" type="text" placeholder="+54 9 11 2121 4545"  name='telefono' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Provincia</label>
-                                    <select class="custom-select">
+                                    <select class="custom-select" name='direccion_provincia' onChange={(e) => handleForm(e.target.name, e.target.value) }>
                                         <option selected>Buenos Aires</option>
                                         <option>La Pampa</option>
                                         <option>Corrientes</option>
@@ -91,20 +137,16 @@ export default function Pagar (){
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Localidad</label>
-                                    <input class="form-control" type="text" placeholder="tu localidad"/>
+                                    <input class="form-control" type="text" placeholder="tu localidad"  name='direccion_localidad' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Barrio</label>
-                                    <input class="form-control" type="text" placeholder="tu barrio"/>
+                                    <input class="form-control" type="text" placeholder="tu barrio"  name='direccion_barrio' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Calle y Altura</label>
-                                    <input class="form-control" type="text" placeholder="tu direccion"/>
+                                    <input class="form-control" type="text" placeholder="tu direccion"  name='direccion_calles' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
-                                {/* <div class="col-md-6 form-group">
-                                    <label>Localidad</label>
-                                    <input class="form-control" type="text" placeholder="New York"/>
-                                </div> */}
                                 
                                 <div class="col-md-12 form-group">
                                     <div class="custom-control custom-checkbox">
@@ -112,64 +154,9 @@ export default function Pagar (){
                                         <label class="custom-control-label" for="newaccount">Crear Cuenta</label>
                                     </div>
                                 </div>
-                                {/* <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="shipto"/>
-                                        <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                                    </div>
-                                </div> */}
+                             
                             </div>
                         </div>
-                        {/* <div class="collapse mb-4" id="shipping-address">
-                            <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label>First Name</label>
-                                    <input class="form-control" type="text" placeholder="John"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Last Name</label>
-                                    <input class="form-control" type="text" placeholder="Doe"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="example@email.com"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Mobile No</label>
-                                    <input class="form-control" type="text" placeholder="+123 456 789"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Address Line 1</label>
-                                    <input class="form-control" type="text" placeholder="123 Street"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Address Line 2</label>
-                                    <input class="form-control" type="text" placeholder="123 Street"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>Country</label>
-                                    <select class="custom-select">
-                                        <option selected>United States</option>
-                                        <option>Afghanistan</option>
-                                        <option>Albania</option>
-                                        <option>Algeria</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>City</label>
-                                    <input class="form-control" type="text" placeholder="New York"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>State</label>
-                                    <input class="form-control" type="text" placeholder="New York"/>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label>ZIP Code</label>
-                                    <input class="form-control" type="text" placeholder="123"/>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                     <div class="col-lg-4">
                         <div class="card border-secondary mb-5">
@@ -235,11 +222,14 @@ export default function Pagar (){
                                 </div> */}
                             </div>
                             <div class="card-footer border-secondary bg-transparent" >
-                                <a style={{textDecoration: 'none'}} href={medioDePago == true ? 'https://www.linkedin.com/in/laia-m%C3%ADa-perez-029531245/' : preferenceId}>
-                                   {carritoCompleto.length !== 0 
-                                   ? <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Realizar Compra</button>
-                                    : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" disabled >Realizar Compra</button>} 
-                                </a>
+                                {carritoCompleto.length !== 0 
+                                ? permiso == true ?
+                                    <a style={{textDecoration: 'none'}} href={medioDePago == true ? 'https://www.linkedin.com/in/laia-m%C3%ADa-perez-029531245/' : preferenceId}>
+                                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Realizar Compra</button>
+                                    </a>
+                                    :
+                                    <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={() => handleErrorSubmit()}>Realizar Compra</button>
+                                : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" disabled >Realizar Compra</button>} 
                             </div>
                             {/* {preferenceId !== null && <Wallet initialization={{ preferenceId: preferenceId }} /> } */}
                         </div>
