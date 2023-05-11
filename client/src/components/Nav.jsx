@@ -12,6 +12,7 @@ export default function Nav () {
 let productos_length = useSelector(state => state.carrito.length)
 let location = useLocation()
 let [clase, setClase ] = useState('dropdown-menu rounded-0 m-0')
+let [busqueda, setBusqueda] = useState('')
 let [navResp, setNavResp] = useState(false)
 let [menu, setMenu] = useState(false)
 
@@ -59,10 +60,11 @@ const cambiarClase = () => {
                     <div class="col-lg-6 col-6 text-left">
                         <form action="">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar Productos"/>
+                                <input type="text" class="form-control" placeholder="Buscar Productos" onChange={(e) => setBusqueda(e.target.value)}/>
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-transparent text-primary">
-                                        <i class="fa fa-search"></i>
+                                    <Link to={ busqueda == '' ? '/' : `/tienda?buscar=${busqueda}`} style={{textDecoration: 'none'}}>
+                                        <i class="fa fa-search"></i></Link>
                                     </span>
                                 </div>
                             </div>
