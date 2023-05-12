@@ -12,6 +12,7 @@ export default function Pagar (){
     const [preferenceId, setPreferenceId] = useState(null)
     const [medioDePago, setMedioDePago] = useState(true) //true = efectivo o false = mercadopago
     const carritoCompleto = useSelector(state => state.carrito)
+    const [userID, setUserId] = useState('')
     const [datos, setDatos] = useState({
         nombre : '',
         apellido: '',
@@ -80,6 +81,15 @@ export default function Pagar (){
         else if(!emailRegex.test(datos.email) && datos.email.length !== 0)  showToastMess2('err' , 'el formato de email no es válido')
         else if(datos.dni.length !== 8) showToastMess2('err' , 'el campo dni debe tener 8 caracteres')
         // else if(!numeroRegex.test(datos.telefono)) showToastMess2('err' , 'el formato teléfono no es válido ')
+        else {
+            setPermiso(true)
+        }
+
+        const crearUsuario = () => {
+            //!!!!despues hace un if que diga si estas logeado no lo crees si no esta logeado crealo brou
+            axios.post('http://localhost:3001/usuarios', datos)
+            .then((res) => res.data.id)
+        }
     }
 
     return(

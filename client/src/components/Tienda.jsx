@@ -100,6 +100,10 @@ export default function Tienda (){
         }
     }
 
+    const handleCheckBox = () => {
+
+    }
+
     return(
         <>
             <ToastContainer />
@@ -195,7 +199,7 @@ export default function Tienda (){
                 </div>
             </div>
             {/* <!-- Shop Product End --> */}
-    {/* <!-- Shop End --> */}
+        {/* <!-- Shop End --> */}
 
     </>
     )

@@ -3,8 +3,30 @@ import '../styles/allStyles.css'
 import '../styles/moreStyles.css'
 import Tienda from './Tienda'
 import {Link} from "react-router-dom"
+import {useState} from 'react'
 
 export default function AsideTienda (){
+
+    const [filtrar, setFiltrar] = useState({
+        precio_0_2500 : false,
+        precio_2500_5000 : false,
+        precio_5000_7500 : false,
+        precio_7500_10000 : false,
+        precio_10000_adelante : false,
+        talle_XS : false,
+        talle_S : false,
+        talle_M : false,
+        talle_L : false,
+        talle_XL : false
+    })
+
+    const handleObj = (prop) => {
+        const newObj = filtrar
+        newObj[prop] === true ?  newObj[prop] = false :  newObj[prop] = true 
+        setFiltrar(newObj)
+        console.log(filtrar)
+    }
+
     return(
     <>
         {/* <!-- Page Header Start --> */}
@@ -36,28 +58,28 @@ export default function AsideTienda (){
                                 <span class="badge border font-weight-normal">1000</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-1"/>
-                                <label class="custom-control-label" for="price-1">$0 - $100</label>
+                                <input type="checkbox" class="custom-control-input" id="price-1"  onClick={() => handleObj('precio_0_2500')}/>
+                                <label class="custom-control-label" for="price-1">$0 - $2.500</label>
                                 <span class="badge border font-weight-normal">150</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-2"/>
-                                <label class="custom-control-label" for="price-2">$100 - $200</label>
+                                <input type="checkbox" class="custom-control-input" id="price-2"  onClick={() => handleObj('precio_2500_5000')}/>
+                                <label class="custom-control-label" for="price-2">$2.500 - $5.000</label>
                                 <span class="badge border font-weight-normal">295</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-3"/>
-                                <label class="custom-control-label" for="price-3">$200 - $300</label>
+                                <input type="checkbox" class="custom-control-input" id="price-3"  onClick={() => handleObj('precio_5000_7500')}/>
+                                <label class="custom-control-label" for="price-3">$5.000 - $7.500</label>
                                 <span class="badge border font-weight-normal">246</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-4"/>
-                                <label class="custom-control-label" for="price-4">$300 - $400</label>
+                                <input type="checkbox" class="custom-control-input" id="price-4"  onClick={() => handleObj('precio_7500_10000')}/>
+                                <label class="custom-control-label" for="price-4">$7.500 - $10.000</label>
                                 <span class="badge border font-weight-normal">145</span>
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                <input type="checkbox" class="custom-control-input" id="price-5"/>
-                                <label class="custom-control-label" for="price-5">$400 - $500</label>
+                            <div class="custom-control custom-checkbox d-flex align-items-center juifsty-content-between">
+                                <input type="checkbox" class="custom-control-input" id="price-5" onClick={() => handleObj('precio_10000_adelante')}/>
+                                <label class="custom-control-label" for="price-5">$10.000 +</label>
                                 <span class="badge border font-weight-normal">168</span>
                             </div>
                         </form>
@@ -112,27 +134,27 @@ export default function AsideTienda (){
                                 <span class="badge border font-weight-normal">1000</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-1"/>
+                                <input type="checkbox" class="custom-control-input" id="size-1"  onClick={() => handleObj('talle_XS')}/>
                                 <label class="custom-control-label" for="size-1">XS</label>
                                 <span class="badge border font-weight-normal">150</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-2"/>
+                                <input type="checkbox" class="custom-control-input" id="size-2"  onClick={() => handleObj('talle_S')}/>
                                 <label class="custom-control-label" for="size-2">S</label>
                                 <span class="badge border font-weight-normal">295</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-3"/>
+                                <input type="checkbox" class="custom-control-input" id="size-3"  onClick={() => handleObj('talle_M')}/>
                                 <label class="custom-control-label" for="size-3">M</label>
                                 <span class="badge border font-weight-normal">246</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-4"/>
+                                <input type="checkbox" class="custom-control-input" id="size-4"  onClick={() => handleObj('talle_L')}/>
                                 <label class="custom-control-label" for="size-4">L</label>
                                 <span class="badge border font-weight-normal">145</span>
                             </div>
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                <input type="checkbox" class="custom-control-input" id="size-5"/>
+                                <input type="checkbox" class="custom-control-input" id="size-5" onClick={() => handleObj('talle_XL')}/>
                                 <label class="custom-control-label" for="size-5">XL</label>
                                 <span class="badge border font-weight-normal">168</span>
                             </div>
