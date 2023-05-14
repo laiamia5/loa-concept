@@ -158,12 +158,6 @@ export default function Pagar (){
                                     <input class="form-control" type="text" placeholder="tu direccion"  name='direccion_calles' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
                                 
-                                <div class="col-md-12 form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="newaccount"/>
-                                        <label class="custom-control-label" for="newaccount">Crear Cuenta</label>
-                                    </div>
-                                </div>
                              
                             </div>
                         </div>

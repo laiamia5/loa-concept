@@ -5,6 +5,10 @@ import '../styles/scroll.css'
 
 export default function Footer (){
     const [info, setInfo] = useState({})
+    const [subs , setSubs] = useState({
+        nombre: '',
+        email: ''
+    })
 
     useEffect(() => {
         axios.get('http://localhost:3001/info')
@@ -15,6 +19,10 @@ export default function Footer (){
     const scrollear = () => {
 		window.scrollTo(0,0)
 	}
+
+    const subscribirse = () => {
+        axios.post('http://localhost:3001/subscripcion', subs)
+    }
     return(
         <>
             {/* <!-- Footer Start --> */}
@@ -55,13 +63,13 @@ export default function Footer (){
                             
                             <div class="col-md-4 mb-5">
                                 <h5 class="font-weight-bold text-dark mb-4">Quiero recibir ofertas</h5>
-                                <form action="">
+                                <form action="" onSubmit={() => subscribirse()}>
                                     <div class="form-group">
-                                        <input type="text" class="form-control border-0 py-4" placeholder="Nombre" required="required" />
+                                        <input type="text" class="form-control border-0 py-4" placeholder="Nombre" required="required" onChange={(e) => setSubs({...subs, nombre: e.target.value})}/>
                                     </div>
                                     <div class="form-group">
                                         <input type="email" class="form-control border-0 py-4" placeholder="Email"
-                                            required="required" />
+                                            required="required" onChange={(e) => setSubs({...subs, email: e.target.value})}/>
                                     </div>
                                     <div>
                                         <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribirse</button>

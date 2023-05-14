@@ -48,7 +48,6 @@ export default function AsideTienda (){
             <div class="row px-xl-5">
                 {/* <!-- Shop Sidebar Start --> */}
                 <div class="col-lg-3 col-md-12">
-                    {/* <!-- Price Start --> */}
                     <div class="border-bottom mb-4 pb-4">
                         <h5 class="font-weight-semi-bold mb-4">Filtrar por precio</h5>
                         <form>
@@ -84,8 +83,6 @@ export default function AsideTienda (){
                             </div>
                         </form>
                     </div>
-                    {/* <!-- Price End --> */}
-                    {/* <!-- Size Start --> */}
                     <div class="mb-5">
                         <h5 class="font-weight-semi-bold mb-4">Filtrar por tamaño</h5>
                         <form>
