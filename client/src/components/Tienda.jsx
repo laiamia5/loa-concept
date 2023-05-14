@@ -12,13 +12,15 @@ import { agregarAlCarrito } from "../redux/actions";
 import '../styles/Tienda.css'
 import { useLocation } from "react-router-dom";
 
-export default function Tienda (){
+export default function Tienda (props){
 
     const {search} = useLocation()
     const dispatch = useDispatch()
-    const [ productos , setProductos] = useState([])
-    const [cantidad , setCantidad] = useState([])
-    const [page, setPage] = useState(0)
+    //--------estados-----------
+    const [ productos , setProductos] = useState([]) // => productos que se van a renderizar en el dom
+    const [arrayInicial , setArrayInicial] = useState([]) // => array inicial que usare para poder configurar los filtros precio y talle
+    const [cantidad , setCantidad] = useState([]) // => array entero con paginado y todo (lo uso para saber cuantas paginas hacer)
+    const [page, setPage] = useState(0) // => numero de la pagina en la cual esta parado actualmente
     const [input, setInput] = useState('')
 
     useEffect(() => {
@@ -100,9 +102,30 @@ export default function Tienda (){
         }
     }
 
-    const handleCheckBox = () => {
+    // const handleCheckBox = () => {
+    // }
+        // let precio_0_2500 = 'precio_0_2500'
+        // let precio_2500_5000 = 'precio_2500_5000'
+        // let precio_5000_7500 = 'precio_5000_7500'
+        // let precio_7500_10000 = 'precio_7500_10000'
+        // let precio_10000_adelante = 'precio_10000_adelante'
+        // let talle_XS = 'talle_XS'
+        // let talle_S = 'talle_S'
+        // let talle_M = 'talle_M'
+        // let talle_L = 'talle_L'
+        // let talle_XL = 'talle_XL'
 
-    }
+    // useEffect(() => {
+    //     cantidad && setArrayInicial(cantidad)
+    //     for (const i in props.filtrar){
+    //         if(props.filtrar[i] == true){
+    //             switch(i){
+    //                 case i == precio_0_2500 :
+
+    //             }
+    //         }
+    //     }
+    // }, [props.filtrar])
 
     return(
         <>

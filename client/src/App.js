@@ -13,6 +13,7 @@ import Contacto from './components/Contacto';
 import Pagar from './components/Pagar'
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Admin from './components/admin/Admin'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path='/carrito' element={<Carrito/>}/>
         <Route path='/contacto' element={<Contacto/>}/>
         <Route path='/finalizar-compra' element={<Pagar/>}/>
+        <Route path='/administrador' element={<Admin/>}/>
         <Route path='/detalle/:id' element={<Detalle/>}/>
       </Routes>
       <Footer/>
