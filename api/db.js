@@ -5,6 +5,7 @@ const usuarios = require('./models/usuarios')
 const compras = require('./models/compras')
 const reviews = require('./models/reviews')
 const infos = require('./models/info')
+const enviarOfertas = require('./models/enviarOfertas')
 
 let usuarioDB = process.env.DB_USER
 let contraseña = process.env.DB_PASSWORD
@@ -17,11 +18,12 @@ usuarios(database)
 compras(database)
 reviews(database)
 infos(database)
+enviarOfertas(database)
 
 const { producto } = database.models
 const { usuario } = database.models
 const { compra } = database.models
-const { review, info } = database.models
+const { review, info, ofertas} = database.models
 
 usuario.hasMany(compra,{
     foreignKey:'usuarioId'
@@ -39,4 +41,4 @@ review.hasMany(producto,{
 })
 producto.belongsTo(review);
 
-module.exports = {database, producto, usuario, compra, review, info} 
+module.exports = {database, producto, usuario, compra, review, info, ofertas} 

@@ -6,6 +6,7 @@ const rutaCompras = require('./routes/compras')
 const rutaInfo = require('./routes/info')
 const payRouter = require('./controller/mercadopago')
 const {database} = require('./db')
+const rutaEnvioOfertas = require('./routes/enviarOfertas')
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.use('/usuarios', rutaUsuario)
 app.use('/compras', rutaCompras)
 app.use('/info', rutaInfo )
 app.use('/pagar', payRouter )
+app.use('/subscripcion', rutaEnvioOfertas)
 
 database
 .sync({alter: true})
