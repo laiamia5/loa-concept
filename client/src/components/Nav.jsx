@@ -86,6 +86,7 @@ const cambiarClase = () => {
 
 
             {/* <!-- Navbar Start --> */}
+            {location.pathname !== "/administrador" && 
             <div class="container-fluid mb-5">
                 <div class="row border-top px-xl-5" >
                     <div class="col-lg-3 d-none d-lg-block" 
@@ -106,7 +107,7 @@ const cambiarClase = () => {
                                         <a href="" class="dropdown-item">Baby's Dresses</a>
                                     </div>
                                 </div>
-                               <Link to='/tienda?filtrar=top' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Tops</a></Link> 
+                               <Link to='/tienda?filtrar=tops' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Tops</a></Link> 
                                <Link to='/tienda?filtrar=lenceria' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Lenceria</a></Link>
                                <Link to='/tienda?filtrar=polleras' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Polleras</a></Link>
                                <Link to='/tienda?filtrar=zapatos' style={{textDecoration: 'none'}}><a class="nav-item nav-link">Zapatos</a></Link>
@@ -194,6 +195,7 @@ const cambiarClase = () => {
                     </div>
                 </div>
             </div>
+            }
             {/* <!-- Navbar End --> */}
 
         </>
