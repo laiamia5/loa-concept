@@ -34,12 +34,11 @@ export default function Footer (){
                             <div class="col-md-4 mb-5">
                                 <h5 class="font-weight-bold text-dark mb-4">Recomendaciones</h5>
                                 <div class="d-flex flex-column justify-content-start">
-                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Tops</a>
-                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Lenceria</a>
-                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Remerones</a>
-                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Buzos</a>
-                                    <a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Jeans</a>
-                                    {/* <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a> */}
+                                <Link to='/tienda?filtrar=tops' style={{textDecoration: 'none'}} class="text-dark mb-2"><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Tops</a></Link>
+                                <Link to='/tienda?filtrar=lenceria' style={{textDecoration: 'none'}} class="text-dark mb-2"><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Lenceria</a></Link>
+                                <Link to='/tienda?filtrar=remerones' style={{textDecoration: 'none'}} class="text-dark mb-2"><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Remerones</a></Link>
+                                <Link to='/tienda?filtrar=buzos' style={{textDecoration: 'none'}} class="text-dark mb-2"><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Buzos</a></Link>
+                                <Link to='/tienda?filtrar=polleras' style={{textDecoration: 'none'}} class="text-dark mb-2"><a class="text-dark mb-2" ><i class="fa fa-angle-right mr-2"></i>Polleras</a></Link>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-5">
