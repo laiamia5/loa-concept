@@ -126,28 +126,29 @@ rutaProducto.get('/buscar', async (req, res) => {
 
 // =========================================FILTRAR PRODUCTOS POR... COLORES , TAMAÑOS Y PRECIOS=======================================
 
-// rutaProducto.get('/filtrar', async (req, res) => {
+rutaProducto.post('/filtrar', async (req, res) => {
 
-//     const {precio} =  req.query
-//     const {talles} = req.query
-// // HACERLO DESDE EL FRONTEN
-//     try{
-//         let todos_productos = await producto.findAll()
-//         let productos_de_0_2000 =await todos_productos.filter((e) => e.precio < 2001 )     
-//         let productos_de_2000_2000 =await todos_productos.filter((e) => e.precio < 2000 )     
+    let {precios} = req.query
+    let ArrQuery = []
+    precios.forEach((e) => {
+        let ele = e.split('-')
+        ArrQuery.push(ele)
+    })
+    let newArr = []
+    await req.body.forEach((e) => newArr = [...newArr, ...e])
+    let ArrFinal = []
 
-//         res.status(200).json(productos_de_0_2000)   
-//         // if(page){
-//         //     return  arrayPaginado[page] 
-//         //     ? res.status(200).json(arrayPaginado[page]) 
-//         //     : res.status(200).send('no existe la pagina que solicita')
-//         //   } else return res.status(200).json(arrayPaginado)
-
-//         // return res.status(200).json(arrayPaginado)
-//     }catch(err){
-
-//     }
-// })
+    try{
+        await ArrQuery.forEach((e) => {
+           let ese = newArr.filter((ele) => ele.precio > e[0] && ele.precio < e[1] )
+           ArrFinal.push(...ese)
+        })
+        let ArrayPaginado = await paginar(ArrFinal)
+        res.status(200).json(ArrayPaginado)
+    }catch(err){
+        res.status(400).send('err.message')
+    }
+})
 
 // ========================================== OBTENER UN PRODUCTO =====================================================
 
