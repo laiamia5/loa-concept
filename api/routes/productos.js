@@ -129,15 +129,21 @@ rutaProducto.get('/buscar', async (req, res) => {
 rutaProducto.post('/filtrar', async (req, res) => {
 
     let {precios} = req.query
-    let ArrQuery = []
-    precios.forEach((e) => {
-        let ele = e.split('-')
-        ArrQuery.push(ele)
-    })
-    let newArr = []
+    let ArrQuery = [] //array que contiene loos precios por lo que se va a filtrar
+    let newArr = []// array que contiene todos los productos recibidos por body
     await req.body.forEach((e) => newArr = [...newArr, ...e])
-    let ArrFinal = []
 
+    if(Array.isArray(precios)){//condicion que verifica quelos parametros pasados sean mas de uno, en ese caso los valores pasan a ser array en caso de ser uno es un string
+        precios.forEach((e) => {
+            let ele = e.split('-')
+            ArrQuery.push(ele)
+        })
+    }else{
+        let ele = precios.split('-')
+        ArrQuery.push(ele)
+    }
+   
+    let ArrFinal = [] //array que contendra los productos filtrados
     try{
         await ArrQuery.forEach((e) => {
            let ese = newArr.filter((ele) => ele.precio > e[0] && ele.precio < e[1] )
