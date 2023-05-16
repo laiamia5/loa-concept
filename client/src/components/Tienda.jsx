@@ -21,7 +21,7 @@ export default function Tienda (props){
     const [arrayInicial , setArrayInicial] = useState([]) // => array inicial que usare para poder configurar los filtros precio y talle
     const [cantidad , setCantidad] = useState([]) // => array entero con paginado y todo (lo uso para saber cuantas paginas hacer)
     const [page, setPage] = useState(0) // => numero de la pagina en la cual esta parado actualmente
-    const [preciosFiltro, setPreciosFiltro] = useState([])
+    // const [preciosFiltro, setPreciosFiltro] = useState([])
     const [input, setInput] = useState('')
 
     useEffect(() => {
@@ -108,26 +108,45 @@ export default function Tienda (props){
 // ------------------------------FUNCIONES PARA EL FILTRO DE PRECIOS-------------------------------
 
     const [filtrar, setFiltrar] = useState({
-        precio_0_2500 : false,
-        precio_2500_5000 : false,
-        precio_5000_7500 : false,
-        precio_7500_10000 : false,
-        precio_10000_adelante : false
+        precio_0_2500 : {
+            estado: false,
+            value: '&precios=0-2500'
+        },
+        precio_2500_5000 : {
+            estado: false,
+            value: '&precios=2500-5000'
+        },
+        precio_5000_7500 : {
+            estado: false,
+            value: '&precios=5000-7500'
+        },
+        precio_7500_10000 : {
+            estado: false,
+            value: '&precios=7500-10000'
+        },
+        precio_10000_adelante : {
+            estado: false,
+            value:'&precios=10000-1000000'
+        }
     })
 
     const handleObj = async (prop) => {
         const newObj = filtrar
-        await newObj[prop] === true ?  newObj[prop] = false :  newObj[prop] = true 
-        await setFiltrar(newObj)
-        console.log(filtrar)
+        if(newObj[prop].estado === false) newObj[prop] = {estado: true, value: newObj[prop].value}
+        else newObj[prop] = {estado: false, value: newObj[prop].value}  
         handleCheckBox()
-        console.log(preciosFiltro)
     }
 
 
     //se muestran los seteados en true pero no se pueden sacar despues
     const handleCheckBox = () => {
+        let querys = ''
+        for(const i in filtrar){
+           if(filtrar[i].estado === true)  querys += filtrar[i].value   
+        }
+        console.log(querys)
 
+        // setPreciosFiltro([])
         // function eliminar(param){
         //     let otroArr = preciosFiltro
         //     let posicion = otroArr.indexOf(param)
@@ -135,36 +154,20 @@ export default function Tienda (props){
         //     setPreciosFiltro(otroArr)
         // }
 
-        for (const i in filtrar){
-            if(filtrar[i] == true){
-                if(i === 'precio_0_2500' &&  !preciosFiltro.includes('&precios=0-2500'))  setPreciosFiltro([...preciosFiltro , '&precios=0-2500']) 
-                if(i === 'precio_2500_5000' && !preciosFiltro.includes('&precios=2500-5000')) setPreciosFiltro([...preciosFiltro, '&precios=2500-5000']) 
-                if(i === 'precio_5000_7500' && !preciosFiltro.includes('&precios=5000-7500')) setPreciosFiltro([...preciosFiltro , '&precios=5000-7500'])
-                if(i === 'precio_7500_10000'&& !preciosFiltro.includes('&precios=7500-10000')) setPreciosFiltro([...preciosFiltro , '&precios=7500-10000'])
-                if(i === 'precio_10000_adelante' && !preciosFiltro.includes('&precios=10000-1000000')) setPreciosFiltro([...preciosFiltro , '&precios=10000-1000000'])
-            }
-            // if(filtrar[i] === false) {
-            //     if(i === 'precio_0_2500' && filtrar[i] === false){
-            //         eliminar('&precios=0-2500') 
-            //         return
-            //     }
-            //     else if(i === 'precio_2500_5000'){
-            //         eliminar('&precios=2500-5000')
-            //         return
-            //     }
-                // else if(i === 'precio_5000_7500'){
-                //     eliminar('&precios=5000-7500')
-                //     return
-                // }
-                // else if(i === 'precio_7500_10000'){
-                //     eliminar('&precios=7500-10000')
-                //     return
-                // }
-                // else if(i === 'precio_10000_adelante'){
-                //     eliminar('&precios=10000-1000000')
-                //     return
-                // }
-            }  
+        // for (const i in filtrar){
+        //     if(filtrar[i] == true){
+        //         if(i === 'precio_0_2500' &&  !preciosFiltro.includes('&precios=0-2500'))  setPreciosFiltro([...preciosFiltro , '&precios=0-2500']) 
+        //         if(i === 'precio_2500_5000' && !preciosFiltro.includes('&precios=2500-5000')) setPreciosFiltro([...preciosFiltro, '&precios=2500-5000']) 
+        //         if(i === 'precio_5000_7500' && !preciosFiltro.includes('&precios=5000-7500')) setPreciosFiltro([...preciosFiltro , '&precios=5000-7500'])
+        //         if(i === 'precio_7500_10000'&& !preciosFiltro.includes('&precios=7500-10000')) setPreciosFiltro([...preciosFiltro , '&precios=7500-10000'])
+        //         if(i === 'precio_10000_adelante' && !preciosFiltro.includes('&precios=10000-1000000')) setPreciosFiltro([...preciosFiltro , '&precios=10000-1000000'])
+        //     }
+            // if(i === 'precio_0_2500'){
+            //     filtrar[i] === true 
+            //     ? !preciosFiltro.includes('&precios=0-2500') && setPreciosFiltro([...preciosFiltro , '&precios=0-2500']) 
+            //     : eliminar('&precios=0-2500')
+            // }
+        // }  
     }
     
 
