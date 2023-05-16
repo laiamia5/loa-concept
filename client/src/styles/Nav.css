@@ -1,3 +1,7 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+
+
 .ver{
     display: block;
     z-index: 99999;
@@ -142,4 +146,14 @@
     100% {
       transform: translateY(-15px);
     }
+  }
+
+  /* .animacion_carru{
+    animation-name: action;
+    animation-duration: 1s;
+  } */
+
+  .color_transparente{
+    -webkit-text-stroke: 1px #D19C97 !important;
+    color: transparent !important;
   }

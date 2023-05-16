@@ -53,8 +53,12 @@ const cambiarClase = () => {
                 </div>
                 <div class="row align-items-center py-3 px-xl-5" id='contenedor_search_carrito'>
                     <div class="col-lg-3 d-none d-lg-block">
-                        <a href="" class="text-decoration-none">
-                            <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">Loa</span>Concept</h1>
+                        <a class="text-decoration-none">
+                            <h1 class="m-0 display-5 font-weight-semi-bold" >
+                                <span style={{fontSize: '2vh', position: 'absolute', color: '#D19C97', marginLeft: '5px'}}>♡</span> 
+                                <span class="text-primary font-weight-bold border px-3 mr-1 color_transparente">LOA</span>
+                                <span style={{fontFamily: 'Playball, cursive', fontSize: '7vh', color: '#D19C97'}}>Concept </span>
+                            </h1>
                         </a>
                     </div>
                     <div class="col-lg-6 col-6 text-left">
@@ -171,7 +175,7 @@ const cambiarClase = () => {
                                     </div>
                                 </div>
                                 <div class="carousel-item"> {/* style="height: 410px;" */}
-                                    <img class="img-fluid" src="img/carousel-2.jpg" alt="Image"/>
+                                    <img class="img-fluid" src="https://marketplace.canva.com/EAFHvx67lpg/1/0/1600w/canva-portada-de-facebook-recortes-con-frase-simple-color-marr%C3%B3n-tXDCYFde8is.jpg" alt="Image"/>
                                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                         <div class="p-3" > {/*style="max-width: 700px;" */} 
                                             <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
