@@ -127,8 +127,8 @@ rutaProducto.get('/buscar', async (req, res) => {
 // =========================================FILTRAR PRODUCTOS POR... COLORES , TAMAÑOS Y PRECIOS=======================================
 
 rutaProducto.post('/filtrar', async (req, res) => {
-
     let {precios} = req.query
+
     let ArrQuery = [] //array que contiene loos precios por lo que se va a filtrar
     let newArr = []// array que contiene todos los productos recibidos por body
     await req.body.forEach((e) => newArr = [...newArr, ...e])
@@ -150,6 +150,7 @@ rutaProducto.post('/filtrar', async (req, res) => {
            ArrFinal.push(...ese)
         })
         let ArrayPaginado = await paginar(ArrFinal)
+        console.log(ArrFinal)
         res.status(200).json(ArrayPaginado)
     }catch(err){
         res.status(400).send('err.message')

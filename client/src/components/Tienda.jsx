@@ -29,8 +29,6 @@ export default function Tienda (props){
         if(search) handleFiltros()
         else handleProducts(0);
 
-        cantidad.length !== 0 && setArrayInicial(cantidad)
-
     }, [search])
 
     const handleProducts = (pagina) => {
@@ -41,6 +39,7 @@ export default function Tienda (props){
                 setCantidad(res.data)
                 setPage(pagina)
                 setProductos(res.data[pagina])
+                setArrayInicial(res.data)
             })
             .catch((err) => console.log(err))
         }else{
@@ -59,7 +58,8 @@ export default function Tienda (props){
             else{
                 setCantidad(res.data)
                 setProductos(res.data[pag])
-                console.log(res.data)
+                setArrayInicial(res.data)
+                // console.log(res.data)
             }
         })
         .catch((err) => console.log(err))
@@ -81,6 +81,7 @@ export default function Tienda (props){
             setCantidad(res.data)
             setPage(0)
             setProductos(res.data[0])
+            setArrayInicial(res.data)
         })
         .catch((err) => console.log(err))
     }
@@ -92,6 +93,7 @@ export default function Tienda (props){
             .then((res) => {
                 setCantidad(res.data)
                 setProductos(res.data[0])
+                setArrayInicial(res.data)
             })
             .catch((err) => console.log(err) )
         }
@@ -100,6 +102,7 @@ export default function Tienda (props){
             .then((res) => {
                 setCantidad(res.data)
                 setProductos(res.data[0])
+                setArrayInicial(res.data)
             })
             .catch((err) => console.log(err) )
         }
@@ -131,48 +134,30 @@ export default function Tienda (props){
     })
 
     const handleObj = async (prop) => {
-        const newObj = filtrar
-        if(newObj[prop].estado === false) newObj[prop] = {estado: true, value: newObj[prop].value}
+        const newObj = filtrar //pongo en una variable el estado que tiene un objeto que quiero editar
+        if(newObj[prop].estado === false) newObj[prop] = {estado: true, value: newObj[prop].value} //cada vez que se haga click en el checkbox voy a ver si es true se setee en false si es false se setee en true
         else newObj[prop] = {estado: false, value: newObj[prop].value}  
-        handleCheckBox()
+        let resultQuery = await handleCheckBox()//funcion quesirve para ver que propiedades del objeto estan seteados en true, aquellos seteados en true, los guardara en un estado para posteriormente hacer la peticion
+        // -----------------
+        if(resultQuery.length !== 0 && arrayInicial.length !== 0){
+            axios.post(`http://localhost:3001/productos/filtrar?${resultQuery}`, arrayInicial)
+            .then((res) => {
+                console.log(res.data)
+                setCantidad(res.data)
+                setProductos(res.data[0])
+            })
+            .catch((err) => console.log(err))
+        }
     }
 
-
-    //se muestran los seteados en true pero no se pueden sacar despues
-    const handleCheckBox = () => {
+    const handleCheckBox = async () => {
         let querys = ''
         for(const i in filtrar){
            if(filtrar[i].estado === true)  querys += filtrar[i].value   
         }
-        console.log(querys)
-
-        // setPreciosFiltro([])
-        // function eliminar(param){
-        //     let otroArr = preciosFiltro
-        //     let posicion = otroArr.indexOf(param)
-        //     otroArr.splice(posicion, 1)
-        //     setPreciosFiltro(otroArr)
-        // }
-
-        // for (const i in filtrar){
-        //     if(filtrar[i] == true){
-        //         if(i === 'precio_0_2500' &&  !preciosFiltro.includes('&precios=0-2500'))  setPreciosFiltro([...preciosFiltro , '&precios=0-2500']) 
-        //         if(i === 'precio_2500_5000' && !preciosFiltro.includes('&precios=2500-5000')) setPreciosFiltro([...preciosFiltro, '&precios=2500-5000']) 
-        //         if(i === 'precio_5000_7500' && !preciosFiltro.includes('&precios=5000-7500')) setPreciosFiltro([...preciosFiltro , '&precios=5000-7500'])
-        //         if(i === 'precio_7500_10000'&& !preciosFiltro.includes('&precios=7500-10000')) setPreciosFiltro([...preciosFiltro , '&precios=7500-10000'])
-        //         if(i === 'precio_10000_adelante' && !preciosFiltro.includes('&precios=10000-1000000')) setPreciosFiltro([...preciosFiltro , '&precios=10000-1000000'])
-        //     }
-            // if(i === 'precio_0_2500'){
-            //     filtrar[i] === true 
-            //     ? !preciosFiltro.includes('&precios=0-2500') && setPreciosFiltro([...preciosFiltro , '&precios=0-2500']) 
-            //     : eliminar('&precios=0-2500')
-            // }
-        // }  
-    }
-    
-
-        
-    
+        let newQuery = querys.substr(1)
+        return newQuery
+    }  
 // ------------------------------------------TERMINAN FUNCIONES PARA EL FILTRO DE PRECIOS------------------------------
 
 
