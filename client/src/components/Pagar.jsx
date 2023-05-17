@@ -9,8 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Pagar (){
 
+    const [divPagar, setDivPagar] = useState(false)
     const [preferenceId, setPreferenceId] = useState(null)
-    const [medioDePago, setMedioDePago] = useState(true) //true = efectivo o false = mercadopago
+    const [medioDePago, setMedioDePago] = useState(false) //true = cbu o false = mercadopago
     const carritoCompleto = useSelector(state => state.carrito)
     const [userID, setUserId] = useState('')
     const [datos, setDatos] = useState({
@@ -68,8 +69,12 @@ export default function Pagar (){
     }
 
     const handleErrorSubmit = () => {
+        let inputs =  document.querySelectorAll('.form-control')
+        inputs.forEach((e) => {
+            handleForm(e.name, e.value)
+        })
+
         let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-        // let numeroRegex = /^\(?\d{2}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/;
         if(datos.email.length == 0)  showToastMess2('err' , 'El campo "email" es obligatorio')
         else if(datos.nombre.length == 0)  showToastMess2('err' , 'El campo "nombre" es obligatorio')
         else if(datos.apellido.length == 0)  showToastMess2('err' , 'El campo "apellido" es obligatorio')
@@ -80,16 +85,11 @@ export default function Pagar (){
         else if(datos.direccion_calles.length == 0)  showToastMess2('err' , 'El campo "calle y altura" es obligatorio')
         else if(!emailRegex.test(datos.email) && datos.email.length !== 0)  showToastMess2('err' , 'el formato de email no es válido')
         else if(datos.dni.length !== 8) showToastMess2('err' , 'el campo dni debe tener 8 caracteres')
-        // else if(!numeroRegex.test(datos.telefono)) showToastMess2('err' , 'el formato teléfono no es válido ')
         else {
             setPermiso(true)
+            medioDePago === true && setDivPagar(true)
         }
-
-        const crearUsuario = () => {
-            //!!!!despues hace un if que diga si estas logeado no lo crees si no esta logeado crealo brou
-            axios.post('http://localhost:3001/usuarios', datos)
-            .then((res) => res.data.id)
-        }
+        console.log(datos)
     }
 
     return(
@@ -117,7 +117,7 @@ export default function Pagar (){
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <label>Nombre</label>
-                                    <input class="form-control" type="text" placeholder="Loa" name='nombre' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
+                                    <input class="form-control" type="text" placeholder="Loa" name='nombre' onChange={(e) => handleForm(e.target.name, e.target.value)} />
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Apellido</label>
@@ -133,7 +133,7 @@ export default function Pagar (){
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Teléfono</label>
-                                    <input class="form-control" type="text" placeholder="+54 9 11 2121 4545"  name='telefono' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
+                                    <input class="form-control" type="text" placeholder="+54 9 11 2121 4545"  name='telefono' onChange={(e) => handleForm(e.target.name, e.target.value)}/>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Provincia</label>
@@ -187,7 +187,7 @@ export default function Pagar (){
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="font-weight-medium">Envío</h6>
-                                    <h6 class="font-weight-medium">$1000  
+                                    <h6 class="font-weight-medium">$1100  
                                     </h6>
                                 </div>
                             </div>
@@ -215,27 +215,43 @@ export default function Pagar (){
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" name="payment" id="directcheck" onClick={() => setMedioDePago(true)}/>
-                                        <label class="custom-control-label" for="directcheck">Efectivo</label>
+                                        <label class="custom-control-label" for="directcheck">Transferencia bancaria</label>
                                     </div>
                                 </div>
-                                {/* <div class="">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="banktransfer"/>
-                                        <label class="custom-control-label" for="banktransfer">Transferencia Bancaria</label>
+                            </div>
+
+                            {/* -----div de pago dbancario */}
+                            {divPagar == true &&
+                                <div>
+                                    <div class="card-header bg-secondary border-0">
+                                        <h4 class="font-weight-semi-bold m-0">Datos para la transferencia</h4>
                                     </div>
-                                </div> */}
-                            </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-radio">
+                                                <p>cvu: 23434243234234</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-radio">
+                                                <p>alias: laiamiaperezlupia.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            
+                            {/* ---------------------- */}
                             <div class="card-footer border-secondary bg-transparent" >
-                                {carritoCompleto.length !== 0 
-                                ? permiso == true ?
-                                    <a style={{textDecoration: 'none'}} href={medioDePago == true ? 'https://www.linkedin.com/in/laia-m%C3%ADa-perez-029531245/' : preferenceId}>
-                                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Realizar Compra</button>
-                                    </a>
-                                    :
-                                    <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={() => handleErrorSubmit()}>Realizar Compra</button>
-                                : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" disabled >Realizar Compra</button>} 
+                                {carritoCompleto.length !== 0 //el carrito tiene algo?
+                                    ? medioDePago === false  //medio de pago false = mp true = cbu
+                                        ?   <a style={{textDecoration: 'none'}} href={permiso === true && preferenceId}>
+                                                <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={() => handleErrorSubmit()}>Realizar Compra</button>
+                                            </a>
+                                        : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={async () => handleErrorSubmit() }>Realizar Compra</button>
+                                    : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" disabled >Realizar Compra</button>
+                                } 
                             </div>
-                            {/* {preferenceId !== null && <Wallet initialization={{ preferenceId: preferenceId }} /> } */}
                         </div>
                     </div>
                 </div>

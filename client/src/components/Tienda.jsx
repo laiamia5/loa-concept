@@ -147,6 +147,9 @@ export default function Tienda (props){
                 setProductos(res.data[0])
             })
             .catch((err) => console.log(err))
+        }else{
+            setCantidad(arrayInicial)
+            setProductos(arrayInicial[0])
         }
     }
 
@@ -189,32 +192,32 @@ export default function Tienda (props){
                             <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                                 <input type="checkbox" class="custom-control-input" checked id="price-all"/>
                                 <label class="custom-control-label" for="price-all">Todos los precios</label>
-                                <span class="badge border font-weight-normal">1000</span>
+                                {/* <span class="badge border font-weight-normal">1000</span> */}
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-1"  onClick={() => handleObj('precio_0_2500')}/>
-                                <label class="custom-control-label" for="price-1">$0 - $2.500</label>
-                                <span class="badge border font-weight-normal">150</span>
+                            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" className="custom-control-input checkear" id="price-1"  onClick={() => handleObj('precio_0_2500')}/>
+                                <label className="custom-control-label" for="price-1">$0 - $2.500</label>
+                                {/* <span class="badge border font-weight-normal">150</span> */}
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-2"  onClick={() => handleObj('precio_2500_5000')}/>
-                                <label class="custom-control-label" for="price-2">$2.500 - $5.000</label>
-                                <span class="badge border font-weight-normal">295</span>
+                            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" className="custom-control-input checkear" id="price-2"  onClick={() => handleObj('precio_2500_5000')}/>
+                                <label className="custom-control-label" for="price-2">$2.500 - $5.000</label>
+                                {/* <span class="badge border font-weight-normal">295</span> */}
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-3"  onClick={() => handleObj('precio_5000_7500')}/>
+                            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" className="custom-control-input checkear" id="price-3"  onClick={() => handleObj('precio_5000_7500')}/>
                                 <label class="custom-control-label" for="price-3">$5.000 - $7.500</label>
-                                <span class="badge border font-weight-normal">246</span>
+                                {/* <span class="badge border font-weight-normal">246</span> */}
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-4"  onClick={() => handleObj('precio_7500_10000')}/>
-                                <label class="custom-control-label" for="price-4">$7.500 - $10.000</label>
-                                <span class="badge border font-weight-normal">145</span>
+                            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" className="custom-control-input checkear" id="price-4"  onClick={() => handleObj('precio_7500_10000')}/>
+                                <label className="custom-control-label" for="price-4">$7.500 - $10.000</label>
+                                {/* <span class="badge border font-weight-normal">145</span> */}
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center juifsty-content-between">
-                                <input type="checkbox" class="custom-control-input" id="price-5" onClick={() => handleObj('precio_10000_adelante')}/>
-                                <label class="custom-control-label" for="price-5">$10.000 +</label>
-                                <span class="badge border font-weight-normal">168</span>
+                            <div className="custom-control custom-checkbox d-flex align-items-center juifsty-content-between">
+                                <input type="checkbox" className="custom-control-input checkear" id="price-5" onClick={() => handleObj('precio_10000_adelante')}/>
+                                <label className="custom-control-label" for="price-5">$10.000 +</label>
+                                {/* <span class="badge border font-weight-normal">168</span> */}
                             </div>
                         </form>
                     </div>
