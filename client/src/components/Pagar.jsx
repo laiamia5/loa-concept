@@ -6,6 +6,8 @@ import {useSelector} from 'react-redux'
 // initMercadoPago('TEST-035d8db4-f766-4f9c-a923-c8b1d60b7622')
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
+import CompraFinalizada from "./CompraFinalizada";
 
 export default function Pagar (){
 
@@ -92,6 +94,7 @@ export default function Pagar (){
         console.log(datos)
     }
 
+    if(divPagar == false){
     return(
         <>
             <ToastContainer />
@@ -202,45 +205,26 @@ export default function Pagar (){
                             </div>
                         </div>
                         <div class="card border-secondary mb-5">
-                            <div class="card-header bg-secondary border-0">
-                                <h4 class="font-weight-semi-bold m-0">Realizar Pago</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="paypal"  onClick={() => setMedioDePago(false)}/>
-                                        <label class="custom-control-label" for="paypal">Mercado Pago</label>
-                                    </div>
+                            <div>
+                                <div class="card-header bg-secondary border-0">
+                                    <h4 class="font-weight-semi-bold m-0">Realizar Pago</h4>
                                 </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="directcheck" onClick={() => setMedioDePago(true)}/>
-                                        <label class="custom-control-label" for="directcheck">Transferencia bancaria</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* -----div de pago dbancario */}
-                            {divPagar == true &&
-                                <div>
-                                    <div class="card-header bg-secondary border-0">
-                                        <h4 class="font-weight-semi-bold m-0">Datos para la transferencia</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <p>cvu: 23434243234234</p>
-                                            </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" name="payment" id="paypal"  onClick={() => setMedioDePago(false)}/>
+                                            <label class="custom-control-label" for="paypal">Mercado Pago</label>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <p>alias: laiamiaperezlupia.</p>
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" name="payment" id="directcheck" onClick={() => setMedioDePago(true)}/>
+                                            <label class="custom-control-label" for="directcheck">Transferencia bancaria</label>
                                         </div>
                                     </div>
                                 </div>
-                            }
-                            
+                            </div>
+                                             
                             {/* ---------------------- */}
                             <div class="card-footer border-secondary bg-transparent" >
                                 {carritoCompleto.length !== 0 //el carrito tiene algo?
@@ -256,7 +240,6 @@ export default function Pagar (){
                     </div>
                 </div>
             </div>
-            {/* <!-- Checkout End --> */}
         </>
-    )
+    )}else return <CompraFinalizada/>
 } 
