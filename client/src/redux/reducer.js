@@ -2,7 +2,8 @@ import {
     AGREGAR_AL_CARRITO,
     AUMENTAR_CANTIDAD,
     DISMINUIR_CANTIDAD,
-    ELIMINAR_DEL_CARRITO
+    ELIMINAR_DEL_CARRITO,
+    FINALIZAR_Y_VACIAR
 } from './actions'
 
 let storage = localStorage.getItem('carrito')
@@ -42,6 +43,11 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 carrito: state.carrito.filter((e) => e.id !== action.payload) 
+            }
+        case FINALIZAR_Y_VACIAR:
+            return{
+                ...state,
+                carrito: []
             }
         default :
             return state

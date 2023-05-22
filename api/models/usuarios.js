@@ -15,16 +15,12 @@ module.exports = (sequelize) => {
         },
         email:{
             type: DataTypes.TEXT,
-            allowNull: false,
-            unique: true
         },
         contraseña:{
             type: DataTypes.STRING,
-            allowNull: false,
         },
         dni: {
             type: DataTypes.INTEGER,
-            // allowNull: false,
         },
         direccion_provincia : {
             type: DataTypes.TEXT

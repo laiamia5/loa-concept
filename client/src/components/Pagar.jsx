@@ -2,20 +2,22 @@ import React from "react";
 import axios from 'axios'
 import { useEffect, useState } from "react";
 import {useSelector} from 'react-redux'
-// import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-// initMercadoPago('TEST-035d8db4-f766-4f9c-a923-c8b1d60b7622')
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import CompraFinalizada from "./CompraFinalizada";
+import {useDispatch} from 'react-redux'
+import { finalizarCompra } from "../redux/actions";
 
 export default function Pagar (){
-
+    const dispatch = useDispatch()
+    const [usuarioId, setUsuarioId] = useState({
+        id: ""
+    })
     const [divPagar, setDivPagar] = useState(false)
     const [preferenceId, setPreferenceId] = useState(null)
     const [medioDePago, setMedioDePago] = useState(false) //true = cbu o false = mercadopago
     const carritoCompleto = useSelector(state => state.carrito)
-    const [userID, setUserId] = useState('')
     const [datos, setDatos] = useState({
         nombre : '',
         apellido: '',
@@ -70,7 +72,7 @@ export default function Pagar (){
         console.log(copiaDatos)
     }
 
-    const handleErrorSubmit = () => {
+    const handleErrorSubmit = async () => {
         let inputs =  document.querySelectorAll('.form-control')
         inputs.forEach((e) => {
             handleForm(e.name, e.value)
@@ -88,13 +90,24 @@ export default function Pagar (){
         else if(!emailRegex.test(datos.email) && datos.email.length !== 0)  showToastMess2('err' , 'el formato de email no es válido')
         else if(datos.dni.length !== 8) showToastMess2('err' , 'el campo dni debe tener 8 caracteres')
         else {
+            handleRealizarCompra()
             setPermiso(true)
             medioDePago === true && setDivPagar(true)
+            console.log(usuarioId, 'se permitio la peticion')
         }
         console.log(datos)
     }
 
-    if(divPagar == false){
+    const handleRealizarCompra = () => {
+        axios.post('http://localhost:3001/usuarios', datos)
+        .then((res) => {
+            console.log('lapeticion')
+            setUsuarioId({id: res.data.id})
+            dispatch(finalizarCompra(res.data.id, carritoCompleto))
+         })
+        .catch((err) => console.log(err))
+    }
+
     return(
         <>
             <ToastContainer />
@@ -240,6 +253,6 @@ export default function Pagar (){
                     </div>
                 </div>
             </div>
+          { divPagar === true && <CompraFinalizada ide={usuarioId?.id}></CompraFinalizada>}
         </>
-    )}else return <CompraFinalizada/>
-} 
+    )}

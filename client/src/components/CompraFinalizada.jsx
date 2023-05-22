@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 
-export default function CompraFinalizada(){
+export default function CompraFinalizada({ide}){
+    useEffect(() => {
+        console.log(ide)
+        // props.id !== '' ?
+        // axios.get(`http://localhost:3001/usuarios/${props.id}`)
+        // .then((res) => console.log(res.data))
+        // : console.log('la peticion fallo')
+    }, [])
     return(
         <div style={{display: 'flex'}} class="d-flex justify-content-center flex-wrap">
             <div class="col-lg-4 border-secondary" style={{ border: '1px solid #EDF1FF !important'}}>
