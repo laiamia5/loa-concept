@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('producto', {
+    sequelize.define('prodsCarrito', {
         id:{
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -22,21 +22,16 @@ module.exports = (sequelize) => {
         marca: {
             type: DataTypes.STRING
         },
-        stock:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         img: {
             type: DataTypes.TEXT
         },
-        display: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true
+        cantidad: {
+            type: DataTypes.INTEGER 
         },
-        colores: {
+        color: {
             type: DataTypes.TEXT 
         },
-        talles:{
+        talle:{
             type: DataTypes.TEXT 
         }
 

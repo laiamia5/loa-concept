@@ -29,13 +29,13 @@ export const eliminarDelCarrito = (id) => async (dispatch) => {
     return dispatch({type: ELIMINAR_DEL_CARRITO, payload: id})
 }
 
-export const finalizarCompra = (idUsuario, carrito) => async (dispatch) => {
-    carrito.forEach((e) => {
-        axios.post('http://localhost:3001/compras', {
-            productoId: e.id,
-            cantidad: e.cantidad,
-            usuarioId: idUsuario
-        })
-    })
-    return dispatch({type: FINALIZAR_Y_VACIAR, payload: idUsuario})
-}
+// export const finalizarCompra = (idUsuario, carrito) => async (dispatch) => {
+//     carrito.forEach((e) => {
+//         axios.post('http://localhost:3001/compras', {
+//             productoId: e.id,
+//             cantidad: e.cantidad,
+//             usuarioId: idUsuario
+//         })
+//     })
+//     return dispatch({type: FINALIZAR_Y_VACIAR, payload: idUsuario})
+// }

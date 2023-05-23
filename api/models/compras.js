@@ -7,9 +7,6 @@ module.exports = (sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        cantidad: {
-            type : DataTypes.INTEGER,
-        },
         entrega:{
             type: DataTypes.ENUM('pendiente', 'en camino', 'entregada'),
             defaultValue: "pendiente"
@@ -18,8 +15,36 @@ module.exports = (sequelize) => {
             type: DataTypes.ENUM('pendiente', 'pagado'),
             defaultValue: "pendiente"
         },
-        comprobante: {
+        nombre:{
+            type: DataTypes.STRING
+        },
+        apellido:{
+            type: DataTypes.STRING
+        },
+        email:{
+            type: DataTypes.TEXT,
+        },
+        dni: {
+            type: DataTypes.INTEGER,
+        },
+        direccion_provincia : {
             type: DataTypes.TEXT
+        },
+        direccion_localidad : {
+            type: DataTypes.TEXT
+        },
+        direccion_calles : {
+            type: DataTypes.TEXT
+        },
+        direccion_barrio:  {
+            type: DataTypes.TEXT
+        },
+        telefono: {
+            type: DataTypes.STRING
+        },
+        registrado: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     })
 }

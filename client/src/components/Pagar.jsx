@@ -90,7 +90,7 @@ export default function Pagar (){
         else if(!emailRegex.test(datos.email) && datos.email.length !== 0)  showToastMess2('err' , 'el formato de email no es válido')
         else if(datos.dni.length !== 8) showToastMess2('err' , 'el campo dni debe tener 8 caracteres')
         else {
-            handleRealizarCompra()
+            // handleRealizarCompra()
             setPermiso(true)
             medioDePago === true && setDivPagar(true)
             console.log(usuarioId, 'se permitio la peticion')
@@ -98,15 +98,15 @@ export default function Pagar (){
         console.log(datos)
     }
 
-    const handleRealizarCompra = () => {
-        axios.post('http://localhost:3001/usuarios', datos)
-        .then((res) => {
-            console.log('lapeticion')
-            setUsuarioId({id: res.data.id})
-            dispatch(finalizarCompra(res.data.id, carritoCompleto))
-         })
-        .catch((err) => console.log(err))
-    }
+    // const handleRealizarCompra = () => {
+    //     axios.post('http://localhost:3001/usuarios', datos)
+    //     .then((res) => {
+    //         console.log('lapeticion')
+    //         setUsuarioId({id: res.data.id})
+    //         dispatch(finalizarCompra(res.data.id, carritoCompleto))
+    //      })
+    //     .catch((err) => console.log(err))
+    // }
 
     return(
         <>
