@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import CompraFinalizada from "./CompraFinalizada";
 import {useDispatch} from 'react-redux'
 import { finalizarCompra } from "../redux/actions";
+import {crearProdCarr} from '../tools/funciones'
 
 export default function Pagar (){
     const dispatch = useDispatch()
@@ -23,24 +24,21 @@ export default function Pagar (){
         apellido: '',
         dni: 0,
         email: '',
-        contraseña: '',
         telefono: '',
         direccion_calles: '',
         direccion_localidad: '' ,
         direccion_provincia: 'Buenos Aires',
         direccion_barrio:'',
-        registrado: false
     })
     const [permiso, setPermiso] = useState(false)
 
     useEffect(() => {
-        handleForm()
-        if(carritoCompleto.length !== 0){
-            axios.post(`http://localhost:3001/pagar`, carritoCompleto)
-            .then((res) => setPreferenceId(res.data))
-            .catch((err) => alert("Unexpected error"))
-        }
-        else showToastMessage()
+        // if(carritoCompleto.length !== 0){
+        //     axios.post(`http://localhost:3001/pagar`, carritoCompleto)
+        //     .then((res) => setPreferenceId(res.data))
+        //     .catch((err) => alert("Unexpected error"))
+        // }
+        // else showToastMessage()
     }, [])
 
     let repes = 0
@@ -53,16 +51,6 @@ export default function Pagar (){
         }
     }
 
-  
-    const showToastMess2 = (status, mensaje) => {
-        status == 'success'
-        ? toast.success(mensaje, {
-            position: toast.POSITION.TOP_RIGHT
-        })
-        : toast.error(mensaje, {
-            position: toast.POSITION.TOP_RIGHT
-        });
-    }
 
     const handleForm = (propi, value) => {
         let copiaDatos = datos
@@ -74,39 +62,12 @@ export default function Pagar (){
 
     const handleErrorSubmit = async () => {
         let inputs =  document.querySelectorAll('.form-control')
-        inputs.forEach((e) => {
+        await inputs.forEach((e) => {
             handleForm(e.name, e.value)
         })
 
-        let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-        if(datos.email.length == 0)  showToastMess2('err' , 'El campo "email" es obligatorio')
-        else if(datos.nombre.length == 0)  showToastMess2('err' , 'El campo "nombre" es obligatorio')
-        else if(datos.apellido.length == 0)  showToastMess2('err' , 'El campo "apellido" es obligatorio')
-        else if(datos.dni == 0)  showToastMess2('err' , 'El campo "DNI" es obligatorio')
-        else if(datos.telefono.length == 0)  showToastMess2('err' , 'El campo "teléfono" es obligatorio')
-        else if(datos.direccion_provincia.length == 0)  showToastMess2('err' , 'El campo "Provincia" es obligatorio')
-        else if(datos.direccion_localidad.length == 0)  showToastMess2('err' , 'El campo "localidad" es obligatorio')
-        else if(datos.direccion_calles.length == 0)  showToastMess2('err' , 'El campo "calle y altura" es obligatorio')
-        else if(!emailRegex.test(datos.email) && datos.email.length !== 0)  showToastMess2('err' , 'el formato de email no es válido')
-        else if(datos.dni.length !== 8) showToastMess2('err' , 'el campo dni debe tener 8 caracteres')
-        else {
-            // handleRealizarCompra()
-            setPermiso(true)
-            medioDePago === true && setDivPagar(true)
-            console.log(usuarioId, 'se permitio la peticion')
-        }
-        console.log(datos)
+        crearProdCarr( carritoCompleto, datos)
     }
-
-    // const handleRealizarCompra = () => {
-    //     axios.post('http://localhost:3001/usuarios', datos)
-    //     .then((res) => {
-    //         console.log('lapeticion')
-    //         setUsuarioId({id: res.data.id})
-    //         dispatch(finalizarCompra(res.data.id, carritoCompleto))
-    //      })
-    //     .catch((err) => console.log(err))
-    // }
 
     return(
         <>
@@ -239,7 +200,7 @@ export default function Pagar (){
                             </div>
                                              
                             {/* ---------------------- */}
-                            <div class="card-footer border-secondary bg-transparent" >
+                            {/* <div class="card-footer border-secondary bg-transparent" >
                                 {carritoCompleto.length !== 0 //el carrito tiene algo?
                                     ? medioDePago === false  //medio de pago false = mp true = cbu
                                         ?   <a style={{textDecoration: 'none'}} href={permiso === true && preferenceId}>
@@ -248,7 +209,10 @@ export default function Pagar (){
                                         : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={async () => handleErrorSubmit() }>Realizar Compra</button>
                                     : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" disabled >Realizar Compra</button>
                                 } 
-                            </div>
+                            </div> */}
+
+             <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={async () => handleErrorSubmit() }>Realizar Compra</button>
+
                         </div>
                     </div>
                 </div>

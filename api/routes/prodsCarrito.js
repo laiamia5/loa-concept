@@ -11,7 +11,7 @@ rutaProductosCarrito.get('/' , async (req, res) => {
 rutaProductosCarrito.post('/' , async (req, res) => {
     const {nombre, precio, categoria, descripcion, marca, stock, img, cantidad, color, talle} = req.body
     try{
-        prodsCarrito.create({
+        let elProd = await prodsCarrito.create({
             nombre, 
             precio, 
             categoria, 
@@ -23,7 +23,7 @@ rutaProductosCarrito.post('/' , async (req, res) => {
             color, 
             talle
         })
-        res.status(200).send('se agrego al carrito exitosdamente')
+        res.status(200).send(elProd)
     }catch(err){
         res.status(400).send(err.message)
     }

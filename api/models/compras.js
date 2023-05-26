@@ -7,10 +7,10 @@ module.exports = (sequelize) => {
             defaultValue: Sequelize.UUIDV4,
             primaryKey: true,
         },
-        numero: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true
-          },
+        // numero: {
+        //     type: DataTypes.INTEGER,
+        //     autoIncrement: true
+        //   },
         entrega:{
             type: DataTypes.ENUM('pendiente', 'en camino', 'entregada'),
             defaultValue: "pendiente"
@@ -45,10 +45,6 @@ module.exports = (sequelize) => {
         },
         telefono: {
             type: DataTypes.STRING
-        },
-        registrado: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
         }
     })
 }
