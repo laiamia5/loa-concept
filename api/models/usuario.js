@@ -15,16 +15,14 @@ module.exports = (sequelize) => {
         },
         email:{
             type: DataTypes.TEXT,
-            allowNull: false,
-            unique: true
+            allowNull: false, //es obligatorio y unico!!!
         },
         contraseña:{
             type: DataTypes.STRING,
-            allowNull: false,
         },
         dni: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: false, //es obligatorio
         },
         telefono: {
             type: DataTypes.STRING

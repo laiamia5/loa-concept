@@ -22,27 +22,33 @@ rutaUsuario.get('/', async (req, res) => {
 
 rutaUsuario.post('/signup', async (req, res) => {
 
-    const {nombre, apellido, email, contraseña, dni} = req.body
+    const {nombre, apellido, email, contraseña, dni, telefono, direccion_provincia, direccion_localidad, direccion_calles, direccion_barrio, registrado} = req.body
 
-    const usuario_ingresante = await usuario.findOne({ where: { email }})
-
+    // const usuario_ingresante = await usuario.findOne({ where: { email }})
+    console.log('se hizo la peticion a la ruta')
     try{
-        const hash = await bcrypt.hash(contraseña, 10)
+        let hash;
+        if(contraseña) hash = await bcrypt.hash(contraseña, 10)
 
-        if(usuario_ingresante == null){
+        // if(usuario_ingresante == null){
             let creacion = await usuario.create({
                 nombre: nombre,
                 apellido: apellido,
                 email: email,
-                contraseña: hash,
-                dni: dni
+                contraseña: contraseña ? hash : null,
+                dni: dni,
+                telefono,
+                direccion_provincia,
+                direccion_localidad,
+                direccion_barrio,
+                direccion_calles
              })
              res.status(200).send(creacion)
-        }else{
-            res.status(400).send('error! el usuario ya existe, inicia sesion con el mismo o crea una cuenta diferente')
-        }
+        // }else{
+            // res.status(400).send('error! el usuario ya existe, inicia sesion con el mismo o crea una cuenta diferente')
+        // }
     }catch(err){
-         res.status(400).send('error! catch')
+         res.status(400).send(err.message)
     }
 
  })

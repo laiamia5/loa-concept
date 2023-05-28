@@ -61,5 +61,20 @@ rutaCompras.post('/', async (req, res) => {
 //     }
 // })
 
+// ======================BUSCAR COMPRA POR ID========================================
+
+rutaCompras.get('/:id', async (req, res) => {
+
+    const { id } = req.params
+
+    try{
+        const cmpra = await compra.findOne({where: { id }, include : {model: pedido}})
+       res.status(200).send(cmpra)
+
+    }catch(err){
+       res.status(400).send(err.message)
+    }
+})
+
 
 module.exports = rutaCompras
