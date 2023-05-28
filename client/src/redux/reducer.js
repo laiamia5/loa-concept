@@ -44,11 +44,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 carrito: state.carrito.filter((e) => e.id !== action.payload) 
             }
-        // case FINALIZAR_Y_VACIAR:
-        //     return{
-        //         ...state,
-        //         carrito: []
-        //     }
+        case FINALIZAR_Y_VACIAR:
+            return{
+                ...state,
+                carrito: []
+            }
         default :
             return state
         }

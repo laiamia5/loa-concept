@@ -1,4 +1,0 @@
-1-carrusel y categorias
-2- hacer filtro por precio y talle
-3- finalizar compra que se agregue el envio y 
-4- hacer que el cada vez que vaya a la ruta detalle se vea el producto respectivo

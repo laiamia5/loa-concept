@@ -4,30 +4,35 @@ const productos = require('./models/productos')
 const compras = require('./models/compras')
 const infos = require('./models/info')
 const enviarOfertas = require('./models/enviarOfertas')
-const prods = require('./models/prodsCarrito')
+const pedidos = require('./models/pedido')
+const usuarios = require('./models/usuario')
 
 let usuarioDB = process.env.DB_USER
 let contraseña = process.env.DB_PASSWORD
 let host = process.env.DB_HOST
 
-const database = new Sequelize(`postgres://${usuarioDB}:${contraseña}@${host}/loaconcept`,  {logging: false} )
+const database = new Sequelize(`postgres://${usuarioDB}:${contraseña}@${host}/template`,  {logging: false} )
 
 productos(database)
 compras(database)
 infos(database)
 enviarOfertas(database)
-prods(database)
+pedidos(database)
+usuarios(database)
 
-const { producto } = database.models
-const { info, ofertas, compra, prodsCarrito} = database.models
+const { producto, compra, info, ofertas, pedido , usuario} = database.models
 
+producto.hasMany(pedido,{
+  foreignKey:'productoId'
+})
+pedido.belongsTo(producto);
 
-// prodsCarrito.hasMany(compra,{
-//   foreignKey:'productoId'
-// })
-// compra.belongsTo(prodsCarrito);
-compra.belongsToMany(prodsCarrito, {through: 'ProdsCarrID'});
-prodsCarrito.belongsToMany(compra, {through: 'ProdsCarrID'});
+compra.belongsToMany(pedido, {through: 'compra-pedidos'});
+pedido.belongsToMany(compra, {through: 'compra-pedidos'});
 
+usuario.hasMany(compra,{
+  foreignKey:'usuarioId'
+})
+compra.belongsTo(usuario);
 
-module.exports = {database, producto,  compra, info, ofertas, prodsCarrito} 
+module.exports = {database, producto,  compra, info, ofertas, pedido, usuario} 

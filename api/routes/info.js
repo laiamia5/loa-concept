@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const {info} = require('../db')
-const enviarMail_aLoa = require('../controller/nodemailer')
+const {enviarMail_aLoa} = require('../controller/nodemailer')
 
 const rutaInfo = Router()
 

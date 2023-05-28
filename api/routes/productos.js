@@ -8,7 +8,7 @@ const rutaProducto = Router()
 // ========================================== CREAR PRODUCTOS =====================================================
 
 rutaProducto.post('/', async (req, res) => {
-    const {nombre, precio, categoria, descripcion, marca, stock, img, colores, talles} = req.body
+    const {nombre, precio, categoria, descripcion, marca, stock, img, cantidad, colores, talles} = req.body
     try{
         let newProducto = await producto.create({
             nombre,
@@ -18,6 +18,7 @@ rutaProducto.post('/', async (req, res) => {
             marca,
             stock,
             img,
+            cantidad,
             colores,
             talles
         })
@@ -39,12 +40,13 @@ rutaProducto.put('/actualizar/:id', async (req, res) => {
         marca,
         stock,
         img,
+        cantidad,
         colores,
         talles
         } = req.body
 
     try{
-        const cambiarUsuario = await producto.update( { nombre, precio, descripcion, categoria, marca, stock, img,  colores, talles} , { where: { id: id } })
+        const cambiarUsuario = await producto.update( { nombre, precio, descripcion, categoria, marca, stock, img, cantidad, colores, talles} , { where: { id: id } })
         res.status(200).json(cambiarUsuario)
     }catch(err){
         res.status(400).send(err.message)
@@ -83,6 +85,7 @@ rutaProducto.get('/paginado', async (req, res) => {
         }
 
 })
+
 
 // =========================================FILTRAR PRODUCTOS POR... CON PAGINADO=======================================
 

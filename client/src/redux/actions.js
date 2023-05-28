@@ -9,9 +9,9 @@ export const agregarAlCarrito = (obj) => async (dispatch) => {
     let newOb = {
         ...obj,
         cantidad: 1,
-        usuarioId: null,
+        talle: null,
+        color: null,
         productoId: obj.id,
-        pago: null
     }
     return dispatch({type:AGREGAR_AL_CARRITO, payload: newOb})
 }
@@ -29,13 +29,6 @@ export const eliminarDelCarrito = (id) => async (dispatch) => {
     return dispatch({type: ELIMINAR_DEL_CARRITO, payload: id})
 }
 
-// export const finalizarCompra = (idUsuario, carrito) => async (dispatch) => {
-//     carrito.forEach((e) => {
-//         axios.post('http://localhost:3001/compras', {
-//             productoId: e.id,
-//             cantidad: e.cantidad,
-//             usuarioId: idUsuario
-//         })
-//     })
-//     return dispatch({type: FINALIZAR_Y_VACIAR, payload: idUsuario})
-// }
+export const finalizarCompra = () => async (dispatch) => {
+    return dispatch({type: FINALIZAR_Y_VACIAR, payload: 'hola'})
+}

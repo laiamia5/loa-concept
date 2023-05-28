@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import CompraFinalizada from "./CompraFinalizada";
 import {useDispatch} from 'react-redux'
-import { finalizarCompra } from "../redux/actions";
+import { realizarCompraBack } from "../tools/funciones";
 import {crearProdCarr} from '../tools/funciones'
 
 export default function Pagar (){
@@ -33,12 +33,12 @@ export default function Pagar (){
     const [permiso, setPermiso] = useState(false)
 
     useEffect(() => {
-        // if(carritoCompleto.length !== 0){
-        //     axios.post(`http://localhost:3001/pagar`, carritoCompleto)
-        //     .then((res) => setPreferenceId(res.data))
-        //     .catch((err) => alert("Unexpected error"))
-        // }
-        // else showToastMessage()
+        if(carritoCompleto.length !== 0){
+            axios.post(`http://localhost:3001/pagar`, carritoCompleto)
+            .then((res) => setPreferenceId(res.data))
+            .catch((err) => alert("Unexpected error"))
+        }
+        else showToastMessage()
     }, [])
 
     let repes = 0
@@ -46,13 +46,11 @@ export default function Pagar (){
         repes++
         if(repes <= 1){
             toast.error('debe agregar productos al carrito para realizar la compra', {
-                position: toast.POSITION.BOTTOM_RIGHT
+                position: toast.POSITION.TOP_RIGHT
             });
         }
     }
-
-
-    const handleForm = (propi, value) => {
+    const handleForm = (propi, value) => {//setea los valores corriespondientes en el estado datos
         let copiaDatos = datos
         delete copiaDatos.undefined
         copiaDatos[propi] =  value
@@ -61,12 +59,11 @@ export default function Pagar (){
     }
 
     const handleErrorSubmit = async () => {
-        let inputs =  document.querySelectorAll('.form-control')
+        let inputs =  document.querySelectorAll('.form-control')//VUELVE A PONER LOS VALORES CORRIESPONDIENTES EN EL ESTADO INPUT EN CASO DE Q ELCOMPONENTE SEA DEMONTADO
         await inputs.forEach((e) => {
             handleForm(e.name, e.value)
         })
-
-        crearProdCarr( carritoCompleto, datos)
+        realizarCompraBack(carritoCompleto, datos)
     }
 
     return(
