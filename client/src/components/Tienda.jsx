@@ -265,16 +265,24 @@ export default function Tienda (props){
                                 return(
                                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1" key={index}>
                                         <div class="card product-item border-0 mb-4">
-                                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 contenedor_imagen_tienda" style={{ height: '46vh !important', overflow: 'hidden !important'}}>
+                                            {e.display == false 
+                                            ? <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 contenedor_imagen_tienda" style={{ height: '46vh !important', overflow: 'hidden !important', display: 'flex', alignItems: 'center'}}>
+                                                <img class="img-fluid w-100 " src={e.img } alt="/" style={{filter: 'grayscale(1)'}}/>
+                                                <div style={{alignItems: 'center', display: 'flex', justifyContent: 'center', position: 'absolute', width: '100%' , color: 'black', backgroundColor: 'rgba(243, 243, 243, 0.28)', }}>no hay stock disponible</div>
+                                            </div>
+                                            : <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 contenedor_imagen_tienda" style={{ height: '46vh !important', overflow: 'hidden !important'}}>
                                                 <img class="img-fluid w-100 " src={e.img } alt="/" />
                                             </div>
+                                            }
+                                            
                                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                                 <h6 class="text-truncate mb-3">{e.nombre}</h6>
                                                 <div class="d-flex justify-content-center">
                                                     <h6>${e.precio}</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
                                                 </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                            { e.display !== false 
+                                            ? <div class="card-footer d-flex justify-content-between bg-light border">
                                                 <Link to={`/detalle/${e.id}`} style={{textDecoration: 'none'}}><a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a></Link>
                                                 <a class="btn btn-sm text-dark p-0" 
                                                     onClick={() => {
@@ -282,6 +290,14 @@ export default function Tienda (props){
                                                     dispatch(agregarAlCarrito(e))
                                                     }}><i class="fas fa-shopping-cart text-primary mr-1"></i>agregar</a>
                                             </div>
+                                            : <div class="card-footer d-flex justify-content-between bg-light border">
+                                                <a class="btn btn-sm text-dark p-0" onClick={() => showToastMessage('error', "no contamos con stock disponible por el momento")}><i class="fas fa-eye text-primary mr-1"></i>ver producto</a>
+                                                <a class="btn btn-sm text-dark p-0" 
+                                                    onClick={() => {
+                                                    showToastMessage('error', "no se puede agregar, no hay stock disponible");
+                                                    }}><i class="fas fa-shopping-cart text-primary mr-1"></i>agregar</a>
+                                            </div>
+                                            }
                                         </div>
                                     </div>
                                 )

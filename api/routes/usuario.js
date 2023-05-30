@@ -25,7 +25,6 @@ rutaUsuario.post('/signup', async (req, res) => {
     const {nombre, apellido, email, contraseña, dni, telefono, direccion_provincia, direccion_localidad, direccion_calles, direccion_barrio, registrado} = req.body
 
     // const usuario_ingresante = await usuario.findOne({ where: { email }})
-    console.log('se hizo la peticion a la ruta')
     try{
         let hash;
         if(contraseña) hash = await bcrypt.hash(contraseña, 10)

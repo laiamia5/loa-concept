@@ -64,6 +64,7 @@ export default function Pagar (){
             handleForm(e.name, e.value)
         })
         realizarCompraBack(carritoCompleto, datos)
+        //hacer un controller en funciones para que corrobore que el email que se va a registrar no esta registrado
     }
 
     return(
