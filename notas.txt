@@ -1,2 +1,4 @@
 fijarme en el archivo funciones las notas que deje
 cambiar los datos de mercadso pago para ponerlo a produccion
+
+arreglar el tema de stock, si es 0 o un numero negativo que setee display en false

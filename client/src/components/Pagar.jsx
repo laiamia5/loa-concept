@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import CompraFinalizada from "./CompraFinalizada";
 import {useDispatch} from 'react-redux'
-import { realizarCompraBack } from "../tools/funciones";
+import { realizarCompraBack, procesarCompra } from "../tools/funciones";
 import {crearProdCarr} from '../tools/funciones'
 
 export default function Pagar (){
@@ -63,7 +63,9 @@ export default function Pagar (){
         await inputs.forEach((e) => {
             handleForm(e.name, e.value)
         })
-        realizarCompraBack(carritoCompleto, datos)
+        let ola = await procesarCompra(carritoCompleto, datos)
+        console.log(ola)
+
         //hacer un controller en funciones para que corrobore que el email que se va a registrar no esta registrado
     }
 
