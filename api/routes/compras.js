@@ -68,7 +68,7 @@ rutaCompras.get('/:id', async (req, res) => {
     const { id } = req.params
 
     try{
-        const cmpra = await compra.findOne({where: { id }, include : {model: pedido}})
+        const cmpra = await compra.findOne({where: { id }, include :[ {model: usuario}, {model: pedido}]})
        res.status(200).send(cmpra)
 
     }catch(err){
@@ -76,5 +76,6 @@ rutaCompras.get('/:id', async (req, res) => {
     }
 })
 
+//que muestre lña tabla de usurios 
 
 module.exports = rutaCompras

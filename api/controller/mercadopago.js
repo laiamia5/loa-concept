@@ -17,15 +17,7 @@ payRouter.post('/', async (req, res) => {
     
     //declaro la preferencia
     let preference = {
-        items: [
-            {
-                title: "Dummy Item",
-                description: "Multicolor Item",
-                currency_id: "$",
-                quantity: 1,
-                unit_price: 10
-            }
-        ],
+        items: [],
         back_urls: {
 			"success": "http://localhost:3001/pagar/feedback",
 			"failure": "http://localhost:3001/pagar/feedback",

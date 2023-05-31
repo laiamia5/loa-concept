@@ -30,6 +30,15 @@ module.exports = (sequelize) => {
         },
         envio: {
             type: DataTypes.INTEGER,
+        },
+        cvu: {
+            type : DataTypes.TEXT,
+        },
+        alias: {
+            type : DataTypes.TEXT,
+        },
+        nombre_cuenta_bancaria : {
+            type : DataTypes.TEXT,
         }
     },{timestamps: false})
 }

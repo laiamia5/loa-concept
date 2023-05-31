@@ -1,8 +1,15 @@
 fijarme en el archivo funciones las notas que deje
-cambiar los datos de mercadso pago para ponerlo a produccion
+
 
 ✓   *hacer que si el display de un producto es false en el carrito, sacarlo automaticamente
-    *proporcionar datos faltantes de la compra
-    *formulario controlado del checkout
+✓    *proporcionar datos faltantes de la compra
 ✓   *cuando mando todo a pagar envio tambien un nuevo producto el cual sera el envio
-*mercado pago se ejecuter al finalizar la compra
+✓   *mercado pago se ejecuter al finalizar la compra
+    *que nop se pueda agregar al carrito mas de la cantidad que existe del producto
+    *hacer un controller en funciones para que corrobore que el email que se va a registrar no esta registrado
+    *al finalizar la compra con mercado pago aparezca el componnete con los datos de la compra
+    *formulario controlado del checkout
+    *cambiar los datos de mercadso pago para ponerlo a produccion
+    *cuando se ejecute mercado pago y se haya realizado la compra agarre el id de la compra y setee pago en realizado
+
+

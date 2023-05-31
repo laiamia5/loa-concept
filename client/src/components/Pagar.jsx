@@ -7,20 +7,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import CompraFinalizada from "./CompraFinalizada";
 import {useDispatch} from 'react-redux'
-import { realizarCompraBack, procesarCompra , obtenerElEnvio } from "../tools/funciones";
+import { procesarCompra , obtenerElEnvio , montoFinal} from "../tools/funciones";
 import {crearProdCarr} from '../tools/funciones'
 import { sacarTodosLosQueNoTienenStock } from "../redux/actions";
+import {useNavigate} from "react-router-dom";
+import { finalizarCompra } from "../redux/actions";
 
 export default function Pagar (){
     const dispatch = useDispatch()
-
+    const navigate = useNavigate();
     const [usuarioId, setUsuarioId] = useState({
         id: ""
     })
     const[envio, setEnvio] = useState(0)
     const [divPagar, setDivPagar] = useState(false)
     const [preferenceId, setPreferenceId] = useState(null)
-    const [medioDePago, setMedioDePago] = useState(false) //true = cbu o false = mercadopago
+    const [medioDePago, setMedioDePago] = useState(null) //true = cbu o false = mercadopago
     const carritoCompleto = useSelector(state => state.carrito)
     const [datos, setDatos] = useState({
         nombre : '',
@@ -39,9 +41,6 @@ export default function Pagar (){
         if(carritoCompleto.length !== 0){
             obtenerElEnvio().then((res) => setEnvio(res))//obtener el monto deenvio
             dispatch(sacarTodosLosQueNoTienenStock())
-            axios.post(`http://localhost:3001/pagar`, carritoCompleto)
-            .then((res) => setPreferenceId(res.data))
-            .catch((err) => alert("Unexpected error"))
         }
         else showToastMessage()
     }, [])
@@ -68,10 +67,25 @@ export default function Pagar (){
         await inputs.forEach((e) => {
             handleForm(e.name, e.value)
         })
-        let ola = await procesarCompra(carritoCompleto, datos)
-        console.log(ola)
 
-        //hacer un controller en funciones para que corrobore que el email que se va a registrar no esta registrado
+        if(medioDePago === null){// corroborar que el medio de pago fue seleccionado
+            toast.error('debes seleccionar un metodo de pago', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }else{
+            let ola = await procesarCompra(carritoCompleto, datos, medioDePago)
+            console.log(ola)
+            
+            if( medioDePago === false ){//si eligio pagar atravez de mercado pago :
+                await axios.post(`http://localhost:3001/pagar`, [...carritoCompleto, {nombre: 'envio', cantidad: 1, precio: envio}])
+                .then((res) => window.open(res.data, '_blank'))
+                .catch((err) => alert("Unexpected error"))
+                dispatch(finalizarCompra())
+            }else{
+                await navigate(`/compra-realizada/${ola.id}`);
+                dispatch(finalizarCompra())
+            }
+        }
     }
 
     return(

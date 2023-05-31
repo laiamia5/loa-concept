@@ -1,8 +1,9 @@
 import axios from 'axios'
 
-//pago (pendiente o realizado), medio de pago, monto final
+//pago (pendiente o realizado), medio de pago
+//('mercado pago', 'transferencia bancaria')
 
-export let procesarCompra = (productos, usuario) => {
+export let procesarCompra = (productos, usuario, medioDePago) => {
 	let idDelProd = [];
 	let respuesta;
   
@@ -47,7 +48,7 @@ export let procesarCompra = (productos, usuario) => {
 			if (res.data) {
 			  await finalizarLaCompraBack(res.data.id);
 			} else {
-			  await axios.post(`http://localhost:3001/usuarios/signup`, {
+			  const response = await axios.post(`http://localhost:3001/usuarios/signup`, {
 				apellido: usuario.apellido,
 				direccion_barrio: usuario.direccion_barrio,
 				direccion_calles: usuario.direccion_calles,
@@ -58,11 +59,8 @@ export let procesarCompra = (productos, usuario) => {
 				nombre: usuario.nombre,
 				telefono: usuario.telefono
 			  });
-  
-			  const response = await axios.get(`http://localhost:3001/usuarios/${usuario.dni}`);
 			  await finalizarLaCompraBack(response.data.id);
 			}
-  
 			resolve();
 		  })
 		  .catch((err) => {
@@ -78,8 +76,8 @@ export let procesarCompra = (productos, usuario) => {
 		  const res = await axios.post('http://localhost:3001/compras', {
 			usuarioId: idUsuario,
 			pedidos: idDelProd,
-			monto_final: monto
-			// Proporcionar datos faltantes
+			monto_final: monto,
+			medio_de_pago: medioDePago === true ? 'transferencia bancaria' : 'mercado pago'
 		  });
 		  respuesta = res.data;
 		  return res.data;
@@ -111,7 +109,7 @@ export let procesarCompra = (productos, usuario) => {
 		.then((err) => console.log(err))
 	}
 
-	const montoFinal = async (carrito) => {//es un dato para pasarle a 'compras'
+	export const montoFinal = async (carrito) => {//es un dato para pasarle a 'compras'
 		let monto = await obtenerElEnvio().then((res) => res)
 		await carrito.reduce((acc, item) => {
 			monto += acc + item.precio * item.cantidad;

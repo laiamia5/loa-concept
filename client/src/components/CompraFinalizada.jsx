@@ -1,14 +1,27 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import {useParams} from 'react-router-dom';
+import { useState } from "react";
+import { ToastContainer, toast} from 'react-toastify';
 
-export default function CompraFinalizada({ide}){
+
+export default function CompraFinalizada(){
+    const [compra, setCompra] = useState({})
+    let { id } = useParams();
     useEffect(() => {
-        console.log(ide)
-        // props.id !== '' ?
-        // axios.get(`http://localhost:3001/usuarios/${props.id}`)
-        // .then((res) => console.log(res.data))
-        // : console.log('la peticion fallo')
+        axios.get(`http://localhost:3001/compras/${id}`)
+        .then((res) =>{ 
+            setCompra(res.data)
+            console.log(res.data)
+        })
+        .catch((err) => {
+            setCompra(undefined)
+            toast.error('el id de compra proporcionado no existe', {
+                position: toast.POSITION.TOP_RIGHT
+            })
+        })
     }, [])
+    if(compra !== undefined){
     return(
         <div style={{display: 'flex'}} class="d-flex justify-content-center flex-wrap">
             <div class="col-lg-4 border-secondary" style={{ border: '1px solid #EDF1FF !important'}}>
@@ -47,25 +60,24 @@ export default function CompraFinalizada({ide}){
                             <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <strong>destinatario :</strong>
-                                        <p>laia mia perez</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <strong>domicilio :</strong>
-                                        <p>cuba 1234 pialr</p>
+                                        <p>{compra?.usuario?.nombre + ' ' + compra?.usuario?.apellido}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <strong>estado del envío :</strong>
-                                        <p>pendiente</p>
+                                        <p>{compra?.entrega}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <strong>metodo de pago :</strong>
-                                        <p>mercado pago</p>
+                                        <strong>método de pago :</strong>
+                                        <p>{compra?.medio_de_pago}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <strong>estado del pago :</strong>
-                                        <p>realizado</p>
+                                        <p>{compra?.pago}</p>
                                     </div>
-                                
+                                    <div class="d-flex justify-content-between">
+                                        <strong>domicilio :</strong>
+                                        <p>{compra?.usuario?.direccion_provincia + ' ' + compra?.usuario?.direccion_localidad + ' ' + compra?.usuario?.direccion_calles}</p>
+                                    </div>
                             </div>
                         </div>
                         </div>
@@ -105,5 +117,6 @@ export default function CompraFinalizada({ide}){
                             {/* </div> */}
                         {/* </div> */}
         </div>
-    )
+       
+        )}else return <div className="clas"> <ToastContainer/></div>
 }
