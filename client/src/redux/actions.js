@@ -4,6 +4,7 @@ export const AUMENTAR_CANTIDAD = 'AUMENTAR_CANTIDAD';
 export const DISMINUIR_CANTIDAD = 'DISMIMUIR_CANTIDAD'
 export const ELIMINAR_DEL_CARRITO = 'ELIMINAR_DEL_CARRITO'
 export const FINALIZAR_Y_VACIAR = 'FINALIZAR_Y_VACIAR'
+export const SACAR_LOS_SIN_STOCK = 'SACAR_LOS_SIN_STOCK'
 
 export const agregarAlCarrito = (obj) => async (dispatch) => {
     let newOb = {
@@ -31,4 +32,8 @@ export const eliminarDelCarrito = (id) => async (dispatch) => {
 
 export const finalizarCompra = () => async (dispatch) => {
     return dispatch({type: FINALIZAR_Y_VACIAR, payload: 'hola'})
+}
+
+export const sacarTodosLosQueNoTienenStock = ()  => async (dispatch) => {
+    return dispatch({type: SACAR_LOS_SIN_STOCK, payload: 'hola'})
 }

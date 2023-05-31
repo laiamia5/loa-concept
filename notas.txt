@@ -1,4 +1,8 @@
 fijarme en el archivo funciones las notas que deje
 cambiar los datos de mercadso pago para ponerlo a produccion
 
-arreglar el tema de stock, si es 0 o un numero negativo que setee display en false
+✓   *hacer que si el display de un producto es false en el carrito, sacarlo automaticamente
+    *proporcionar datos faltantes de la compra
+    *formulario controlado del checkout
+✓   *cuando mando todo a pagar envio tambien un nuevo producto el cual sera el envio
+*mercado pago se ejecuter al finalizar la compra

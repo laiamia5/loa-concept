@@ -205,7 +205,7 @@ rutaProducto.put('/descontar-stock/:id', async (req, res) => {
             stock : stock_actual,
             img, 
             cantidad,
-            display: stock_actual === 0 ? false : true
+            display: Math.sign(stock_actual) === 1 ? true : false
         } , { where: { id } })
         res.status(200).send('¡ stock actualizado !')
     }

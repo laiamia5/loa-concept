@@ -27,6 +27,9 @@ module.exports = (sequelize) => {
         },
         descripcion: {
             type : DataTypes.TEXT,
+        },
+        envio: {
+            type: DataTypes.INTEGER,
         }
     },{timestamps: false})
 }

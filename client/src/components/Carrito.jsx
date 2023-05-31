@@ -2,8 +2,9 @@ import React from "react";
 import {Link} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState } from "react";
-import { aumentarCantidad, disminuirCantidad, eliminarDelCarrito } from "../redux/actions";
+import { aumentarCantidad, disminuirCantidad, eliminarDelCarrito , sacarTodosLosQueNoTienenStock} from "../redux/actions";
 import store from '../redux/store'
+import { obtenerElEnvio } from "../tools/funciones";
 // import { Link } from "react-router-dom";
 
 export default function Carrito (){
@@ -11,9 +12,13 @@ export default function Carrito (){
     let carrito_redux = useSelector(state => state.carrito)
     const [carrito, setCarrito] = useState([]) 
     const [cambio, setCambio] = useState(0)
-    let precioEnvio = 1000
+    // let precioEnvio = 1000
+    const[envio, setEnvio] = useState(0)
+
 
     useEffect(() => {
+        obtenerElEnvio().then((res) => setEnvio(res))//obtener el monto deenvio
+        dispatch(sacarTodosLosQueNoTienenStock())
         setCarrito(carrito_redux) 
     }, [cambio])
 
@@ -112,7 +117,7 @@ export default function Carrito (){
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Envío</h6>
-                            <h6 class="font-weight-medium">$1000</h6>
+                            <h6 class="font-weight-medium">${envio}</h6>
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
@@ -122,7 +127,7 @@ export default function Carrito (){
                             carrito.length === 0 ? 0 :
                             carrito.reduce((acc, item) => {
                                 return acc + item.precio * item.cantidad;
-                                }, 0) + precioEnvio}</h5>
+                                }, envio)}</h5>
                         </div>
                         <Link to='/finalizar-compra' style={{textDecoration: 'none'}}><button class="btn btn-block btn-primary my-3 py-3">Realizar compra</button></Link>
                     </div>

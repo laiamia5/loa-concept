@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+//pago (pendiente o realizado), medio de pago, monto final
+
 export let procesarCompra = (productos, usuario) => {
 	let idDelProd = [];
 	let respuesta;
@@ -35,6 +37,10 @@ export let procesarCompra = (productos, usuario) => {
 	};
   
 	const realizarCompraBack2 = (usuario) => {
+		//primero me fijo si el usuario ya esta registrado en la base de datos
+		//si el usuario ya existe y la prop registrado es true usare ese usuario
+		//si el usuario existe pero no esta registrado o el usuario no existe lo creare
+		//a este punto ya tengo el id del usuario y el array de pedidos solo hacen falta los datos de la compra
 	  return new Promise((resolve, reject) => {
 		axios.get(`http://localhost:3001/usuarios/${usuario.dni}`)
 		  .then(async (res) => {
@@ -66,30 +72,28 @@ export let procesarCompra = (productos, usuario) => {
 	  });
 	};
   
-	const finalizarLaCompraBack = (idUsuario) => {
-	  return new Promise((resolve, reject) => {
-		axios.post('http://localhost:3001/compras', {
-		  usuarioId: idUsuario,
-		  pedidos: idDelProd
-		  // Proporcionar datos faltantes
-		})
-		  .then((res) => {
-			console.log(res.data);
-			respuesta = res.data;
-			resolve(res.data);
-		  })
-		  .catch((err) => {
-			console.log(err);
-			reject(err);
+	const finalizarLaCompraBack = async (idUsuario) => {
+		try {
+		  const monto = await montoFinal(productos);
+		  const res = await axios.post('http://localhost:3001/compras', {
+			usuarioId: idUsuario,
+			pedidos: idDelProd,
+			monto_final: monto
+			// Proporcionar datos faltantes
 		  });
-	  });
-	};
+		  respuesta = res.data;
+		  return res.data;
+		} catch (err) {
+		  console.log(err);
+		  throw err;
+		}
+	  };
   
 	return new Promise((resolve, reject) => {
 	  realizarCompraBack(productos, usuario)
 		.then(() => {
 		  console.log(respuesta);
-		  resolve(respuesta);
+		  resolve(respuesta);//la funcion en su totalidad retornara esta respuesta
 		})
 		.catch((err) => {
 		  console.log(err);
@@ -108,27 +112,19 @@ export let procesarCompra = (productos, usuario) => {
 	}
 
 	const montoFinal = async (carrito) => {//es un dato para pasarle a 'compras'
-		let monto = 0
+		let monto = await obtenerElEnvio().then((res) => res)
 		await carrito.reduce((acc, item) => {
-			monto = acc + item.precio * item.cantidad;
+			monto += acc + item.precio * item.cantidad;
 		}, 0)
 		return monto
 	}
 
-
-
-/* 
-		"entrega": "pendiente",
-		"pago": "pendiente",
-		"nombre": null,
-		"apellido": null,
-		"email": null,
-		"dni": null,
-		"direccion_provincia": null,
-		"direccion_localidad": null,
-		"direccion_calles": null,
-		"direccion_barrio": null,
-		"telefono": null,
-		"registrado": false,
-		"prodsCarritos": [
-*/
+	export const obtenerElEnvio = async () => {
+		try {
+		  const response = await axios.get('http://localhost:3001/info');
+		  return response.data.envio
+		} catch (error) {
+		  console.error(error);
+		  throw error;
+		}
+	  };

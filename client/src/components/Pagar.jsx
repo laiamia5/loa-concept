@@ -7,14 +7,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import CompraFinalizada from "./CompraFinalizada";
 import {useDispatch} from 'react-redux'
-import { realizarCompraBack, procesarCompra } from "../tools/funciones";
+import { realizarCompraBack, procesarCompra , obtenerElEnvio } from "../tools/funciones";
 import {crearProdCarr} from '../tools/funciones'
+import { sacarTodosLosQueNoTienenStock } from "../redux/actions";
 
 export default function Pagar (){
     const dispatch = useDispatch()
+
     const [usuarioId, setUsuarioId] = useState({
         id: ""
     })
+    const[envio, setEnvio] = useState(0)
     const [divPagar, setDivPagar] = useState(false)
     const [preferenceId, setPreferenceId] = useState(null)
     const [medioDePago, setMedioDePago] = useState(false) //true = cbu o false = mercadopago
@@ -34,6 +37,8 @@ export default function Pagar (){
 
     useEffect(() => {
         if(carritoCompleto.length !== 0){
+            obtenerElEnvio().then((res) => setEnvio(res))//obtener el monto deenvio
+            dispatch(sacarTodosLosQueNoTienenStock())
             axios.post(`http://localhost:3001/pagar`, carritoCompleto)
             .then((res) => setPreferenceId(res.data))
             .catch((err) => alert("Unexpected error"))
@@ -164,7 +169,7 @@ export default function Pagar (){
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="font-weight-medium">Envío</h6>
-                                    <h6 class="font-weight-medium">$1100  
+                                    <h6 class="font-weight-medium">${envio}
                                     </h6>
                                 </div>
                             </div>
@@ -174,7 +179,7 @@ export default function Pagar (){
                                     <h5 class="font-weight-bold">${
                                     carritoCompleto.length === 0 ? 0 : carritoCompleto.reduce((acc, item) => {
                                             return acc + item.precio * item.cantidad;
-                                        }, 0) + 1000}</h5>
+                                        }, envio)}</h5>
                                 </div>
                             </div>
                         </div>
@@ -210,8 +215,11 @@ export default function Pagar (){
                                     : <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" disabled >Realizar Compra</button>
                                 } 
                             </div> */}
+                            {carritoCompleto.length !== 0 ?
+                            <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={async () => handleErrorSubmit()}>Realizar Compra</button> :
+                            <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" disabled >Realizar Compra</button>
+                            }
 
-             <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" onClick={async () => handleErrorSubmit() }>Realizar Compra</button>
 
                         </div>
                     </div>
