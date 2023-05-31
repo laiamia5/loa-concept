@@ -7,9 +7,12 @@ fijarme en el archivo funciones las notas que deje
 ✓   *mercado pago se ejecuter al finalizar la compra
     *que nop se pueda agregar al carrito mas de la cantidad que existe del producto
     *hacer un controller en funciones para que corrobore que el email que se va a registrar no esta registrado
-    *al finalizar la compra con mercado pago aparezca el componnete con los datos de la compra
     *formulario controlado del checkout
+
+    ........................TAREAS MERCADO PAGO.................
     *cambiar los datos de mercadso pago para ponerlo a produccion
     *cuando se ejecute mercado pago y se haya realizado la compra agarre el id de la compra y setee pago en realizado
+    *al finalizar la compra con mercado pago aparezca el componnete con los datos de la compra
+
 
 
