@@ -10,6 +10,7 @@ import {useDispatch} from 'react-redux'
 import { agregarAlCarrito } from "../redux/actions";
 import '../styles/Tienda.css'
 import { useLocation } from "react-router-dom";
+import { corroborarStock } from "../tools/funcionesII";
 
 export default function Tienda (props){
 
@@ -107,6 +108,13 @@ export default function Tienda (props){
         }
     }
 
+    const aumento = async (e) => {
+        const CS = await corroborarStock(e.id)
+        if(CS === true){
+            dispatch(agregarAlCarrito(e)) 
+            showToastMessage('success', "producto agregado al carrito")
+        }else showToastMessage('error', 'La cantidad del producto solicitado excede nuestro límite de stock')
+    }
 // ------------------------------FUNCIONES PARA EL FILTRO DE PRECIOS-------------------------------
 
     const [filtrar, setFiltrar] = useState({
@@ -285,8 +293,7 @@ export default function Tienda (props){
                                                 <Link to={`/detalle/${e.id}`} style={{textDecoration: 'none'}}><a class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>ver producto</a></Link>
                                                 <a class="btn btn-sm text-dark p-0" 
                                                     onClick={() => {
-                                                    showToastMessage('success', "producto agregado al carrito");
-                                                    dispatch(agregarAlCarrito(e))
+                                                    aumento(e)
                                                     }}><i class="fas fa-shopping-cart text-primary mr-1"></i>agregar</a>
                                             </div>
                                             : <div class="card-footer d-flex justify-content-between bg-light border">

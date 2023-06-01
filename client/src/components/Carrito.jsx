@@ -2,10 +2,12 @@ import React from "react";
 import {Link} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState } from "react";
-import { aumentarCantidad, disminuirCantidad, eliminarDelCarrito , sacarTodosLosQueNoTienenStock} from "../redux/actions";
+import { aumentarCantidad, disminuirCantidad, eliminarDelCarrito , sacarTodosLosQueNoTienenStock, agregarAlCarrito} from "../redux/actions";
 import store from '../redux/store'
 import { obtenerElEnvio } from "../tools/funciones";
-// import { Link } from "react-router-dom";
+import { corroborarStock , showToastMessage} from "../tools/funcionesII";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export default function Carrito (){
     let dispatch = useDispatch()
@@ -22,10 +24,16 @@ export default function Carrito (){
         setCarrito(carrito_redux) 
     }, [cambio])
 
+    const aumento = async (id) => {
+        const CS = await corroborarStock(id)
+        CS === true ? dispatch(aumentarCantidad(id)) : showToastMessage('error', 'La cantidad del producto solicitado excede nuestro límite de stock')
+    }
+
   
     return(<>
         {/* <!-- Page Header Start --> */}
     <div class="container-fluid bg-secondary mb-5">
+        <ToastContainer/>
         <div class="d-flex flex-column align-items-center justify-content-center" style={{minHeight: '300px'}}>
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Carrito</h1>
             <div class="d-inline-flex">
@@ -75,7 +83,7 @@ export default function Carrito (){
                                                     <button class="btn btn-sm btn-primary btn-plus" 
                                                             onClick={() => {
                                                             setCambio(Math.random())
-                                                            dispatch(aumentarCantidad(e.id));
+                                                            aumento(e.id)
                                                             }}>
                                                         <i class="fa fa-plus"></i>
                                                     </button>
