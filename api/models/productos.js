@@ -13,6 +13,9 @@ module.exports = (sequelize) => {
         precio:{
             type: DataTypes.INTEGER
         },
+        precio_anterior:{
+            type: DataTypes.INTEGER
+        },
         categoria:{
             type: DataTypes.STRING
         },

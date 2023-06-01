@@ -12,6 +12,7 @@ import {crearProdCarr} from '../tools/funciones'
 import { sacarTodosLosQueNoTienenStock } from "../redux/actions";
 import {useNavigate} from "react-router-dom";
 import { finalizarCompra } from "../redux/actions";
+import {controlarFormulario} from '../tools/formController'
 
 export default function Pagar (){
     const dispatch = useDispatch()
@@ -68,23 +69,31 @@ export default function Pagar (){
             handleForm(e.name, e.value)
         })
 
-        if(medioDePago === null){// corroborar que el medio de pago fue seleccionado
+        if(medioDePago === null){// corroborar que el medio de pago fue seleccionado!
             toast.error('debes seleccionar un metodo de pago', {
                 position: toast.POSITION.TOP_RIGHT
             });
         }else{
-            let ola = await procesarCompra(carritoCompleto, datos, medioDePago)
-            console.log(ola)
-            
-            if( medioDePago === false ){//si eligio pagar atravez de mercado pago :
-                await axios.post(`http://localhost:3001/pagar`, [...carritoCompleto, {nombre: 'envio', cantidad: 1, precio: envio}])
-                .then((res) => window.open(res.data, '_blank'))
-                .catch((err) => alert("Unexpected error"))
-                dispatch(finalizarCompra())
-            }else{
-                await navigate(`/compra-realizada/${ola.id}`);
-                dispatch(finalizarCompra())
-            }
+            controlarFormulario(datos).then(async (res) =>{
+                if(res === true){
+                    let ola = await procesarCompra(carritoCompleto, datos, medioDePago)
+                    console.log(ola)
+                    
+                    if( medioDePago === false ){//si eligio pagar atravez de mercado pago :
+                        await axios.post(`http://localhost:3001/pagar`, [...carritoCompleto, {nombre: 'envio', cantidad: 1, precio: envio}])
+                        .then((res) => window.open(res.data, '_blank'))
+                        .catch((err) => alert("Unexpected error"))
+                        dispatch(finalizarCompra())
+                    }else{
+                        await navigate(`/compra-realizada/${ola.id}`);
+                        dispatch(finalizarCompra())
+                    }
+                }else{
+                    toast.error(res, {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }
+            })
         }
     }
 

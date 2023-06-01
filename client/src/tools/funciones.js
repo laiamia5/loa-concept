@@ -19,7 +19,7 @@ export let procesarCompra = (productos, usuario, medioDePago) => {
 			});
   
 			idDelProd.push(res.data.id);
-			descontarStock(ele.id);
+			descontarStock(ele.id, ele.cantidad);
 		  } catch (err) {
 			console.log(err);
 		  }
@@ -103,8 +103,8 @@ export let procesarCompra = (productos, usuario, medioDePago) => {
 
 
 	// ...................................................................................................
-	const descontarStock = (id) => {
-		axios.put(`http://localhost:3001/productos/descontar-stock/${id}`)
+	const descontarStock = (id, cantidad) => {
+		axios.put(`http://localhost:3001/productos/descontar-stock/${id}`, {cantidad: cantidad})
 		.then((res) => 'nose')
 		.then((err) => console.log(err))
 	}

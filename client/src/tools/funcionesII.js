@@ -25,6 +25,8 @@ export const showToastMessage = (status, mensaje) => {
 
 export const corroborarStock = async (id) => {
   let ps = await store.getState().carrito.find((ele) => ele.id == id)
-  if(ps.stock <= ps.cantidad) return false 
-  else return true
+  if(ps){
+    if(ps.stock <= ps.cantidad) return false 
+    else return true
+  }else return true
 }

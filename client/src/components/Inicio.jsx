@@ -72,7 +72,7 @@ export default function Inicio (){
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="text-truncate mb-3">{e.nombre}</h6>
                                 <div class="d-flex justify-content-center">
-                                    <h6>${e.precio}</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                    <h6>${e.precio}</h6><h6 class="text-muted ml-2"><del>${e.precio_anterior}</del></h6>
                                 </div>
                             </div>
                             { e.display !== false 

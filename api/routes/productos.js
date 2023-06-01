@@ -8,7 +8,7 @@ const rutaProducto = Router()
 // ========================================== CREAR PRODUCTOS =====================================================
 
 rutaProducto.post('/', async (req, res) => {
-    const {nombre, precio, categoria, descripcion, marca, stock, img, cantidad, colores, talles} = req.body
+    const {nombre, precio, categoria, descripcion, marca, stock, img, cantidad, colores, precio_anterior, talles} = req.body
     try{
         let newProducto = await producto.create({
             nombre,
@@ -20,7 +20,8 @@ rutaProducto.post('/', async (req, res) => {
             img,
             cantidad,
             colores,
-            talles
+            talles,
+            precio_anterior
         })
         res.send(newProducto)
     }catch(err){
@@ -42,11 +43,12 @@ rutaProducto.put('/actualizar/:id', async (req, res) => {
         img,
         cantidad,
         colores,
-        talles
+        talles,
+        precio_anterior
         } = req.body
 
     try{
-        const cambiarUsuario = await producto.update( { nombre, precio, descripcion, categoria, marca, stock, img, cantidad, colores, talles} , { where: { id: id } })
+        const cambiarUsuario = await producto.update( { precio_anterior, nombre, precio, descripcion, categoria, marca, stock, img, cantidad, colores, talles} , { where: { id: id } })
         res.status(200).json(cambiarUsuario)
     }catch(err){
         res.status(400).send(err.message)
@@ -190,11 +192,12 @@ rutaProducto.delete('/:id', async (req, res) => {
 
 rutaProducto.put('/descontar-stock/:id', async (req, res) => {
     const {id} = req.params
+    const {cantidad} = req.body
     try{
         let data_producto = await producto.findOne({where: {id}})
-        const  {nombre, precio, categoria, descripcion, marca, stock, img, cantidad} = data_producto
+        const  {nombre, precio, categoria, descripcion, marca, stock, img, precio_anterior} = data_producto
 
-        let stock_actual = stock - 1
+        let stock_actual = stock - cantidad
 
         const descontar = await producto.update({
             nombre, 
@@ -203,8 +206,8 @@ rutaProducto.put('/descontar-stock/:id', async (req, res) => {
             descripcion, 
             marca, 
             stock : stock_actual,
+            precio_anterior,
             img, 
-            cantidad,
             display: Math.sign(stock_actual) === 1 ? true : false
         } , { where: { id } })
         res.status(200).send('¡ stock actualizado !')

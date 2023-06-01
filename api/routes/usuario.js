@@ -101,10 +101,10 @@ const verifyToken = (req, res, next) => {
 }
 //===========================buscar usuario po dni=========================
 
-rutaUsuario.get('/:dni',  async (req, res) => { 
-    const {dni} = req.params
+rutaUsuario.get('/:email',  async (req, res) => { 
+    const {email} = req.params
     try{
-        let encontrar = await usuario.findOne({where: {dni: dni, registrado: true}})
+        let encontrar = await usuario.findOne({where: {email: email, registrado: true}})
          res.status(200).send(encontrar) 
     }catch(err){
         res.status(400).send(err.message)
