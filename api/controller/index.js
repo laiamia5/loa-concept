@@ -1,5 +1,5 @@
-const {producto} = require('../db')
-
+const {producto, compra} = require('../db')
+// ===========================PAGINAR=====================================
 const paginar = async (array) => {
     let productos = array
     let position = 0
@@ -13,7 +13,6 @@ const paginar = async (array) => {
     return result
 } 
 
-module.exports = {paginar}
 
 
 
@@ -34,3 +33,15 @@ module.exports = {paginar}
 //     }
 // }
 // return totalArr
+
+const setearCompra = async (idCompra) => {
+    try{
+        const cambiarEstadoCompra = await compra.update( { pago: 'pagado'} , { where: { id: idCompra } })
+        res.status(200).json(cambiarEstadoCompra)
+    }catch(err){
+        res.status(400).send(err.message)
+    }
+}
+
+
+module.exports = {paginar, setearCompra}

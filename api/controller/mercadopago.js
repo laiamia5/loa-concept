@@ -1,25 +1,25 @@
 const {Router} = require('express')
 const mercadopago = require('mercadopago')
 require('dotenv').config()
+const { setearCompra } = require('./index')
 
 const payRouter = Router()
 let token = process.env.ACCES_TOKEN_MP
 
-payRouter.post('/', async (req, res) => {
-
+payRouter.post('/:idCompras', async (req, res) => {
     // const {nombre, precio, categoria, descripcion, marca, cantidad, colores, talles} = req.body
     let preferenceId;
+    const {idCompras} = req.params
 
     mercadopago.configure({
         access_token: token
     })
 
-    
     //declaro la preferencia
     let preference = {
         items: [],
         back_urls: {
-			"success": "http://localhost:3001/pagar/feedback",
+			"success": `http://localhost:3001/pagar/succes/${idCompras}`,
 			"failure": "http://localhost:3001/pagar/feedback",
 			"pending": "http://localhost:3001/pagar/feedback"
 		},
@@ -49,6 +49,17 @@ payRouter.post('/', async (req, res) => {
 })
 
 payRouter.get('/feedback', function (req, res) {
+	res.json({
+		Payment: req.query.payment_id,
+		Status: req.query.status,
+		MerchantOrder: req.query.merchant_order_id
+	});
+});
+
+payRouter.get('/succes', function (req, res) {
+    const {idCompras} = req.params
+    setearCompra(idCompras)
+
 	res.json({
 		Payment: req.query.payment_id,
 		Status: req.query.status,
