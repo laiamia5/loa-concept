@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Admin from './components/admin/Admin'
 import CompraFinalizada from './components/CompraFinalizada';
-
+import Faqs from './components/Faqs.jsx'
 
 function App() {
 
@@ -40,6 +40,7 @@ function App() {
         <Route path='/administrador' element={<Admin/>}/>
         <Route path='/detalle/:id' element={<Detalle/>}/>
         <Route path='/compra-realizada/:id' element={<CompraFinalizada/>}/>
+        <Route path='/faqs' element={<Faqs/>}/>
       </Routes>
       <Footer/>
       {/* <!-- Back to Top --> */}

@@ -52,6 +52,8 @@ export default function Carrito (){
                     <thead class="bg-secondary text-dark">
                         <tr>
                             <th>Productos</th>
+                            <th>Talle</th>
+                            <th>Color</th>
                             <th>Precios</th>
                             <th>Cantidad</th>
                             <th>Total</th>
@@ -62,11 +64,12 @@ export default function Carrito (){
                         <div class="align-middle" style={{ display: 'table-row',border: '1px solid #EDF1FF', height: '100px'}}><p style={{position: 'absolute', marginLeft: '35%', marginTop: '4%'}}>agrega productos al carrito</p></div> :
                         <tbody class="align-middle">
                             { carrito.map((e) => {
-                                
                                 return(
                                     <tr>
                                         <td class="align-middle"><img src={e?.img} alt="" style={{width: "50px"}}/>{e?.nombre}</td>
-                                        <td class="align-middle">${e?.precio}</td>
+                                        <td class="align-middle">{e?.talle}</td>
+                                        <td class="align-middle">{e?.color}</td>
+                                        <td class="align-middle">{e?.precio}</td>
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style={{width: "100px"}}>
                                                 <div class="input-group-btn">

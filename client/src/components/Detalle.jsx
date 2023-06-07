@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { useParams } from "react-router";
 import {useDispatch} from 'react-redux'
-import { agregarAlCarrito } from '../redux/actions'
+import { agregarAlCarrito, agregarDesdeDetalle } from '../redux/actions'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { showToastMessage, corroborarStock2 } from "../tools/funcionesII";
@@ -24,6 +24,7 @@ export default function Detalle(){
 
     const seteoDeEstados = async (estado) => {
         let cs = await corroborarStock2(prod);
+        console.log(prod)
         if(estado === true){
             cs === true 
             ? setProd((prevProd) => ({ ...prevProd, cantidad: prevProd.cantidad + 1 }))
