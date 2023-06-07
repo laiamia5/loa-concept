@@ -35,6 +35,7 @@ export default function Pagar (){
         direccion_localidad: '' ,
         direccion_provincia: 'Buenos Aires',
         direccion_barrio:'',
+        codigo_postal: ''
     })
     const [permiso, setPermiso] = useState(false)
 
@@ -80,10 +81,10 @@ export default function Pagar (){
                     console.log(ola)
                     
                     if( medioDePago === false ){//si eligio pagar atravez de mercado pago :
-                        await axios.post(`http://localhost:3001/pagar`, [...carritoCompleto, {nombre: 'envio', cantidad: 1, precio: envio}])
+                        await axios.post(`http://localhost:3001/pagar/${ola.id}`, [...carritoCompleto, {nombre: 'envio', cantidad: 1, precio: envio}])
                         .then((res) => window.open(res.data, '_blank'))
-                        .catch((err) => alert("Unexpected error"))
-                        dispatch(finalizarCompra())
+                        .catch((err) => alert(err))
+                        // dispatch(finalizarCompra())//vacia el carrito 
                     }else{
                         await navigate(`/compra-realizada/${ola.id}`);
                         dispatch(finalizarCompra())
@@ -162,8 +163,10 @@ export default function Pagar (){
                                     <label>Calle y Altura</label>
                                     <input class="form-control" type="text" placeholder="tu direccion"  name='direccion_calles' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
                                 </div>
-                                
-                             
+                                <div class="col-md-6 form-group">
+                                    <label>Código postal</label>
+                                    <input class="form-control" type="text" placeholder="tu direccion"  name='codigo_postal' onChange={(e) => handleForm(e.target.name, e.target.value) }/>
+                                </div>
                             </div>
                         </div>
                     </div>

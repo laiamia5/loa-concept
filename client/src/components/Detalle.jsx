@@ -35,10 +35,11 @@ export default function Detalle(){
       };
 
     const controlarButtons = async () => {
-        let val = ''
        let valorActivo = await document.querySelectorAll('input[name="color"]');
-    //    await valorActivo.forEach((ele) => ele.checked == true && )
-       console.log(val)
+       await valorActivo.forEach((ele) => {
+        if(ele.checked == true) prod.color = ele.value
+        console.log(prod)
+       })
     }
     
 

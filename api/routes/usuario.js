@@ -22,7 +22,7 @@ rutaUsuario.get('/', async (req, res) => {
 
 rutaUsuario.post('/signup', async (req, res) => {
 
-    const {nombre, apellido, email, contraseña, dni, telefono, direccion_provincia, direccion_localidad, direccion_calles, direccion_barrio, registrado} = req.body
+    const {nombre, apellido, email, contraseña, dni, codigo_postal, telefono, direccion_provincia, direccion_localidad, direccion_calles, direccion_barrio, registrado} = req.body
 
     // const usuario_ingresante = await usuario.findOne({ where: { email }})
     try{
@@ -40,7 +40,8 @@ rutaUsuario.post('/signup', async (req, res) => {
                 direccion_provincia,
                 direccion_localidad,
                 direccion_barrio,
-                direccion_calles
+                direccion_calles,
+                codigo_postal
              })
              res.status(200).send(creacion)
         // }else{
@@ -131,9 +132,9 @@ rutaUsuario.get('/profile/:id',  async (req, res) => {
 
 rutaUsuario.put('/:id', async (req, res) => {
     let idusuario = req.params.id
-    const { nombre, apellido, dni, direccion} = req.body
+    const {nombre, apellido, email, contraseña, dni, codigo_postal, telefono, direccion_provincia, direccion_localidad, direccion_calles, direccion_barrio, registrado} = req.body
     try{
-        const cambiarInfo = await usuario.update( { nombre, apellido, dni, direccion} , { where: { id: idusuario } })
+        const cambiarInfo = await usuario.update( {nombre, apellido, email, contraseña, dni, codigo_postal, telefono, direccion_provincia, direccion_localidad, direccion_calles, direccion_barrio, registrado} , { where: { id: idusuario } })
         res.status(200).send(cambiarInfo)
     }catch(err){
         res.status(400).send('los datos ingresados no son correctos')

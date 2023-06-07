@@ -10,6 +10,7 @@ export const controlarFormulario = async (datos) => {
     direccion_calles: false,
     direccion_localidad: false,
     direccion_provincia: false,
+    codigo_postal: false
   }
     let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     
@@ -29,6 +30,8 @@ export const controlarFormulario = async (datos) => {
     else obj.direccion_calles = true
     if(datos.dni.length !== 8 || datos.dni == 0) return  'el campo dni debe tener 8 caracteres'
     else obj.dni = true
+    if(datos.codigo_postal.length === 0) return 'El campo "código postal" es obligatorio'
+    else obj.codigo_postal = true
 
     let valores =  Object.values(obj) //array de valor del objeto
     if( valores.includes(false) ) return false

@@ -57,7 +57,8 @@ export let procesarCompra = (productos, usuario, medioDePago) => {
 				dni: usuario.dni,
 				email: usuario.email,
 				nombre: usuario.nombre,
-				telefono: usuario.telefono
+				telefono: usuario.telefono,
+				codigo_postal: usuario.codigo_postal
 			  });
 			  await finalizarLaCompraBack(response.data.id);
 			}
