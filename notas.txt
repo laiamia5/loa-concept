@@ -12,7 +12,7 @@
 ✓   *cuando se ejecute mercado pago y se haya realizado la compra agarre el id de la compra y setee pago en realizado
     *al finalizar la compra con mercado pago aparezca el componnete con los datos de la compra
 
-
+    *guardar imagenes en bbdds
 
         <input type="file" name="foto" id="foto" multiple accept="image/*, video/*"></input>
         cloudinary

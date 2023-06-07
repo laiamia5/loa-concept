@@ -7,8 +7,10 @@ import '../styles/Nav.css'
 import { Link } from "react-router-dom";
 import {useSelector} from 'react-redux'
 import '../styles/responsive.css'
+import { useNavigate } from "react-router-dom";
 
 export default function Nav () {
+    let navigate = useNavigate()
 let productos_length = useSelector(state => state.carrito.length)
 let location = useLocation()
 let [clase, setClase ] = useState('dropdown-menu rounded-0 m-0')
@@ -62,13 +64,15 @@ const cambiarClase = () => {
                         </a>
                     </div>
                     <div class="col-lg-6 col-6 text-left">
-                        <form action="">
+                        <form onSubmit={(event) => {
+                            event.preventDefault();
+                            navigate(busqueda == '' ? '/' : `/tienda?buscar=${busqueda}`)
+                            }}>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Buscar Productos" onChange={(e) => setBusqueda(e.target.value)}/>
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-transparent text-primary">
-                                    <Link to={ busqueda == '' ? '/' : `/tienda?buscar=${busqueda}`} style={{textDecoration: 'none'}}>
-                                        <i class="fa fa-search"></i></Link>
+                                        <i class="fa fa-search"></i>
                                     </span>
                                 </div>
                             </div>

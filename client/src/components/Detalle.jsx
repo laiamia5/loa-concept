@@ -5,27 +5,42 @@ import {useDispatch} from 'react-redux'
 import { agregarAlCarrito } from '../redux/actions'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { showToastMessage, corroborarStock2 } from "../tools/funcionesII";
 
 export default function Detalle(){
     const [prod, setProd] = useState({})
-    const [cantidad, setCantidad] = useState()
-    const {id} = useParams()
+    const {id} = useParams() 
     const dispatch = useDispatch()
 
     useEffect(() => {
         axios.get(`http://localhost:3001/productos/${id}`)
         .then((res) => {
-            setProd(res.data)
+            setProd({...res.data, cantidad: 1})
             console.log(res.data)
         })
         .catch((err) => console.log(err) )
+        controlarButtons()
     }, [])
 
-    const showToastMessage = () => {
-         toast.success('el producto ha sido agregado al carrito!', {
-            position: toast.POSITION.BOTTOM_RIGHT
-        })
+    const seteoDeEstados = async (estado) => {
+        let cs = await corroborarStock2(prod);
+        if(estado === true){
+            cs === true 
+            ? setProd((prevProd) => ({ ...prevProd, cantidad: prevProd.cantidad + 1 }))
+            : showToastMessage('error', 'Ha superado el límite de stock de este producto')
+        }else{
+            Math.sign(prod.cantidad - 1) === 1 
+            && setProd((prevProd) => ({ ...prevProd, cantidad: prevProd.cantidad - 1 })) 
+        }    
+      };
+
+    const controlarButtons = async () => {
+        let val = ''
+       let valorActivo = await document.querySelectorAll('input[name="color"]');
+    //    await valorActivo.forEach((ele) => ele.checked == true && )
+       console.log(val)
     }
+    
 
     return(
         <>
@@ -104,39 +119,38 @@ export default function Detalle(){
                         <div class="d-flex mb-4">
                             <p class="text-dark font-weight-medium mb-0 mr-3">Colores:</p>
                             <form>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="color-1" name="color"/>
-                                    <label class="custom-control-label" for="color-1">Black</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="color-2" name="color"/>
-                                    <label class="custom-control-label" for="color-2">White</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="color-3" name="color"/>
-                                    <label class="custom-control-label" for="color-3">Red</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="color-4" name="color"/>
-                                    <label class="custom-control-label" for="color-4">Blue</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="color-5" name="color"/>
-                                    <label class="custom-control-label" for="color-5">Green</label>
-                                </div>
+                                {
+                                    prod.colores?.split(', ').map((e, index) => {
+                                        return(
+                                        <div key={index} class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class={'custom-control-input '+ e} value={e} id={'color-' + index} name='color' onChange={() => {
+                                                setProd({...prod, color: e})
+                                                console.log(prod)
+                                                } }/>
+                                            <label class="custom-control-label" for={'color-' + index}> {e} </label>
+                                        </div>
+                                        )
+                                    })
+                                }
                             </form>
                         </div>
 
                         <div class="d-flex align-items-center mb-4 pt-2">
                             <div class="input-group quantity mr-3" style={{width: "130px"}}>
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-minus" >
+                                    <button class="btn btn-primary btn-minus" 
+                                        onClick={() => {
+                                            seteoDeEstados(false)
+                                        }}>
                                     <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control bg-secondary text-center" value="1"/>
+                                <input type="text" class="form-control bg-secondary text-center" value={prod.cantidad}/>
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-plus">
+                                    <button class="btn btn-primary btn-plus"
+                                        onClick={() => {
+                                            seteoDeEstados(true)
+                                            }}>
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -144,7 +158,7 @@ export default function Detalle(){
 
                             <button class="btn btn-primary px-3" onClick={() => {
                                 dispatch(agregarAlCarrito(prod))
-                                showToastMessage();
+                                showToastMessage('success', 'el producto ha sido agregado al carrito!' );
                                 }}>
                                 <i class="fa fa-shopping-cart mr-1"></i>
                                 Agregar al carrito

@@ -30,3 +30,14 @@ export const corroborarStock = async (id) => {
     else return true
   }else return true
 }
+
+export const corroborarStock2 = async (elemento) => {
+  let ps = await store.getState().carrito.find((ele) => ele.id == elemento.id)
+  if(ps){
+    if(ps.cantidad + elemento.cantidad >= ps.stock) return false
+    else return true
+  }else{
+    if(elemento.cantidad >= elemento.stock) return false
+    else return true
+  }
+}
