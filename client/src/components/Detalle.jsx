@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux'
 import { agregarAlCarrito, agregarDesdeDetalle } from '../redux/actions'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { showToastMessage, corroborarStock2 } from "../tools/funcionesII";
+import { showToastMessage, corroborarStock } from "../tools/funcionesII";
 
 export default function Detalle(){
     const [prod, setProd] = useState({})
@@ -15,7 +15,7 @@ export default function Detalle(){
     useEffect(() => {
         axios.get(`http://localhost:3001/productos/${id}`)
         .then((res) => {
-            setProd({...res.data, cantidad: 1})
+            setProd({...res.data, cantidad: 0})
             console.log(res.data)
         })
         .catch((err) => console.log(err) )
@@ -23,7 +23,7 @@ export default function Detalle(){
     }, [])
 
     const seteoDeEstados = async (estado) => {
-        let cs = await corroborarStock2(prod);
+        let cs = await corroborarStock(prod.id, prod.cantidad + 1);
         console.log(prod)
         if(estado === true){
             cs === true 
@@ -96,7 +96,18 @@ export default function Detalle(){
                         <div class="d-flex mb-3">
                             <p class="text-dark font-weight-medium mb-0 mr-3">Talles:</p>
                             <form>
-                                <div class="custom-control custom-radio custom-control-inline">
+                            {
+                                prod.talles?.split(', ').map((e, index) => {
+                                    let je = index + 1
+                                    return(
+                                        <div key={index} class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input"  name="size" value={e} id={'size-' + index} onChange={() => setProd({...prod, talle: e})}/>
+                                            <label class="custom-control-label" for={'size-' + index}>{e}</label>
+                                        </div>
+                                        )
+                                    })
+                            }
+                                {/* <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" id="size-1" name="size"/>
                                     <label class="custom-control-label" for="size-1">XS</label>
                                 </div>
@@ -115,7 +126,7 @@ export default function Detalle(){
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" id="size-5" name="size"/>
                                     <label class="custom-control-label" for="size-5">XL</label>
-                                </div>
+                                </div> */}
                             </form>
                         </div>
                         <div class="d-flex mb-4">
@@ -159,8 +170,11 @@ export default function Detalle(){
                             </div>
 
                             <button class="btn btn-primary px-3" onClick={() => {
-                                dispatch(agregarAlCarrito(prod))
-                                showToastMessage('success', 'el producto ha sido agregado al carrito!' );
+                               if(prod.cantidad !== 0 ){
+                                dispatch(agregarAlCarrito(prod)) 
+                                showToastMessage('success', 'el producto ha sido agregado al carrito!' )
+                                prod.cantidad = 0
+                                }else showToastMessage('err', 'debe seleccionar la cantidad a agregar' )
                                 }}>
                                 <i class="fa fa-shopping-cart mr-1"></i>
                                 Agregar al carrito

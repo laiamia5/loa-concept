@@ -19,31 +19,30 @@ const reducer = (state = initialState, action) => {
     switch(action.type){
         case  AGREGAR_AL_CARRITO:
             console.log(state)
-            let encontrarProd = state.carrito.find((e) => e.id === action.payload.id )
+            let encontrarProd = state.carrito.find((e) => e.id === action.payload.id && e.color === action.payload.color && e.talle === action.payload.talle)
             if(!encontrarProd){
                 return{
                     ...state,
                     carrito:[...state.carrito, action.payload]
                 }
-            }else encontrarProd.cantidad ++
+            }else encontrarProd.cantidad += action.payload.cantidad
         case AUMENTAR_CANTIDAD:
-            state.carrito.find((e) => e.id == action.payload).cantidad ++
-            console.log(state)
+            state.carrito.find((e) => e == action.payload).cantidad ++
             return{
                 ...state,
                 carrito: state.carrito
             }
         case DISMINUIR_CANTIDAD:
-            let productoCarr = state.carrito.find((e) => e.id == action.payload)
+            let productoCarr = state.carrito.find((e) => e == action.payload)
             productoCarr.cantidad !== 0 && productoCarr.cantidad --
             return{
                 ...state,
-                carrito: productoCarr.cantidad === 0 ?  state.carrito.filter((e) => e.id !== action.payload) : state.carrito
+                carrito: productoCarr.cantidad === 0 ?  state.carrito.filter((e) => e !== action.payload) : state.carrito
             }
         case ELIMINAR_DEL_CARRITO:
             return{
                 ...state,
-                carrito: state.carrito.filter((e) => e.id !== action.payload) 
+                carrito: state.carrito.filter((e) => e !== action.payload) 
             }
         case FINALIZAR_Y_VACIAR:
             return{

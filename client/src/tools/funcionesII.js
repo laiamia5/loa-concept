@@ -23,21 +23,12 @@ export const showToastMessage = (status, mensaje) => {
   });
 }
 
-export const corroborarStock = async (id) => {
-  let ps = await store.getState().carrito.find((ele) => ele.id == id)
-  if(ps){
-    if(ps.stock <= ps.cantidad) return false 
-    else return true
-  }else return true
-}
+export const corroborarStock = async (id, cantidad) => {
+  let stock = await axios.get(`http://localhost:3001/productos/${id}`).then((res) => res.data.stock).catch((err) => console.log(err))
+  let ps = await store.getState().carrito.filter((ele) => ele.id == id).map((e) => e.cantidad)
+  let sumario = await ps.reduce((acc, x) => acc + x , 0)
+  let total = sumario + cantidad
 
-export const corroborarStock2 = async (elemento) => {
-  let ps = await store.getState().carrito.find((ele) => ele.id == elemento.id)
-  if(ps){
-    if(ps.cantidad + elemento.cantidad >= ps.stock) return false
-    else return true
-  }else{
-    if(elemento.cantidad >= elemento.stock) return false
-    else return true
-  }
+  if(total <= stock) return true
+  else return false
 }

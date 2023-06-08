@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { aumentarCantidad, disminuirCantidad, eliminarDelCarrito , sacarTodosLosQueNoTienenStock, agregarAlCarrito} from "../redux/actions";
 import store from '../redux/store'
 import { obtenerElEnvio } from "../tools/funciones";
-import { corroborarStock , showToastMessage} from "../tools/funcionesII";
+import { corroborarStock , corroborarStock2, showToastMessage} from "../tools/funcionesII";
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -24,9 +24,9 @@ export default function Carrito (){
         setCarrito(carrito_redux) 
     }, [cambio])
 
-    const aumento = async (id) => {
-        const CS = await corroborarStock(id)
-        CS === true ? dispatch(aumentarCantidad(id)) : showToastMessage('error', 'La cantidad del producto solicitado excede nuestro límite de stock')
+    const aumento = async (e) => {
+        const CS = await corroborarStock(e.id, 1)
+        CS === true ? dispatch(aumentarCantidad(e)) : showToastMessage('error', 'La cantidad del producto solicitado excede nuestro límite de stock')
     }
 
   
@@ -75,7 +75,7 @@ export default function Carrito (){
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-sm btn-primary btn-minus" onClick={() => {
                                                         setCambio(Math.random())
-                                                        dispatch(disminuirCantidad(e.id))
+                                                        dispatch(disminuirCantidad(e))
                                                         console.log('click')
                                                         }}>
                                                     <i class="fa fa-minus"></i>
@@ -86,7 +86,7 @@ export default function Carrito (){
                                                     <button class="btn btn-sm btn-primary btn-plus" 
                                                             onClick={() => {
                                                             setCambio(Math.random())
-                                                            aumento(e.id)
+                                                            aumento(e)
                                                             }}>
                                                         <i class="fa fa-plus"></i>
                                                     </button>
@@ -95,7 +95,7 @@ export default function Carrito (){
                                         </td>
                                         <td class="align-middle">${e.precio * e.cantidad}</td>
                                         <td class="align-middle"><button class="btn btn-sm btn-primary" onClick={() => {
-                                            dispatch(eliminarDelCarrito(e.id))
+                                            dispatch(eliminarDelCarrito(e))
                                             setCambio(Math.random())
                                         }}><i class="fa fa-times"></i></button></td>
                                     </tr>

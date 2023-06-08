@@ -109,7 +109,7 @@ export default function Tienda (props){
     }
 
     const aumento = async (e) => {
-        const CS = await corroborarStock(e.id)
+        const CS = await corroborarStock(e.id, 1)
         if(CS === true){
             dispatch(agregarAlCarrito(e)) 
             showToastMessage('success', "producto agregado al carrito")
