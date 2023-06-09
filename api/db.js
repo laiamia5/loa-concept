@@ -11,7 +11,7 @@ let usuarioDB = process.env.DB_USER
 let contraseña = process.env.DB_PASSWORD
 let host = process.env.DB_HOST
 
-const database = new Sequelize(`postgres://${usuarioDB}:${contraseña}@${host}/template`,  {logging: false} )
+const database = new Sequelize(`postgres://${usuarioDB}:${contraseña}@${host}/loaconcept`,  {logging: false} )
 
 productos(database)
 compras(database)

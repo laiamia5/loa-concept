@@ -67,9 +67,9 @@ export default function Carrito (){
                                 return(
                                     <tr>
                                         <td class="align-middle"><img src={e?.img} alt="" style={{width: "50px"}}/>{e?.nombre}</td>
-                                        <td class="align-middle">{e?.talle}</td>
-                                        <td class="align-middle">{e?.color}</td>
-                                        <td class="align-middle">{e?.precio}</td>
+                                        <td class="align-middle">{e?.talle ? e.talle : 'sin definir'}</td>
+                                        <td class="align-middle">{e?.color ? e.color : 'sin definir'}</td>
+                                        <td class="align-middle">${e?.precio}</td>
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style={{width: "100px"}}>
                                                 <div class="input-group-btn">
