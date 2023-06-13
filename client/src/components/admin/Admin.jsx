@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios'
 import {useState} from 'react'
 import '../../styles/admin.css'
+import { cloudinary } from "../../tools/funcionesII";
 
 export default function Admin () {
 
@@ -60,7 +61,7 @@ export default function Admin () {
                             </p>
                             <p>
                                 <label className="label_admin" >imagen del producto</label>
-                                <input type="file" className="input_file_admin input_admin" name="foto" id="foto" multiple accept="image/*, video/*"/>
+                                <input type="file" className="input_file_admin input_admin"id="foto" multiple accept="image/*, video/*" onChange={(e) => cloudinary(e.target)}/>
                             </p>   
                             <p>
                                 <label className="label_admin" >Categoria :</label>

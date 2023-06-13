@@ -9,6 +9,7 @@ const rutaEnvioOfertas = require('./routes/enviarOfertas')
 const rutaPedido = require('./routes/pedido')
 const rutaUsuario = require('./routes/usuario')
 const path = require('path');
+const rutaCloudinary = require('./controller/cloudinary')
 
 const app = express()
 
@@ -24,6 +25,9 @@ app.use('/pagar', payRouter )
 app.use('/subscripcion', rutaEnvioOfertas)
 app.use('/realizar-pedido', rutaPedido )
 app.use('/usuarios', rutaUsuario)
+app.use('/upload', rutaCloudinary)
+
+
 database
 .sync({alter: true})
 .then(() => {

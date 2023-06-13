@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import store from '../redux/store';
+const cloudinaryUrl = process.env.CLOUDINARY_URL;
 
 
 export const datos = async () => {
@@ -31,4 +32,12 @@ export const corroborarStock = async (id, cantidad) => {
 
   if(total <= stock) return true
   else return false
+}
+
+
+export const cloudinary = (element) => {
+  console.log(element.files)
+ axios.post('http://localhost:3001/upload', element.file)
+ .then((res) => console.log(res))
+ .catch((err) => console.log(err))
 }
