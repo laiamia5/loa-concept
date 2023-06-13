@@ -6,7 +6,7 @@ import { ToastContainer, toast} from 'react-toastify';
 
 
 export default function CompraFinalizada(){
-    const [compra, setCompra] = useState({})
+    const [compra, setCompra] = useState(null)
     let { id } = useParams();
     useEffect(() => {
         axios.get(`http://localhost:3001/compras/${id}`)
@@ -21,7 +21,7 @@ export default function CompraFinalizada(){
             })
         })
     }, [])
-    if(compra !== undefined){
+    if(compra !== null){
     return(
         <div style={{display: 'flex'}} class="d-flex justify-content-center flex-wrap">
             <div class="col-lg-4 border-secondary" style={{ border: '1px solid #EDF1FF !important'}}>
@@ -81,41 +81,6 @@ export default function CompraFinalizada(){
                             </div>
                         </div>
                         </div>
-
-                        {/* <div class="col-lg-4">
-                            <div class="card border-secondary mb-5">
-                                <div class="card-header bg-secondary border-0">
-                                    <h4 class="font-weight-semi-bold m-0">Productos comprados</h4>
-                                </div>
-                                <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <p>1</p>
-                                            <p>cuba 1234 pialr</p>
-                                            <p>laia mia perez</p>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <p>2</p>
-                                            <p>cuba 1234 pialr</p>
-                                            <p>cuba 1234 pialr</p>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <p>1</p>
-                                            <p>pendiente</p>
-                                            <p>pendiente</p>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <p>2</p>
-                                            <p>mercado pago</p>
-                                            <p>mercado pago</p>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <p>1</p>
-                                            <p>realizado</p>
-                                            <p>realizado</p>
-                                        </div>
-                                </div> */}
-                            {/* </div> */}
-                        {/* </div> */}
         </div>
        
         )}else return <div className="clas"> <ToastContainer/></div>
