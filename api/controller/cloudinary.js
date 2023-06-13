@@ -6,7 +6,7 @@ const rutaCloudinary = Router()
 const upload = multer({dest: 'uploads'})
 
 rutaCloudinary.post('/', upload.single('image') ,async (req, res) => {
-    // console.log(req.body)
+    console.log(req.file.path)
     try{
         const result = await cloudinary.uploader.upload(req.file.path)
         res.status(200).json(result)

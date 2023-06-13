@@ -35,9 +35,33 @@ export const corroborarStock = async (id, cantidad) => {
 }
 
 
-export const cloudinary = (element) => {
-  console.log(element.files)
- axios.post('http://localhost:3001/upload', element.file)
- .then((res) => console.log(res))
- .catch((err) => console.log(err))
-}
+// export const cloudinary = async (element) => {
+//   const imageFile = element.target.files[0];
+  
+//   const formData = new FormData();
+//   formData.append('image', imageFile);
+  
+//   axios.post('http://localhost:3001/upload', formData)
+//     .then(response => {
+//       console.log(response.data); // Manejar la respuesta como desees
+//     })
+//     .catch(error => {
+//       console.error(error); // Manejar el error como desees
+//     });
+//   console.log(element)
+// }
+
+export const cloudinary = async (element) => {
+  const imageFile = element.target.files[0];
+  
+  const formData = new FormData();
+  formData.append('image', imageFile);
+  
+  try {
+    const response = await axios.post('http://localhost:3001/upload', formData);
+    return response.data; // Retorna response.data
+  } catch (error) {
+    console.error(error); // Manejar el error como desees
+    throw error; // Opcionalmente, puedes lanzar el error para que sea manejado por el código que llama a la función
+  }
+};

@@ -15,7 +15,6 @@ export default function Admin () {
             marca: null,
             stock: null,
             img: null,
-            cantidad: null,
             colores: null,
             talles: null,
     })
@@ -61,7 +60,7 @@ export default function Admin () {
                             </p>
                             <p>
                                 <label className="label_admin" >imagen del producto</label>
-                                <input type="file" className="input_file_admin input_admin"id="foto" multiple accept="image/*, video/*" onChange={(e) => cloudinary(e.target)}/>
+                                <input type="file" className="input_file_admin input_admin"id="foto" multiple accept="image/*, video/*" onChange={(e) =>  cloudinary(e).then((res) => handleForm('img', res.url) ).catch(err => console.log(err)) }/>
                             </p>   
                             <p>
                                 <label className="label_admin" >Categoria :</label>
@@ -78,43 +77,43 @@ export default function Admin () {
                                 <div style={{display: 'flex', flexWrap: 'wrap'}}>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>blanco</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='blanco'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>gris</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='gris'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>negro</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='negro'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>rosa</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='rosa'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>rojo</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='rojo'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>azul</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='azul'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>celeste</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='celeste'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>verde</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='verde'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>amarillo</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='amarillo' />
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>violeta</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='violeta'/>
                                     </div>
                                 </div>
                             </p> 
@@ -123,73 +122,68 @@ export default function Admin () {
                                 <div style={{display: 'flex', flexWrap: 'wrap'}}>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>unico</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='unico'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>XS</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='XS'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>S</p>
-                                        <input type="checkbox"/>
+                                        <input type="checkbox" value='S'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>M</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='M'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>L</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='L'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>XL</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='XL'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>XXL</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='XXL'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>26</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='26'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>28</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='28'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>30</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='30'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>32</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='32'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>34</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='34'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>34</p>
-                                        <input type="checkbox" />
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>36</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='34'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>38</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='38'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>40</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='40'/>
                                     </div>
                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>42</p>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" value='42'/>
                                     </div>
-                                    
                                 </div>
                             </p> 
                             {/* <fieldset>
