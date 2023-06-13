@@ -65,3 +65,9 @@ export const cloudinary = async (element) => {
     throw error; // Opcionalmente, puedes lanzar el error para que sea manejado por el código que llama a la función
   }
 };
+
+export const crearProd = (form) => {
+  axios.post('http://localhost:3001/productos', form)
+  .then((res) => console.log(res))
+  .then((err) => console.log(err))
+}

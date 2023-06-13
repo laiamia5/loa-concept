@@ -2,9 +2,11 @@ import React from "react";
 import axios from 'axios'
 import {useState} from 'react'
 import '../../styles/admin.css'
-import { cloudinary } from "../../tools/funcionesII";
+import { cloudinary, crearProd } from "../../tools/funcionesII";
 
 export default function Admin () {
+//arreglar q el stock y precio s deben ser vairables de tipo number
+
 
     const [form, setForm] = useState({
             nombre: null,
@@ -27,11 +29,23 @@ export default function Admin () {
         console.log(copiaDatos)
     }
 
+    const setearChecks = async  () => {
+        let todosColores = []
+        let todosTalles = []
+        let todosCheckBox = await document.querySelectorAll('input[type="checkbox"]')
+        await todosCheckBox.forEach((e) => {
+            if(e.checked ){
+                e.name == 'color' ? todosColores.push(e.value) : todosTalles.push(e.value)
+            }
+        })
+        setForm({...form, colores: todosColores.join(', ') , talles: todosTalles.join(', ') })
+    }
+
 
     return(
         <div>
             <div className="body_admin">
-                <form className="form_admin">
+                <form className="form_admin" onSubmit={() => crearProd(form)}>
                         <h1>Subir productos</h1>
                         <section id="preguntas" >
                             <p>
@@ -73,119 +87,116 @@ export default function Admin () {
                                 </select>
                             </p>  
                             <p>
-                                <label className="label_admin" >Colores:</label>
-                                <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>blanco</p>
-                                        <input type="checkbox" value='blanco'/>
+                                 <label className="label_admin" >Colores:</label>
+                                 <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>blanco</p>
+                                        <input type="checkbox" value='blanco' name='color' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>gris</p>
+                                         <input type="checkbox" value='gris' name='color'  onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>negro</p>
+                                         <input type="checkbox" value='negro' name='color' onChange={() => setearChecks()}/>
                                     </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>gris</p>
-                                        <input type="checkbox" value='gris'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>negro</p>
-                                        <input type="checkbox" value='negro'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
+                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>rosa</p>
-                                        <input type="checkbox" value='rosa'/>
+                                         <input type="checkbox" value='rosa' name='color' onChange={() => setearChecks()}/>
                                     </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>rojo</p>
-                                        <input type="checkbox" value='rojo'/>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>rojo</p>
+                                         <input type="checkbox" value='rojo' name='color' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>azul</p>
+                                         <input type="checkbox" value='azul' name='color' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>celeste</p>
+                                         <input type="checkbox" value='celeste' name='color' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>verde</p>
+                                         <input type="checkbox" value='verde' name='color' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>amarillo</p>
+                                         <input type="checkbox" value='amarillo' name='color' onChange={() => setearChecks()}/>
                                     </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>azul</p>
-                                        <input type="checkbox" value='azul'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>celeste</p>
-                                        <input type="checkbox" value='celeste'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>verde</p>
-                                        <input type="checkbox" value='verde'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>amarillo</p>
-                                        <input type="checkbox" value='amarillo' />
-                                    </div>
-                                    <div style={{margin: '5px'}}>
+                                     <div style={{margin: '5px'}}>
                                         <p style={{fontSize: '12px'}}>violeta</p>
-                                        <input type="checkbox" value='violeta'/>
-                                    </div>
-                                </div>
-                            </p> 
-                            <p>
-                                <label className="label_admin" >Talles:</label>
-                                <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>unico</p>
-                                        <input type="checkbox" value='unico'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>XS</p>
-                                        <input type="checkbox" value='XS'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>S</p>
-                                        <input type="checkbox" value='S'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>M</p>
-                                        <input type="checkbox" value='M'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>L</p>
-                                        <input type="checkbox" value='L'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>XL</p>
-                                        <input type="checkbox" value='XL'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>XXL</p>
-                                        <input type="checkbox" value='XXL'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>26</p>
-                                        <input type="checkbox" value='26'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>28</p>
-                                        <input type="checkbox" value='28'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>30</p>
-                                        <input type="checkbox" value='30'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>32</p>
-                                        <input type="checkbox" value='32'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>34</p>
-                                        <input type="checkbox" value='34'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>34</p>
-                                        <input type="checkbox" value='34'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>38</p>
-                                        <input type="checkbox" value='38'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>40</p>
-                                        <input type="checkbox" value='40'/>
-                                    </div>
-                                    <div style={{margin: '5px'}}>
-                                        <p style={{fontSize: '12px'}}>42</p>
-                                        <input type="checkbox" value='42'/>
-                                    </div>
-                                </div>
-                            </p> 
+                                         <input type="checkbox" value='violeta' name='color' onChange={() => setearChecks()}/>
+                                     </div>
+                                 </div>
+                             </p> 
+                             <p>
+                                 <label className="label_admin" >Talles:</label>
+                                 <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>unico</p>
+                                         <input type="checkbox" value='unico' name='talle' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>XS</p>
+                                         <input type="checkbox" value='XS'  name='talle' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>S</p>
+                                         <input type="checkbox" value='S'  name='talle' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>M</p>
+                                         <input type="checkbox" value='M'  name='talle' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>L</p>
+                                         <input type="checkbox" value='L'  name='talle' onChange={() => setearChecks()}/>
+                                     </div>
+                                     <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>XL</p>
+                                         <input type="checkbox" value='XL'  name='talle' onChange={() => setearChecks()}/>
+                                       </div>
+                                      <div style={{margin: '5px'}}>
+                                         <p style={{fontSize: '12px'}}>XXL</p>
+                                          <input type="checkbox" value='XXL'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>26</p>
+                                          <input type="checkbox" value='26'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>28</p>
+                                          <input type="checkbox" value='28'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>30</p>
+                                          <input type="checkbox" value='30'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>32</p>
+                                          <input type="checkbox" value='32'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>34</p>
+                                          <input type="checkbox" value='34'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                    
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>38</p>
+                                          <input type="checkbox" value='38'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>40</p>
+                                          <input type="checkbox" value='40'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                      <div style={{margin: '5px'}}>
+                                          <p style={{fontSize: '12px'}}>42</p>
+                                          <input type="checkbox" value='42'  name='talle' onChange={() => setearChecks()}/>
+                                      </div>
+                                  </div>
+                              </p> 
                             {/* <fieldset>
                                 <legend className="legend_admin">Sexo:</legend>
                                 <ul style={{display: 'flex', marginLeft: '80px', marginBottom: '50px'}}>
@@ -219,3 +230,4 @@ export default function Admin () {
         </div>
     )
 }
+
