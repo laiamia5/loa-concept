@@ -8,8 +8,7 @@ import { Link } from "react-router-dom";
 import {useSelector} from 'react-redux'
 import '../styles/responsive.css'
 import { useNavigate } from "react-router-dom";
-import host from './variables'
-
+const host = process.env.REACT_APP_BACKEND_URL
 
 export default function Nav () {
     let navigate = useNavigate()
@@ -42,10 +41,10 @@ const cambiarClase = () => {
                     </div>
                     <div class="col-lg-6 text-center text-lg-right">
                         <div class="d-inline-flex align-items-center">
-                            <a class="text-dark px-2" href="">
+                            <a class="text-dark px-2" href="https://www.facebook.com/profile.php?id=100093227119864">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a class="text-dark px-2" href="">
+                            <a class="text-dark px-2" href="https://www.instagram.com/loa_concept/">
                                 <i class="fab fa-instagram"></i>
                             </a>
                             <a class="text-dark pl-2" href="">
